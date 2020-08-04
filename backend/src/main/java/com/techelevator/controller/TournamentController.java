@@ -13,7 +13,7 @@ public class TournamentController {
 		this.tournamentDAO = tournamentDAO;
 	}
 	
-	@RequestMapping(value = "/createtournament", method = RequestMethod.POST)
+	@RequestMapping(value = "/tournaments", method = RequestMethod.POST)
 	public boolean createTournament(@RequestBody Tournament tournament) {
 		return this.tournamentDAO.createTournament(tournament);
 	}

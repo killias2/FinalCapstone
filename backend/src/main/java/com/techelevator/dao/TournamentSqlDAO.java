@@ -14,10 +14,10 @@ public class TournamentSqlDAO implements TournamentDAO{
 	}
 	@Override
 	public boolean createTournament(Tournament tournament) {
-		String sql = "INSERT INTO tournaments (t_name, is_open, gameid, bracketid, organizerid, start_date, end_date, is_seeded)"
-					+ "values(?,?,?,?,?,?,?,?,?,?";
+		String sql = "INSERT INTO tournaments (t_name, is_open, gameid, bracketid, organizerid, start_date, end_date, is_seeded, is_complete)"
+					+ "values(?,?,?,?,?,?,?,?, ?)";
 		return 1 == jdbcTemplate.update(sql, tournament.getTournamentName(), tournament.getOpenToJoin(), tournament.getGameId(), tournament.getBracketId(),
-										tournament.getTournamentOrganizerId(), tournament.getStartDate(), tournament.getEndDate(), tournament.getIsSeeded());
+										tournament.getTournamentOrganizerId(), tournament.getStartDate(), tournament.getEndDate(), tournament.getIsSeeded(), false);
 		
 		// TODO Auto-generated method stub
 		

@@ -19,9 +19,9 @@ public class Tournament {
 	private LocalDate startDate;
 	private LocalDate endDate;
 	
-	public Tournament(Long id, String tournamentName, Long tournamentOrganizerId, Long[] teamIds, Boolean isSeeded, Long gameId, String tournamentDescription
+	public Tournament( String tournamentName, Long tournamentOrganizerId, Long[] teamIds, Boolean isSeeded, Long gameId, String tournamentDescription
 					, Long bracketId, Boolean openToJoin, LocalDate startDate, LocalDate endDate) {
-		this.id = id;
+		
 		this.tournamentName = tournamentName;
 		this.tournamentOrganizerId = tournamentOrganizerId;
 		this.teamIds = teamIds;
