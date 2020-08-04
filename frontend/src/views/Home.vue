@@ -1,12 +1,18 @@
 <template>
-  <div class="home">
-    <h1>Home</h1>
-    <p>You must be authenticated to see this</p>
+  <div>
+    <home-page />
+    <sidebar />
   </div>
 </template>
 
 <script>
+import HomePage from '../components/HomePage'
+import Sidebar from '../components/Sidebar'
+
 export default {
-  name: "home"
+  components: {
+    HomePage,
+    Sidebar
+  }
 };
 </script>
