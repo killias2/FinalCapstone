@@ -3,6 +3,7 @@ package com.techelevator.controller;
 import org.springframework.web.bind.annotation.*;
 
 import com.techelevator.dao.TournamentDAO;
+import com.techelevator.model.BracketType;
 import com.techelevator.model.Tournament;
 
 @RestController
@@ -15,6 +16,16 @@ public class TournamentController {
 	
 	@RequestMapping(value = "/tournaments", method = RequestMethod.POST)
 	public boolean createTournament(@RequestBody Tournament tournament) {
-		return this.tournamentDAO.createTournament(tournament);
+		return tournamentDAO.createTournament(tournament);
+	}
+	
+	@RequestMapping(value = "/brackettype", method = RequestMethod.POST)
+	public boolean createBracketType(@RequestBody BracketType bracketType) {
+		return tournamentDAO.createBracketType(bracketType);
+	}
+	
+	@RequestMapping(value = "/brackettype", method = RequestMethod.GET)
+	public BracketType getBracketType() {
+		return tournamentDAO.getBracketType();
 	}
 }
