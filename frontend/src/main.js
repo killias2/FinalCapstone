@@ -3,6 +3,9 @@ import App from './App.vue'
 import router from './router/index'
 import store from './store/index'
 import axios from 'axios'
+global.jQuery = require('jquery');
+var $ = global.jQuery;
+window.$ = $;
 
 Vue.config.productionTip = false
 
