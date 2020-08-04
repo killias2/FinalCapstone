@@ -1,5 +1,6 @@
 package com.techelevator.model;
 
+import java.sql.Timestamp;
 import java.time.LocalDate;
 
 public class Tournament {
@@ -15,11 +16,11 @@ public class Tournament {
 	private String tournamentDescription;
 	private Long bracketId;
 	private Boolean openToJoin;
-	private LocalDate startTime;
-	private LocalDate endTime;
+	private Timestamp startTime;
+	private Timestamp endTime;
 	
 	public Tournament(Long id, String tournamentName, Long tournamentOrganizerId, Long[] teamIds, Boolean isSeeded, Long gameId, String tournamentDescription
-					, Long bracketId, Boolean openToJoin, LocalDate startTime, LocalDate endTime) {
+					, Long bracketId, Boolean openToJoin, Timestamp startTime, Timestamp endTime) {
 		this.id = id;
 		this.tournamentName = tournamentName;
 		this.tournamentOrganizerId = tournamentOrganizerId;
@@ -106,19 +107,19 @@ public class Tournament {
 		this.openToJoin = openToJoin;
 	}
 
-	public LocalDate getStartTime() {
+	public Timestamp getStartTime() {
 		return startTime;
 	}
 
-	public void setStartTime(LocalDate startTime) {
+	public void setStartTime(Timestamp startTime) {
 		this.startTime = startTime;
 	}
 
-	public LocalDate getEndTime() {
+	public Timestamp getEndTime() {
 		return endTime;
 	}
 
-	public void setEndTime(LocalDate endTime) {
+	public void setEndTime(Timestamp endTime) {
 		this.endTime = endTime;
 	}
 	
