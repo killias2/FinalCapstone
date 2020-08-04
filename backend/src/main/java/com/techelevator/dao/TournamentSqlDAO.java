@@ -17,7 +17,7 @@ public class TournamentSqlDAO implements TournamentDAO{
 		String sql = "INSERT INTO tournaments (t_name, is_open, gameid, bracketid, organizerid, start_date, end_date, is_seeded)"
 					+ "values(?,?,?,?,?,?,?,?,?,?";
 		return 1 == jdbcTemplate.update(sql, tournament.getTournamentName(), tournament.getOpenToJoin(), tournament.getGameId(), tournament.getBracketId(),
-										tournament.getTournamentOrganizerId(), tournament.getStartTime(), tournament.getEndTime(), tournament.getIsSeeded());
+										tournament.getTournamentOrganizerId(), tournament.getStartDate(), tournament.getEndDate(), tournament.getIsSeeded());
 		
 		// TODO Auto-generated method stub
 		
