@@ -1,8 +1,10 @@
 <template>
     <div class="home">
+        
         <h1>Welcome to TournaMint!</h1>
         <img alt="Mint Leaves" src="../assets/mintleaf.jpeg">
         <p>You are an authenticated user!</p>
+        
     </div>
 </template>
 
@@ -29,4 +31,5 @@ export default {
         font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
         font-size: 50px;
     }
+    
 </style>
