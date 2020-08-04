@@ -2,20 +2,20 @@
   <div>
     <home-page />
     <sidebar />
-    <bracket />
+    <create-tournament />
   </div>
 </template>
 
 <script>
 import HomePage from '../components/HomePage'
 import Sidebar from '../components/Sidebar'
-import Bracket from '../components/Bracket'
+import CreateTournament from '../components/CreateTournament'
 
 export default {
   components: {
     HomePage,
     Sidebar,
-    Bracket
+    CreateTournament
   }
 };
 </script>
