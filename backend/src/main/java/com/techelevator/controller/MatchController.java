@@ -1,6 +1,7 @@
 package com.techelevator.controller;
 
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -23,6 +24,9 @@ public class MatchController {
 		return matchDAO.createMatch(newMatch);
 	}
 	
-	
+	@RequestMapping(value = "/tournaments/{tournamentId}/matches", method = RequestMethod.GET)
+	public Match[] getMatchesForTournament(@PathVariable Long tournamentId) {
+		return matchDAO.getMatchList(tournamentId);
+	}
 
 }

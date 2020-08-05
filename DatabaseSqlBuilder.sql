@@ -108,6 +108,14 @@ SELECT t.teamid, tournamentid, general_manager_id, teamname FROM teams t JOIN te
 INSERT INTO matches (is_complete, round, start_time, end_time, tournamentid) VALUES
         (false, 1, TIMESTAMP WITH TIME ZONE '2020-9-19 10:00:00 EDT', TIMESTAMP WITH TIME ZONE '2020-9-19 12:00:00 EDT', 1);
         
+INSERT INTO teams (tournamentid, general_manager_id, teamname) VALUES
+        (1, 1, 'Test Team');
+        
+INSERT INTO teams (tournamentid, general_manager_id, teamname) VALUES
+        (1, 2, 'Test Team 2');
+        
+INSERT INTO bracket_types (bracket_name) VALUES ('Double Elimination'), ('Round Robin');
+        
 GRANT SELECT, INSERT, UPDATE, DELETE
 ON ALL TABLES IN SCHEMA public
 TO final_capstone_appuser;
