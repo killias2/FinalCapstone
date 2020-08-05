@@ -17,19 +17,22 @@ export default {
 </script>
 
 <style>
-    img {
-        display: block;
-        margin-left: auto;
-        margin-right: auto;
-        width: 50%
-    }
-    p {
-        text-align: center;
-        color: red;
-        font-weight: bolder;
-        text-shadow: 2px;
-        font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
-        font-size: 50px;
-    }
+html {
+    margin-left: 200px;
+}
+img {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 50%
+}
+p {
+    text-align: center;
+    color: red;
+    font-weight: bolder;
+    text-shadow: 2px;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    font-size: 50px;
+}
     
 </style>
