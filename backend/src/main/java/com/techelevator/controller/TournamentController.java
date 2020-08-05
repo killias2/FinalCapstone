@@ -20,6 +20,10 @@ public class TournamentController {
 	public boolean createTournament(@RequestBody Tournament tournament) {
 		return tournamentDAO.createTournament(tournament);
 	}
+<<<<<<< HEAD
+=======
+
+>>>>>>> 22767cd5415884dcf9ef8af4bb5cbf78da5d88f3
 	
 	@RequestMapping(value = "/tournaments", method = RequestMethod.GET)
 	public List<Tournament> getTournaments(){
@@ -28,6 +32,10 @@ public class TournamentController {
 	@RequestMapping(value = "/tournaments/{id}", method = RequestMethod.GET)
 	public Tournament getTournamentById(@PathVariable long id) {
 		return tournamentDAO.getTournamentById(id);
+	}
+	@RequestMapping(value = "/tournaments", method = RequestMethod.PUT)
+	public boolean completeTournament(@RequestBody Tournament tournament) {
+		return false;
 	}
 	
 }

@@ -41,13 +41,24 @@ public class TournamentSqlDAO implements TournamentDAO{
 	}
 	@Override
 	public Tournament getTournamentById(Long id) {
-		String sql = "SELECT * FROM tournaments WHERE tournament_id = ?";
+		String sql = "SELECT * FROM tournaments WHERE tournamentid = ?";
 		SqlRowSet results = jdbcTemplate.queryForRowSet(sql, id);
 		if(results.next()) {
 			return mapRowToTournament(results);
 		}
 		return null;
 	}
+<<<<<<< HEAD
+=======
+	@Override
+	public boolean updateTournament(Tournament tournament) {
+	String sql = "UPDATE tournaments  SET (t_name, is_open, gameid, bracketid, organizerid, start_date, end_date, is_seeded, is_complete, winner_team_id)"
+				+ "= (?,?,?,?,?,?,?,?, ?) WHERE tournamentid = ?";
+	return 1 == jdbcTemplate.update(sql, tournament.getTournamentName(), tournament.getOpenToJoin(), tournament.getGameId(), tournament.getBracketId(),
+									tournament.getTournamentOrganizerId(), tournament.getStartDate(), tournament.getEndDate(), tournament.getIsSeeded(), tournament.getIsComplete(), tournament.getWinnerTeamId(), tournament.getId());
+	}
+	
+>>>>>>> 22767cd5415884dcf9ef8af4bb5cbf78da5d88f3
 	
 	private Tournament mapRowToTournament(SqlRowSet rs) {
 		Tournament tournament = new Tournament();
