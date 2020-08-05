@@ -1,10 +1,12 @@
 <template>
     <div class="home">
-        
-        <h1>Welcome to TournaMint!</h1>
-        <img alt="Mint Leaves" src="../assets/mintleaf.jpeg">
-        <p>You are an authenticated user!</p>
-        
+        <div class="banner">
+            <h1>Welcome to TournaMint!</h1>
+        </div>
+        <div class="body">
+            <img alt="Mint Leaves" src="../assets/mintleaf.jpeg">
+            <p>You are an authenticated user!</p>
+        </div>
     </div>
 </template>
 
@@ -17,8 +19,13 @@ export default {
 </script>
 
 <style>
-html {
+.body {
     margin-left: 200px;
+
+}
+.banner {
+    margin-left: 0px;
+    margin-right: 200px;
 }
 img {
     display: block;

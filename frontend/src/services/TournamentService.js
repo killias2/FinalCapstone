@@ -8,6 +8,10 @@ export default {
 
   newTournament(tournament) {
     return http.post('/tournaments', tournament);
+  },
+
+  viewTournaments() {
+    return http.get('/tournaments');
   }
 
 
