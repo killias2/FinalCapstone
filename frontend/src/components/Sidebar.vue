@@ -1,43 +1,45 @@
 <template>
     <div class="sidebar">
         <aside>
-            <h3>Current Tournaments</h3>
-            <p>Soccer</p>
-            <p>Football</p>
-            <p>Ping Pong</p>
-            <p>Madden</p>
-            <p>Golf</p>
-            <p>Tennis</p>
+            <router-link :to="{name: 'tournament'}" tag="button" class="button">Current Tournaments</router-link>
+            <button type="button" class="button">Past Tournaments</button>
+            <button type="button" class="button">Future Tournaments</button>
+            <router-link :to="{name: 'new-tournament'}" tag="button" class="button">Create Tournament</router-link>
         </aside>
     </div>
 </template>
 
 <style scoped>
-    aside p {
-        color: white;
-        font-size: 25px;
-        text-align: left;
+
+    .button {
+        text-align: center;
+        width: 150px;
+        height: 50px;
+        display: block;
     }
     .sidebar {
-        height: 100%;
+        height: 350px;
         width: 200px;
-        position: fixed;
+        position:fixed;
+        margin-top: 200px;
+        margin-left: 20px;
         z-index: 1;
         top: 0;
         left: 0;
         background-color: rgb(8, 69, 97);
         overflow-x: hidden;
         padding-top: 20px;
+        border-radius: 25px;
     }
     aside {
-        padding: 6px 8px 6px 16px;
+        margin-top: 25px;
         text-decoration: none;
         font-size: 25px;
         color: #818181;
         display: block;
     }
-    aside h3 {
-        word-wrap: break-word;
-        color: red;
+    .button:hover {
+        background: blueviolet;
     }
+
 </style>

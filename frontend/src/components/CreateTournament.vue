@@ -10,6 +10,7 @@
             <label class="title" for="dropdown">Game</label>
             <div>
                 <select required v-model="newTournament.gameId" name="game" class="dropdown">
+                    <option value=""  disabled>Select an Option </option>
                     <option value="1">Billiards</option>
                     <option value="2">Soccer</option>
                 </select>
@@ -19,6 +20,7 @@
             <label class="title" for="dropdown">Tournament Type</label>
             <div>
                 <select required  v-model="newTournament.bracketId" name="bracket" class="dropdown">
+                    <option value="" disabled>Select an Option </option>
                     <option value="1">Single Elimination Bracket</option>
                     <option value="2">Double Elimination Bracket</option>
                     <option value="3">Round Robin</option>
@@ -29,14 +31,17 @@
             <label class="title" for="dropdown">Public or Private</label>
             <div>
                 <select required v-model="newTournament.openToJoin" name="public-private" class="dropdown">
+                    <option value=""  disabled>Select an Option </option>
                     <option value="true">Public Tournament</option>
                     <option value="false">Private Tournament</option>
                 </select>
             </div>
         </div>
         <div class="form-element">
+            <label class="title" for="dropdown">Set Seeding or Random</label>
             <div>
                 <select v-model="newTournament.isSeeded" required name="seeding" class="dropdown">
+                    <option value=""  disabled>Select an Option </option>
                     <option value="true">Seeded</option>
                     <option value="false">Random</option>
                 </select>
@@ -92,7 +97,9 @@ export default {
                  console.log('success');
                 }
             });
-
+            this.newTournament = {};
+            this.$router.push({ name: 'home'});
+            //clears object & returns to homepage
         }
     }
 }
