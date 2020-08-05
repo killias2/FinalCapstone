@@ -4,13 +4,12 @@
             <div class="tournamentName">
                 <label class="title" for="tournament-name">Tournament Name:</label>
             </div>
-                <input id="name" v-model="newTournament.name" type="text"  />
-            
+                <input id="name" v-model="newTournament.tournamentName" type="text"  />
         </div>
         <div class="form-element">
             <label class="title" for="dropdown">Game</label>
             <div>
-                <select required v-model="newTournament.gameid" name="game" class="dropdown">
+                <select required v-model="newTournament.gameId" name="game" class="dropdown">
                     <option value="1">Billiards</option>
                     <option value="2">Soccer</option>
                 </select>
@@ -19,7 +18,7 @@
         <div class="form-element">
             <label class="title" for="dropdown">Tournament Type</label>
             <div>
-                <select required  v-model="newTournament.bracketid" name="bracket" class="dropdown">
+                <select required  v-model="newTournament.bracketId" name="bracket" class="dropdown">
                     <option value="1">Single Elimination Bracket</option>
                     <option value="2">Double Elimination Bracket</option>
                     <option value="3">Round Robin</option>
@@ -29,22 +28,17 @@
         <div class="form-element">
             <label class="title" for="dropdown">Public or Private</label>
             <div>
-                <select required   name="public-private" class="dropdown">
-                    <option value="Open">Public Tournament</option>
-                    <option value="Closed">Private Tournament</option>
+                <select required v-model="newTournament.openToJoin" name="public-private" class="dropdown">
+                    <option value="true">Public Tournament</option>
+                    <option value="false">Private Tournament</option>
                 </select>
             </div>
         </div>
         <div class="form-element">
-            <label class="title" for="dropdown">Type of seeding</label>
-            <input type="radio" v-model="newTournament.isSeeded" id="radio" name="type-of-seeding" value="true">
-            <label for="Seeded" id="radio">Seeded</label>
-            <input type="radio" v-model="newTournament.isSeeded" id="radio" name="type-of-seeding" value="false">
-            <label for="Random" id="radio">Random</label>
             <div>
-                <select required name="seeding" class="dropdown">
-                    <option value="Seeded">Seeded</option>
-                    <option value="Random">Random</option>
+                <select v-model="newTournament.isSeeded" required name="seeding" class="dropdown">
+                    <option value="true">Seeded</option>
+                    <option value="false">Random</option>
                 </select>
             </div>
         </div>
@@ -75,14 +69,13 @@ export default {
     data() {
         return {
             newTournament: {
-                id: 0,
-                name: '',
-                isOpen: false, //default is closed tournament
-                gameid: 0, //what sport/game is this tournament for?
-                bracketid: 0, //single elim / double elim / round robin
+                tournamentName: '',
+                openToJoin: false, //default is closed tournament
+                gameId: 0, //what sport/game is this tournament for?
+                bracketId: 0, //single elim / double elim / round robin
                 startDate: '',
                 endDate: '',
-                organizerId: 0,
+                tournamentOrganizerId: this.$store.state.user.id,
                 isSeeded: false,
                 teams: 0
             }
@@ -93,7 +86,7 @@ export default {
             this.newTournament = {};
         },
         addNewTournament() {
-            tournamentService.addNewTournament(this.newTournament)
+            tournamentService.newTournament(this.newTournament)
             .then(response => {
                 if (response.status < 299) {
                  console.log('success');

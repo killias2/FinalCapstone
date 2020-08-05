@@ -7,7 +7,7 @@ const http = axios.create({
 export default {
 
   newTournament(tournament) {
-    return http.post('/createtournament', tournament);
+    return http.post('/tournaments', tournament);
   }
 
 

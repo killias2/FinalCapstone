@@ -6,6 +6,7 @@ import com.techelevator.dao.TournamentDAO;
 import com.techelevator.model.BracketType;
 import com.techelevator.model.Tournament;
 
+@CrossOrigin(origins = "http://localhost:8081", allowedHeaders = "*")
 @RestController
 public class TournamentController {
 	private TournamentDAO tournamentDAO;
