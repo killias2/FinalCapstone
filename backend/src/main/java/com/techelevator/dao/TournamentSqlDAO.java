@@ -7,7 +7,6 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.rowset.SqlRowSet;
 import org.springframework.stereotype.Service;
 
-import com.techelevator.model.BracketType;
 import com.techelevator.model.Tournament;
 
 @Service

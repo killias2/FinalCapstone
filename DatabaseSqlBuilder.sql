@@ -96,6 +96,7 @@ INSERT INTO games (game_name, game_description) VALUES
 ALTER TABLE tournaments ADD COLUMN number_of_teams integer;
 
 INSERT INTO bracket_types (bracket_name) VALUES ('Single Elimination');
+INSERT INTO bracket_types (bracket_name) VALUES ('Double Elimination'), ('Round Robin');
 
 /*Use this if your matches table doesn't have tournamentid
 ALTER TABLE matches ADD COLUMN tournamentid integer NOT NULL;
@@ -103,10 +104,21 @@ ALTER TABLE matches ADD CONSTRAINT fk_tournamentid      FOREIGN KEY (tournamenti
 */
 
 SELECT tournamentid, matchid, is_complete, winner_team_id, round, start_time, end_time FROM matches WHERE tournamentid = 1;
-SELECT t.teamid, tournamentid, general_manager_id, teamname FROM teams t JOIN team_match tm ON t.teamid = tm.teamid WHERE matchid = 1;
+SELECT t.teamid, tournamentid, general_manager_id, teamname FROM teams t JOIN team_match tm ON t.teamid = tm.teamid WHERE matchid = 10;
+
+/*
+INSERT INTO tournaments (t_name, is_open, gameid, bracketid, organizerid, start_date, end_date, is_seeded, is_complete, number_of_teams) VALUES
+        ('Test Tournament', true, 2, 2, 1, '2020-09-10', '2020-09-15', false, false, 16);
 
 INSERT INTO matches (is_complete, round, start_time, end_time, tournamentid) VALUES
         (false, 1, TIMESTAMP WITH TIME ZONE '2020-9-19 10:00:00 EDT', TIMESTAMP WITH TIME ZONE '2020-9-19 12:00:00 EDT', 1);
+        
+INSERT INTO teams (tournamentid, general_manager_id, teamname) VALUES
+        (1, 1, 'Test Team');
+        
+INSERT INTO teams (tournamentid, general_manager_id, teamname) VALUES
+        (1, 2, 'Test Team 2');
+*/
         
 GRANT SELECT, INSERT, UPDATE, DELETE
 ON ALL TABLES IN SCHEMA public
@@ -115,3 +127,6 @@ TO final_capstone_appuser;
 GRANT USAGE, SELECT
 ON ALL SEQUENCES IN SCHEMA public
 TO final_capstone_appuser;
+
+ALTER TABLE teams ADD COLUMN seed integer;
+ALTER TABLE users ADD COLUMN email_address varchar(40);
