@@ -39,5 +39,9 @@ public class TournamentController {
 	public Tournament getTournamentById(@PathVariable long id) {
 		return tournamentDAO.getTournamentById(id);
 	}
+	@RequestMapping(value = "/tournaments", method = RequestMethod.PUT)
+	public boolean completeTournament(@RequestBody Tournament tournament) {
+		return false;
+	}
 	
 }
