@@ -1,6 +1,6 @@
 package com.techelevator.model;
 
-import java.sql.Timestamp;
+
 import java.time.LocalDate;
 
 public class Tournament {
@@ -16,12 +16,16 @@ public class Tournament {
 	private String tournamentDescription;
 	private Long bracketId;
 	private Boolean openToJoin;
-	private Timestamp startTime;
-	private Timestamp endTime;
-	
-	public Tournament(Long id, String tournamentName, Long tournamentOrganizerId, Long[] teamIds, Boolean isSeeded, Long gameId, String tournamentDescription
-					, Long bracketId, Boolean openToJoin, Timestamp startTime, Timestamp endTime) {
-		this.id = id;
+	private LocalDate startDate;
+	private LocalDate endDate;
+	private Boolean isComplete;
+	private Long winnerTeamId;
+	public Tournament() {
+		
+	}
+	public Tournament( String tournamentName, Long tournamentOrganizerId, Long[] teamIds, Boolean isSeeded, Long gameId, String tournamentDescription
+					, Long bracketId, Boolean openToJoin, LocalDate startDate, LocalDate endDate) {
+		
 		this.tournamentName = tournamentName;
 		this.tournamentOrganizerId = tournamentOrganizerId;
 		this.teamIds = teamIds;
@@ -30,11 +34,18 @@ public class Tournament {
 		this.tournamentDescription = tournamentDescription;
 		this.bracketId = bracketId;
 		this.openToJoin = openToJoin;
-		this.startTime = startTime;
-		this.endTime = endTime;
+		this.startDate = startDate;
+		this.endDate = endDate;
+		this.isComplete = false;
 		
 	}
 	
+	public boolean getIsComplete() {
+		return isComplete;
+	}
+	public void setIsComplete(Boolean isComplete) {
+		this.isComplete = isComplete;
+	}
 	public Long getId() {
 		return id;
 	}
@@ -107,20 +118,27 @@ public class Tournament {
 		this.openToJoin = openToJoin;
 	}
 
-	public Timestamp getStartTime() {
-		return startTime;
+	public LocalDate getStartDate() {
+		return startDate;
 	}
 
-	public void setStartTime(Timestamp startTime) {
-		this.startTime = startTime;
+	public void setStartDate(LocalDate startDate) {
+		this.startDate = startDate;
 	}
 
-	public Timestamp getEndTime() {
-		return endTime;
+	public LocalDate getEndDate() {
+		return endDate;
 	}
 
-	public void setEndTime(Timestamp endTime) {
-		this.endTime = endTime;
+	public void setEndDate(LocalDate endDate) {
+		this.endDate = endDate;
 	}
+	public Long getWinnerTeamId() {
+		return winnerTeamId;
+	}
+	public void setWinnerTeamId(Long winnerTeamId) {
+		this.winnerTeamId = winnerTeamId;
+	}
+
 	
 }

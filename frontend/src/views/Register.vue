@@ -32,6 +32,15 @@
         v-model="user.confirmPassword"
         required
       />
+      <div id="dropdown">
+        <label class="dropdown" for="dropdown">Select Role</label>
+        <div>
+          <select required  v-model="user.role" name="role" id="role">
+            <option value="User">User</option>
+            <option value="Organizer">Organizer</option>
+          </select>
+        </div>
+      </div>
       
       <button class="btn btn-lg btn-primary btn-block" type="submit">
         Create Account
@@ -54,7 +63,7 @@ export default {
         username: '',
         password: '',
         confirmPassword: '',
-        role: 'user',
+        role: '',
       },
       registrationErrors: false,
       registrationErrorMsg: 'There were problems registering this user.',
@@ -129,6 +138,13 @@ export default {
     background-repeat: no-repeat;
     color: rgb(28, 143, 158);
   }
+  #dropdown {
+    margin: 25px;
+  }
+  select {
+    width: 25%;
+    margin-top: 15px;
+  }
   button {
     border: none;
     background: rgb(28, 143, 158);
@@ -149,6 +165,10 @@ export default {
   .sr-only {
     margin-left: 25px;
     font-weight: bold;
+  }
+  .dropdown {
+    font-weight: bold;
+
   }
   .login {
     margin-left: 25px;
