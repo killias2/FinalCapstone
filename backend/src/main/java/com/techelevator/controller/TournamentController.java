@@ -20,16 +20,7 @@ public class TournamentController {
 	public boolean createTournament(@RequestBody Tournament tournament) {
 		return tournamentDAO.createTournament(tournament);
 	}
-	
-	@RequestMapping(value = "/brackettype", method = RequestMethod.POST)
-	public boolean createBracketType(@RequestBody BracketType bracketType) {
-		return tournamentDAO.createBracketType(bracketType);
-	}
-	
-	@RequestMapping(value = "/brackettype", method = RequestMethod.GET)
-	public BracketType getBracketType() {
-		return tournamentDAO.getBracketType();
-	}
+
 	
 	@RequestMapping(value = "/tournaments", method = RequestMethod.GET)
 	public List<Tournament> getTournaments(){

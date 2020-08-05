@@ -8,9 +8,6 @@ import com.techelevator.model.Tournament;
 public interface TournamentDAO {
 	boolean createTournament(Tournament tournament);
 	
-	boolean createBracketType(BracketType bracketType);
-	
-	BracketType getBracketType();
 	List<Tournament> getTournaments();
 
 	Tournament getTournamentById(Long id);
