@@ -1,18 +1,35 @@
 <template>
     <div>
-
-        <!-- <script type="text/javascript" src="jquery-1.6.2.min.js"></script>
-        <script type="text/javascript" src="jquery.bracket.min.js"></script>
-        <link rel="stylesheet" type="text/css" href="jquery.bracket.min.css" /> -->
     </div>
 </template>
 
 <script>
 
 export default {
-    name: 'Bracket',
-    data: function (){
+  
+    name: 'bracket',
+    data(){
+        return {
+        //     input: {
+        //         teams : [
+        //         ["Team 1", "Team 2"], /* first matchup */
+        //         ["Team 3", "Team 4"]  /* second matchup */
+        //         ],
+        //         results : [
+        //         [[1,2], [3,4]],       /* first round */
+        //         [[4,6], [2,1]]        /* second round */
+        //         ]
+        //     }
+        }
     }
+   // methods: {
+        // jqTest: function () {
+        //     $('#minimal').bracket({
+        //         init: this.input
+        //     })
+        // }
+
+    // }
     
 }
 </script>
