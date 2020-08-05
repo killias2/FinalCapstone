@@ -8,7 +8,7 @@
             
         </div>
         <div class="form-element">
-            <label class="title" for="dropdown">Select Game</label>
+            <label class="title" for="dropdown">Game</label>
             <div>
                 <select required v-model="newTournament.gameid" name="game" class="dropdown">
                     <option value="1">Billiards</option>
@@ -17,7 +17,7 @@
             </div>
         </div>
         <div class="form-element">
-            <label class="title" for="dropdown">Select Tournament Type</label>
+            <label class="title" for="dropdown">Tournament Type</label>
             <div>
                 <select required  v-model="newTournament.bracketid" name="bracket" class="dropdown">
                     <option value="1">Single Elimination Bracket</option>
@@ -27,11 +27,26 @@
             </div>
         </div>
         <div class="form-element">
+            <label class="title" for="dropdown">Public or Private</label>
+            <div>
+                <select required   name="public-private" class="dropdown">
+                    <option value="Open">Public Tournament</option>
+                    <option value="Closed">Private Tournament</option>
+                </select>
+            </div>
+        </div>
+        <div class="form-element">
             <label class="title" for="dropdown">Type of seeding</label>
             <input type="radio" v-model="newTournament.isSeeded" id="radio" name="type-of-seeding" value="true">
             <label for="Seeded" id="radio">Seeded</label>
             <input type="radio" v-model="newTournament.isSeeded" id="radio" name="type-of-seeding" value="false">
             <label for="Random" id="radio">Random</label>
+            <div>
+                <select required name="seeding" class="dropdown">
+                    <option value="Seeded">Seeded</option>
+                    <option value="Random">Random</option>
+                </select>
+            </div>
         </div>
         <div class="form-element">
             <label class="title" for="dropdown">How many Teams?</label>
@@ -109,17 +124,12 @@ export default {
     #name {
         margin-top: 10px;
     }
-    form {
-        margin-top: 25px;
-    }
     .tournamentName {
         padding-top: 25px;
     }
     #start, #end {
         margin-top: 10px;
     }
-    #radio {
-        margin-left: 25px;
-    }
+
 
 </style>
