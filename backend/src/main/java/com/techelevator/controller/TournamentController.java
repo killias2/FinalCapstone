@@ -1,5 +1,7 @@
 package com.techelevator.controller;
 
+import java.util.List;
+
 import org.springframework.web.bind.annotation.*;
 
 import com.techelevator.dao.TournamentDAO;
@@ -29,4 +31,14 @@ public class TournamentController {
 	public BracketType getBracketType() {
 		return tournamentDAO.getBracketType();
 	}
+	
+	@RequestMapping(value = "/tournaments", method = RequestMethod.GET)
+	public List<Tournament> getTournaments(){
+		return tournamentDAO.getTournaments();
+	}
+	@RequestMapping(value = "/tournaments/{id}", method = RequestMethod.GET)
+	public Tournament getTournamentById(@PathVariable long id) {
+		return tournamentDAO.getTournamentById(id);
+	}
+	
 }
