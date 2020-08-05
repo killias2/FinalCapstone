@@ -7,6 +7,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.rowset.SqlRowSet;
 
 import com.techelevator.model.Team;
+import com.techelevator.model.Tournament;
 
 public class TeamSqlDAO implements TeamDAO {
 	
@@ -25,11 +26,18 @@ private JdbcTemplate jdbcTemplate;
 				newTeam.getGeneralManagerId(), newTeam.getTeamName());
 		return newTeam;
 	}
+	
+	@Override
+	public boolean updateTeam(Team team) {
+	String sql = "UPDATE teams  SET (tournamentid, general_manager_id, teamname)"
+				+ "= (?, ?, ?) WHERE teamid = ?";
+	return 1 == jdbcTemplate.update(sql, team.getTournamentId(), team.getGeneralManagerId(), team.getTeamName(), team.getTeamId());
+	}
 
 	@Override
-	public Team[] getAllTeams() {
-		String sql = "SELECT * FROM teams";
-		SqlRowSet results = jdbcTemplate.queryForRowSet(sql);
+	public Team[] getTeamsByTournament(Tournament tournament) {
+		String sql = "SELECT * FROM teams WHERE tournamentid = ?;";
+		SqlRowSet results = jdbcTemplate.queryForRowSet(sql, tournament.getId());
 		List<Team> teamList = new ArrayList<Team>();
 		while(results.next()) {
 			Team newTeam = mapRowToTeam(results);
