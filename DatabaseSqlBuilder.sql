@@ -41,7 +41,9 @@ CREATE TABLE matches (
         is_complete     boolean,
         winner_team_id  integer,
         round smallint NOT NULL,
-        CONSTRAINT fk_winner_team_id   FOREIGN KEY (winner_team_id) REFERENCES teams(teamid)
+        tournamentid integer NOT NULL,
+        CONSTRAINT fk_winner_team_id   FOREIGN KEY (winner_team_id) REFERENCES teams(teamid),
+        CONSTRAINT fk_tournamentid      FOREIGN KEY (tournamentid)      REFERENCES tournaments(tournamentid)
 );
 
 CREATE TABLE team_match (
@@ -94,6 +96,17 @@ INSERT INTO games (game_name, game_description) VALUES
 ALTER TABLE tournaments ADD COLUMN number_of_teams integer;
 
 INSERT INTO bracket_types (bracket_name) VALUES ('Single Elimination');
+
+/*Use this if your matches table doesn't have tournamentid
+ALTER TABLE matches ADD COLUMN tournamentid integer NOT NULL;
+ALTER TABLE matches ADD CONSTRAINT fk_tournamentid      FOREIGN KEY (tournamentid)      REFERENCES tournaments(tournamentid);
+*/
+
+SELECT tournamentid, matchid, is_complete, winner_team_id, round, start_time, end_time FROM matches WHERE tournamentid = 1;
+SELECT t.teamid, tournamentid, general_manager_id, teamname FROM teams t JOIN team_match tm ON t.teamid = tm.teamid WHERE matchid = 1;
+
+INSERT INTO matches (is_complete, round, start_time, end_time, tournamentid) VALUES
+        (false, 1, TIMESTAMP WITH TIME ZONE '2020-9-19 10:00:00 EDT', TIMESTAMP WITH TIME ZONE '2020-9-19 12:00:00 EDT', 1);
         
 GRANT SELECT, INSERT, UPDATE, DELETE
 ON ALL TABLES IN SCHEMA public
