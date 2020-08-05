@@ -21,16 +21,7 @@ public class TournamentController {
 	public boolean createTournament(@RequestBody Tournament tournament) {
 		return tournamentDAO.createTournament(tournament);
 	}
-	
-	@RequestMapping(value = "/brackettype", method = RequestMethod.POST)
-	public boolean createBracketType(@RequestBody BracketType bracketType) {
-		return tournamentDAO.createBracketType(bracketType);
-	}
-	
-	@RequestMapping(value = "/brackettype", method = RequestMethod.GET)
-	public BracketType getBracketType() {
-		return tournamentDAO.getBracketType();
-	}
+
 	
 	@RequestMapping(value = "/tournaments", method = RequestMethod.GET)
 	public List<Tournament> getTournaments(){
@@ -39,6 +30,10 @@ public class TournamentController {
 	@RequestMapping(value = "/tournaments/{id}", method = RequestMethod.GET)
 	public Tournament getTournamentById(@PathVariable long id) {
 		return tournamentDAO.getTournamentById(id);
+	}
+	@RequestMapping(value = "/tournaments", method = RequestMethod.PUT)
+	public boolean completeTournament(@RequestBody Tournament tournament) {
+		return false;
 	}
 	
 }
