@@ -18,7 +18,11 @@ public class Tournament {
 	private Boolean openToJoin;
 	private LocalDate startDate;
 	private LocalDate endDate;
-	
+	private Boolean isComplete;
+	private Long winnerTeamId;
+	public Tournament() {
+		
+	}
 	public Tournament( String tournamentName, Long tournamentOrganizerId, Long[] teamIds, Boolean isSeeded, Long gameId, String tournamentDescription
 					, Long bracketId, Boolean openToJoin, LocalDate startDate, LocalDate endDate) {
 		
@@ -32,9 +36,16 @@ public class Tournament {
 		this.openToJoin = openToJoin;
 		this.startDate = startDate;
 		this.endDate = endDate;
+		this.isComplete = false;
 		
 	}
 	
+	public boolean getIsComplete() {
+		return isComplete;
+	}
+	public void setIsComplete(Boolean isComplete) {
+		this.isComplete = isComplete;
+	}
 	public Long getId() {
 		return id;
 	}
@@ -122,5 +133,12 @@ public class Tournament {
 	public void setEndDate(LocalDate endDate) {
 		this.endDate = endDate;
 	}
+	public Long getWinnerTeamId() {
+		return winnerTeamId;
+	}
+	public void setWinnerTeamId(Long winnerTeamId) {
+		this.winnerTeamId = winnerTeamId;
+	}
+
 	
 }
