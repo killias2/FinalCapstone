@@ -48,8 +48,6 @@ public class TournamentSqlDAO implements TournamentDAO{
 		}
 		return null;
 	}
-<<<<<<< HEAD
-=======
 	@Override
 	public boolean updateTournament(Tournament tournament) {
 	String sql = "UPDATE tournaments  SET (t_name, is_open, gameid, bracketid, organizerid, start_date, end_date, is_seeded, is_complete, winner_team_id)"
@@ -58,7 +56,6 @@ public class TournamentSqlDAO implements TournamentDAO{
 									tournament.getTournamentOrganizerId(), tournament.getStartDate(), tournament.getEndDate(), tournament.getIsSeeded(), tournament.getIsComplete(), tournament.getWinnerTeamId(), tournament.getId());
 	}
 	
->>>>>>> 22767cd5415884dcf9ef8af4bb5cbf78da5d88f3
 	
 	private Tournament mapRowToTournament(SqlRowSet rs) {
 		Tournament tournament = new Tournament();
