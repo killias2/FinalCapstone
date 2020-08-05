@@ -2,7 +2,6 @@ package com.techelevator.dao;
 
 import java.util.List;
 
-import com.techelevator.model.BracketType;
 import com.techelevator.model.Tournament;
 
 public interface TournamentDAO {
