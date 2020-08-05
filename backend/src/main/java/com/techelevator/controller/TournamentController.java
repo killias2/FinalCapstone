@@ -39,4 +39,5 @@ public class TournamentController {
 	public Tournament getTournamentById(@PathVariable long id) {
 		return tournamentDAO.getTournamentById(id);
 	}
+	
 }
