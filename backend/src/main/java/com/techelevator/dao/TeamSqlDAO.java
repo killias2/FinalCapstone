@@ -7,7 +7,6 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.rowset.SqlRowSet;
 
 import com.techelevator.model.Team;
-import com.techelevator.model.Tournament;
 
 public class TeamSqlDAO implements TeamDAO {
 	
@@ -25,12 +24,6 @@ private JdbcTemplate jdbcTemplate;
 		jdbcTemplate.update(sql, newTeam.getTeamId(), newTeam.getTournamentId(), 
 				newTeam.getGeneralManagerId(), newTeam.getTeamName());
 		return newTeam;
-	}
-
-	@Override
-	public Team updateTeam(Team updatedTeam) {
-		// TODO Auto-generated method stub
-		return null;
 	}
 
 	@Override
