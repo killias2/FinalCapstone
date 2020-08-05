@@ -1,6 +1,6 @@
 <template>
     <div>
-        <h1>TEST</h1>
+        <h1>All Tournaments</h1>
         <div class="tournament" v-for="tournament in tournaments" v-bind:key="tournament.id">
             <h2>{{tournament.tournamentName}}</h2>
             <h3>Start Date: {{tournament.startDate}}</h3>
