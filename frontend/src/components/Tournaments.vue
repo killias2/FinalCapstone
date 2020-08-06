@@ -30,5 +30,4 @@ export default {
     .tournament {
         display: block;
     }
-
 </style>

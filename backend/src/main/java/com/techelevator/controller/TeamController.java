@@ -1,6 +1,7 @@
 package com.techelevator.controller;
 
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -20,8 +21,14 @@ public class TeamController {
 	}
 	
 	@RequestMapping(value = "/teams", method = RequestMethod.POST)
-	public Team createTeam(@RequestBody Team newTeam) {
+	public boolean createTeam(@RequestBody Team newTeam) {
+		System.out.println(newTeam.getTeamName());
 		return teamDAO.createTeam(newTeam);
+	}
+	
+	@RequestMapping(value = "/tournaments/{id}/teams", method = RequestMethod.GET)
+	public Team[] getTeams(@PathVariable Long id) {
+	return teamDAO.getTeamsByTournament(id);
 	}
 	
 }

@@ -15,6 +15,14 @@
         required
         autofocus
       />
+      <label for="email" class="sr-only">Email Address</label>
+      <input 
+        type="email" 
+        class="form-control"
+        placeholder="Email Address" 
+        
+        required 
+      />
       <label for="password" class="sr-only">Password</label>
       <input
         type="password"

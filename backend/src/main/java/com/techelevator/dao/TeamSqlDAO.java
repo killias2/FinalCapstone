@@ -5,12 +5,15 @@ import java.util.List;
 
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.rowset.SqlRowSet;
+import org.springframework.stereotype.Service;
 
 import com.techelevator.model.Team;
 import com.techelevator.model.Tournament;
 
+@Service
 public class TeamSqlDAO implements TeamDAO {
-	
+
+
 private JdbcTemplate jdbcTemplate;
 	
 	public TeamSqlDAO(JdbcTemplate jdbcTemplate) {
@@ -18,13 +21,12 @@ private JdbcTemplate jdbcTemplate;
 	}
 
 	@Override
-	public Team createTeam(Team newTeam) {
-		String sql = "INSERT INTO teams (teamid, tournamentid, general_manager_id, teamname) VALUES "
-				+"(?, ?, ?, ?)";
+	public boolean createTeam(Team newTeam) {
+		String sql = "INSERT INTO teams (teamid, tournamentid, general_manager_id, teamname, seed, email) VALUES "
+				+"(?, ?, ?, ?, ?, ?)";
 		newTeam.setTeamId(getNextTeamId());
-		jdbcTemplate.update(sql, newTeam.getTeamId(), newTeam.getTournamentId(), 
-				newTeam.getGeneralManagerId(), newTeam.getTeamName());
-		return newTeam;
+		return 1 == jdbcTemplate.update(sql, newTeam.getTeamId(), newTeam.getTournamentId(), 
+				newTeam.getGeneralManagerId(), newTeam.getTeamName(), newTeam.getSeed(), newTeam.getEmail());
 	}
 	
 	@Override
@@ -35,9 +37,9 @@ private JdbcTemplate jdbcTemplate;
 	}
 
 	@Override
-	public Team[] getTeamsByTournament(Tournament tournament) {
-		String sql = "SELECT * FROM teams WHERE tournamentid = ?;";
-		SqlRowSet results = jdbcTemplate.queryForRowSet(sql, tournament.getId());
+	public Team[] getTeamsByTournament(Long id) {
+		String sql = "SELECT * FROM teams WHERE tournamentid = ?";
+		SqlRowSet results = jdbcTemplate.queryForRowSet(sql, id);
 		List<Team> teamList = new ArrayList<Team>();
 		while(results.next()) {
 			Team newTeam = mapRowToTeam(results);

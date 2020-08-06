@@ -5,11 +5,11 @@ import com.techelevator.model.Tournament;
 
 public interface TeamDAO {
 	
-	public Team createTeam(Team newTeam);
+	public boolean createTeam(Team newTeam);
 	
 	public boolean updateTeam(Team team);
 	
-	public Team[] getTeamsByTournament(Tournament tournament);
+	public Team[] getTeamsByTournament(Long id);
 	
 	public Team getTeamById(Long id);
 
