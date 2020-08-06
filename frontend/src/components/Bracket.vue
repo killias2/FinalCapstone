@@ -13,7 +13,7 @@
  
 <script>
     import Bracket from "vue-tournament-bracket";
- 
+    import TournamentService from '../services/TournamentService';
     const rounds = [
         //quarter finals 
         {
@@ -60,8 +60,8 @@
             games: [
                 {
  
-                    player1: { id: "4", name: "Competitor 4"},
-                    player2: { id: "8", name: "Competitor 8"},
+                    player1: { },
+                    player2: { },
                 }
             ]
         }
@@ -71,9 +71,20 @@
         components: {
             Bracket
         },
+        created() {
+        TournamentService.getAllMatches().then(response => {
+            this.matches = response.data;
+        })
+        TournamentService.getAllTeams().then(response => {
+            this.teams = response.data;
+        })
+        },
         data() {
             return {
-                rounds: rounds
+                rounds: rounds,
+                matches: [],
+                teams: []
+
             }
         }
     }

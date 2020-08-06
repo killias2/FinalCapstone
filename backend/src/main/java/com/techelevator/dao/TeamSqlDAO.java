@@ -9,9 +9,10 @@ import org.springframework.stereotype.Service;
 
 import com.techelevator.model.Team;
 import com.techelevator.model.Tournament;
+
 @Service
 public class TeamSqlDAO implements TeamDAO {
-	
+
 private JdbcTemplate jdbcTemplate;
 	
 	public TeamSqlDAO(JdbcTemplate jdbcTemplate) {
@@ -36,9 +37,9 @@ private JdbcTemplate jdbcTemplate;
 	}
 
 	@Override
-	public Team[] getTeamsByTournament(Tournament tournament) {
+	public Team[] getTeamsByTournament(Long tournamentId) {
 		String sql = "SELECT * FROM teams WHERE tournamentid = ?;";
-		SqlRowSet results = jdbcTemplate.queryForRowSet(sql, tournament.getId());
+		SqlRowSet results = jdbcTemplate.queryForRowSet(sql, tournamentId);
 		List<Team> teamList = new ArrayList<Team>();
 		while(results.next()) {
 			Team newTeam = mapRowToTeam(results);
