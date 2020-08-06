@@ -50,8 +50,8 @@
                 },
                 {
  
-                    player1: { id: "5", name: "Competitor 5", winner: false },
-                    player2: { id: "8", name: "Competitor 8", winner: true },
+                    player1: { id: "5", name: "Competitor 5"},
+                    player2: { id: "8", name: "Competitor 8"},
                 }
             ]
         },
