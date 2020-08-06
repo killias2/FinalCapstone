@@ -5,10 +5,12 @@ import java.util.List;
 
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.rowset.SqlRowSet;
+import org.springframework.stereotype.Service;
 
 import com.techelevator.model.Team;
 import com.techelevator.model.Tournament;
 
+@Service
 public class TeamSqlDAO implements TeamDAO {
 	
 private JdbcTemplate jdbcTemplate;

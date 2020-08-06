@@ -12,6 +12,10 @@ export default {
 
   viewTournaments() {
     return http.get('/tournaments');
+  },
+
+  getTournament(tournamentID) {
+    return http.get('/tournaments/${tournamentID}', tournamentID);
   }
 
 

@@ -1,7 +1,8 @@
 <template>
     <div>
-        <h1>TEST</h1>
-        <div class="tournament" v-for="tournament in tournaments" v-bind:key="tournament.id">
+        <h1>Tournaments</h1>
+        <div class="tournament" v-for="tournament in tournaments" v-bind:key="tournament.id" 
+        v-bind:currentTournament="tournament" v-on:click="viewTournamentDetails(tournament.id)">
             <h2>{{tournament.tournamentName}}</h2>
             <h3>Start Date: {{tournament.startDate}}</h3>
             <h3>End Date: {{tournament.endDate}}</h3>
@@ -18,6 +19,11 @@ export default {
             tournaments: []
         };
     },
+    methods: {
+        viewTournamentDetails(tournamentID) {
+            this.$router.push(`/tournaments/${tournamentID}`);
+        }
+    },
     created() {
         TournamentService.viewTournaments().then(response => {
             this.tournaments = response.data;
@@ -29,6 +35,12 @@ export default {
 <style scoped>
     .tournament {
         display: block;
+        text-align: center;
+        color: black;
+        font-weight: bolder;
+        text-shadow: 2px;
+        font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+        font-size: 20px;
     }
 
 </style>
