@@ -9,6 +9,7 @@ import store from '../store/index'
 import CreateTournament from '../views/CreateTournament'
 import Tournament from '../views/Tournaments'
 
+
 Vue.use(Router)
 
 /**
@@ -59,7 +60,10 @@ const router = new Router({
     {
       path: "/new-tournament",
       name: "new-tournament",
-      component: CreateTournament
+      component: CreateTournament,
+      meta: {
+        requiresAuth: true
+      }
     },
     {
       path: "/tournaments",

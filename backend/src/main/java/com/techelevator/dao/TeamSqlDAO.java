@@ -13,6 +13,10 @@ import com.techelevator.model.Tournament;
 @Service
 public class TeamSqlDAO implements TeamDAO {
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> 12eccbaf4e3656e2d075392521e6ad3bdefa9ee0
 private JdbcTemplate jdbcTemplate;
 	
 	public TeamSqlDAO(JdbcTemplate jdbcTemplate) {
@@ -20,13 +24,12 @@ private JdbcTemplate jdbcTemplate;
 	}
 
 	@Override
-	public Team createTeam(Team newTeam) {
-		String sql = "INSERT INTO teams (teamid, tournamentid, general_manager_id, teamname) VALUES "
-				+"(?, ?, ?, ?)";
+	public boolean createTeam(Team newTeam) {
+		String sql = "INSERT INTO teams (teamid, tournamentid, general_manager_id, teamname, seed, email) VALUES "
+				+"(?, ?, ?, ?, ?, ?)";
 		newTeam.setTeamId(getNextTeamId());
-		jdbcTemplate.update(sql, newTeam.getTeamId(), newTeam.getTournamentId(), 
-				newTeam.getGeneralManagerId(), newTeam.getTeamName());
-		return newTeam;
+		return 1 == jdbcTemplate.update(sql, newTeam.getTeamId(), newTeam.getTournamentId(), 
+				newTeam.getGeneralManagerId(), newTeam.getTeamName(), newTeam.getSeed(), newTeam.getEmail());
 	}
 	
 	@Override
@@ -37,9 +40,15 @@ private JdbcTemplate jdbcTemplate;
 	}
 
 	@Override
+<<<<<<< HEAD
 	public Team[] getTeamsByTournament(Long tournamentId) {
 		String sql = "SELECT * FROM teams WHERE tournamentid = ?;";
 		SqlRowSet results = jdbcTemplate.queryForRowSet(sql, tournamentId);
+=======
+	public Team[] getTeamsByTournament(Long id) {
+		String sql = "SELECT * FROM teams WHERE tournamentid = ?";
+		SqlRowSet results = jdbcTemplate.queryForRowSet(sql, id);
+>>>>>>> 12eccbaf4e3656e2d075392521e6ad3bdefa9ee0
 		List<Team> teamList = new ArrayList<Team>();
 		while(results.next()) {
 			Team newTeam = mapRowToTeam(results);
