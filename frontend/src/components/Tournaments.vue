@@ -18,6 +18,11 @@ export default {
             tournaments: []
         };
     },
+    methods: {
+        viewTournamentDetails(tournamentID) {
+            this.$router.push(`/tournaments/${tournamentID}`);
+        }
+    },
     created() {
         TournamentService.viewTournaments().then(response => {
             this.tournaments = response.data;
@@ -29,5 +34,11 @@ export default {
 <style scoped>
     .tournament {
         display: block;
+        text-align: center;
+        color: black;
+        font-weight: bolder;
+        text-shadow: 2px;
+        font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+        font-size: 20px;
     }
 </style>

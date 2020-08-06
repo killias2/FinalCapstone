@@ -20,6 +20,10 @@ export default {
   
   getAllTeams(tournamentId){
     return http.get(`/tournaments/${tournamentId}/teams`);
+  },
+
+  getTournament(tournamentID) {
+    return http.get(`/tournaments/${tournamentID}`, tournamentID);
   }
 
 
