@@ -75,7 +75,7 @@
         TournamentService.getAllMatches().then(response => {
             this.matches = response.data;
         })
-        TournamentService.getAllTeams().then(response => {
+        TournamentService.getAllTeams(this.tournamentId).then(response => {
             this.teams = response.data;
         })
         },
@@ -83,7 +83,8 @@
             return {
                 rounds: rounds,
                 matches: [],
-                teams: []
+                teams: [],
+                tournamentId: 1
 
             }
         }

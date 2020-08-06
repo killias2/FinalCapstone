@@ -16,6 +16,10 @@ export default {
 
   getAllMatches(tournamentId) {
     return http.get(`/tournaments/${tournamentId}/matches`);
+  },
+  
+  getAllTeams(tournamentId){
+    return http.get(`/tournaments/${tournamentId}/teams`);
   }
 
 

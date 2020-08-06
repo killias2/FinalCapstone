@@ -20,7 +20,7 @@ public class TeamController {
 		this.teamDAO = teamDAO;
 	}
 	
-	@RequestMapping(value = "/teams", method = RequestMethod.POST)
+	@RequestMapping(value = "/teams", method = RequestMethod.POST) 
 	public Team createTeam(@RequestBody Team newTeam) {
 		return teamDAO.createTeam(newTeam);
 	}

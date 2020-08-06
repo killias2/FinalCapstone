@@ -49,7 +49,7 @@
 
 <script>
 import authService from "../services/AuthService";
-import emailjs from 'emailjs-com';
+// import emailjs from 'emailjs-com';
 
 export default {
   name: "login",
