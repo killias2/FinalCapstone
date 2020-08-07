@@ -37,25 +37,21 @@
         <router-link class="register" :to="{ name: 'register' }">Need an account?</router-link>
       </div>
     </form>
-    <form class="password-recovery" @submit.prevent="sendEmail">
-        <h4>If you cannot remember your password, please enter your username and email address and click the link
-        below to have a temporary password sent to your email address</h4>
-        <label>Email Address:</label>
-        <input type="email" name="user_email" class="form-control" v-model="password_request.emailAddress" required/>
-        <label>Username:</label>
-        <input type="text" class="form-control" v-model="password_request.username" required/>
-        <input type="submit" value="Send"/>
-    </form>
+        <button type="button" v-on:click="flipRecovery()"><span v-if="showRecovery == false">
+          Click Here to Recover Password</span><span v-if="showRecovery == true">Cancel Password Recovery</span></button>
+    <passwordrecovery v-if="showRecovery"/>
   </div>
 </template>
 
 <script>
 import authService from "../services/AuthService";
-// import emailjs from 'emailjs-com';
+import passwordrecovery from "../components/PasswordRecovery";
 
 export default {
   name: "login",
-  components: {},
+  components: {
+    passwordrecovery
+  },
   data() {
     return {
       user: {
@@ -63,10 +59,7 @@ export default {
         password: ""
       },
       invalidCredentials: false,
-      password_request: {
-        username: "",
-        emailAddress: ""
-      }
+      showRecovery: false,
     };
   },
   methods: {
@@ -88,8 +81,9 @@ export default {
           }
         });
     },
-    // sendEmail: (e) => {
-    // }
+    flipRecovery() {
+      this.showRecovery = !this.showRecovery;
+    }
   }
 };
 </script>
