@@ -6,7 +6,21 @@ public class Team {
 	private Long tournamentId;
 	private Long generalManagerId;
 	private String teamName;
+	private Long seed;
+	private String email;
 	
+	public Long getSeed() {
+		return seed;
+	}
+	public void setSeed(Long seed) {
+		this.seed = seed;
+	}
+	public String getEmail() {
+		return email;
+	}
+	public void setEmail(String email) {
+		this.email = email;
+	}
 	public Long getTeamId() {
 		return teamId;
 	}

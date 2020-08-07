@@ -37,11 +37,19 @@
         <router-link class="register" :to="{ name: 'register' }">Need an account?</router-link>
       </div>
     </form>
+    <!--<form class="password-recovery" @submit.prevent="sendEmail">
+        <h3>If you cannot remember your password, please enter your email address and click the link
+        below to have a temporary password sent to your email address</h3>
+        <label>Email</label>
+        <input type="email" name="user_email">
+        <input type="submit" value="Send">
+    </form>-->
   </div>
 </template>
 
 <script>
 import authService from "../services/AuthService";
+// import emailjs from 'emailjs-com';
 
 export default {
   name: "login",
@@ -74,6 +82,15 @@ export default {
           }
         });
     }
+    // ,
+    // sendEmail: (e) => {
+    //   emailjs.sendForm('tournamentservices2020', 'password_recovery', e.target, 'user_3NSYU4tGbtt7Gh7gXOAXj')
+    //     .then((result) => {
+    //         console.log('SUCCESS!', result.status, result.text);
+    //     }, (error) => {
+    //         console.log('FAILED...', error);
+    //     });
+    // }
   }
 };
 </script>
