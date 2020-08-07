@@ -6,17 +6,27 @@ import java.util.stream.Collectors;
 
 import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.techelevator.dao.UserDAO;
 import com.techelevator.email.EmailService;
+import com.techelevator.model.DatabaseException;
+import com.techelevator.model.IncorrectUserOrEmailException;
 import com.techelevator.model.PasswordRequest;
+import com.techelevator.model.RecoveryUserNotFoundException;
+import com.techelevator.model.User;
 
 @RestController
+@CrossOrigin(origins = "http://localhost:8081", allowedHeaders = "*")
 public class EmailController {
 	
 	String emailBody = "";
@@ -29,17 +39,37 @@ public class EmailController {
     	this.userDAO = userDAO;
     }
  
-    @RequestMapping(value = "/sendmail", method = RequestMethod.POST)
-    public String sendmail(@RequestBody PasswordRequest pwR) {
-    	emailBody = bodyBuilder();
-    	emailService.sendMail(pwR.getEmailAddress(), "Your Temporary Password", emailBody);
-    	return "EmailSent";
+    @ResponseStatus(HttpStatus.OK)
+    @RequestMapping(value = "/passwordrecovery", method = RequestMethod.POST)
+    public boolean passwordRecover(@RequestBody PasswordRequest pwR) {
+    	try {
+    		User thisUser = userDAO.findByUsername(pwR.getUserName());
+    		if(thisUser.getEmailAddress().equals(pwR.getEmailAddress())) {
+    			String newPassword = generateCommonLangPassword();
+            	emailBody = bodyBuilder(newPassword);
+            	thisUser.setPassword(newPassword);
+            	try {
+            		userDAO.updateUserPassword(thisUser);
+            		emailService.sendMail(pwR.getEmailAddress(), "Your Temporary Password", emailBody);
+            		return true;
+            	}
+            	catch (DatabaseException e) {
+            		return false;
+            	}
+    		}
+    		else {
+    			throw new IncorrectUserOrEmailException();
+    		}
+    	}
+    	catch (RecoveryUserNotFoundException e) {
+    		return false;
+        }
     }
     
-    private String bodyBuilder() {
+    private String bodyBuilder(String newPassword) {
     	String newBody = "We have received a lost password request for your account and have generated a new password. The new " +
     			"password is: ";
-    	newBody += generateCommonLangPassword();
+    	newBody += newPassword;
     	return newBody;
     }
     
@@ -62,5 +92,22 @@ public class EmailController {
           .toString();
         return password;
     }
+    
+//    static class RecoveryResponse {
+//
+//        private String response;
+//
+//        RecoveryResponse(String response) {
+//            this.response = response;
+//        }
+//        
+//        String getResponse() {
+//        	return response;
+//        }
+//        
+//        void setResponse() {
+//        	this.response = response;
+//        }
+//    }
     
 }
