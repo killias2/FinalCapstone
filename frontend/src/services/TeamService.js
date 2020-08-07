@@ -6,8 +6,8 @@ const http = axios.create({
 
 export default {
 
-  viewTeams() {
-    return http.get('/teams');
+  viewTeams(id) {
+    return http.get(`/tournaments/${id}/teams`);
   },
 
   addTeams(team) {

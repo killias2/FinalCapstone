@@ -11,9 +11,6 @@ public interface TeamDAO {
 	
 	public boolean updateTeam(Team team);
 	
-
-	public Team[] getTeamsByTournament(Long id);
-	
 	public Team getTeamById(Long id);
 
 }
