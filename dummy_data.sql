@@ -1,0 +1,33 @@
+
+INSERT INTO teams (tournamentid, teamname, seed) VALUES (1, 'alpha', 1);
+INSERT INTO teams (tournamentid, teamname, seed) VALUES (1, 'bravo', 2);
+INSERT INTO teams (tournamentid, teamname, seed) VALUES (1, 'charlie', 3);
+INSERT INTO teams (tournamentid, teamname, seed) VALUES (1, 'delta', 4);
+INSERT INTO teams (tournamentid, teamname, seed) VALUES (1, 'echo', 5);
+INSERT INTO teams (tournamentid, teamname, seed) VALUES (1, 'foxtrot', 6);
+INSERT INTO teams (tournamentid, teamname, seed) VALUES (1, 'golf', 7);
+INSERT INTO teams (tournamentid, teamname, seed) VALUES (1, 'hotel', 8);
+INSERT INTO teams (tournamentid, teamname, seed) VALUES (1, 'india', 9);
+INSERT INTO teams (tournamentid, teamname, seed) VALUES (1, 'juliet', 10);
+INSERT INTO teams (tournamentid, teamname, seed) VALUES (1, 'kilo', 11);
+INSERT INTO teams (tournamentid, teamname, seed) VALUES (1, 'lima', 12);
+INSERT INTO teams (tournamentid, teamname, seed) VALUES (1, 'mike', 13);
+INSERT INTO teams (tournamentid, teamname, seed) VALUES (1, 'november', 14);
+INSERT INTO teams (tournamentid, teamname, seed) VALUES (1, 'oscar', 15);
+INSERT INTO teams (tournamentid, teamname, seed) VALUES (1, 'papa', 16);
+
+INSERT INTO matches (is_complete, round, tournamentid) VALUES (false, 0, 1);
+INSERT INTO matches (is_complete, round, tournamentid) VALUES (false, 0, 1);
+INSERT INTO matches (is_complete, round, tournamentid) VALUES (false, 0, 1);
+INSERT INTO matches (is_complete, round, tournamentid) VALUES (false, 0, 1);
+INSERT INTO matches (is_complete, round, tournamentid) VALUES (false, 0, 1);
+INSERT INTO matches (is_complete, round, tournamentid) VALUES (false, 0, 1);
+INSERT INTO matches (is_complete, round, tournamentid) VALUES (false, 0, 1);
+INSERT INTO matches (is_complete, round, tournamentid) VALUES (false, 0, 1);
+INSERT INTO matches (is_complete, round, tournamentid) VALUES (false, 1, 1);
+INSERT INTO matches (is_complete, round, tournamentid) VALUES (false, 1, 1);
+INSERT INTO matches (is_complete, round, tournamentid) VALUES (false, 1, 1);
+INSERT INTO matches (is_complete, round, tournamentid) VALUES (false, 1, 1);
+INSERT INTO matches (is_complete, round, tournamentid) VALUES (false, 2, 1);
+INSERT INTO matches (is_complete, round, tournamentid) VALUES (false, 2, 1);
+INSERT INTO matches (is_complete, round, tournamentid) VALUES (false, 3, 1);

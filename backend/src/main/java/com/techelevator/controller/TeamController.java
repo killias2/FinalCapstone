@@ -27,7 +27,7 @@ public class TeamController {
 	
 	@RequestMapping(value = "/tournaments/{id}/teams", method = RequestMethod.GET)
 	public Team[] getTeams(@PathVariable Long id) {
-	return teamDAO.getTeamsByTournament(id);
+		return teamDAO.getTeamsByTournament(id);
 	}
 	
 }

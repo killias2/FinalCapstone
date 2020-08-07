@@ -14,7 +14,17 @@ public class User {
    private String password;
    @JsonIgnore
    private boolean activated;
-   private Set<Authority> authorities = new HashSet<>();
+   private String emailAddress;
+   
+   public String getEmailAddress() {
+	   return emailAddress;
+   }
+
+   public void setEmailAddress(String emailAddress) {
+	   this.emailAddress = emailAddress;
+   }
+
+private Set<Authority> authorities = new HashSet<>();
 
    public User() { }
 
