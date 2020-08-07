@@ -64,4 +64,7 @@ export default {
   text-align: center;
   display: block;
 }
+.tournament:hover {
+        background: blueviolet;
+    }
 </style>

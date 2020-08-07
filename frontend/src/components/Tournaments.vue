@@ -36,14 +36,15 @@ export default {
 
 <style scoped>
     .tournament {
+        
         display: block;
         text-align: center;
         color: white;
         font-weight: bolder;
         text-shadow: 2px;
         font-size: 20px;
-        margin-left: 500px;
-        margin-right: 500px;
+        margin-left: 300px;
+        margin-right: 300px;
         background-color: rgb(8, 69, 97);
     }
     h2 {
