@@ -34,6 +34,7 @@ public class TournamentBuilder {
 			Match m = new Match();
 			m.setTournamentId(tournament.getId());
 			m.setComplete(false);
+			m.setRound(i+1);
 			if( i == 0) { //only put teams in for match 0
 				Team[] teamsInMatch = new Team[2];
 				if(2 * i < teams.length) {
