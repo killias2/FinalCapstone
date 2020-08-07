@@ -20,24 +20,15 @@ public class TeamController {
 		this.teamDAO = teamDAO;
 	}
 	
-<<<<<<< HEAD
-	@RequestMapping(value = "/teams", method = RequestMethod.POST) 
-	public Team createTeam(@RequestBody Team newTeam) {
-=======
 	@RequestMapping(value = "/teams", method = RequestMethod.POST)
 	public boolean createTeam(@RequestBody Team newTeam) {
 		System.out.println(newTeam.getTeamName());
->>>>>>> 12eccbaf4e3656e2d075392521e6ad3bdefa9ee0
 		return teamDAO.createTeam(newTeam);
 	}
 	
 	@RequestMapping(value = "/tournaments/{id}/teams", method = RequestMethod.GET)
 	public Team[] getTeams(@PathVariable Long id) {
-<<<<<<< HEAD
 		return teamDAO.getTeamsByTournament(id);
-=======
-	return teamDAO.getTeamsByTournament(id);
->>>>>>> 12eccbaf4e3656e2d075392521e6ad3bdefa9ee0
 	}
 	
 }
