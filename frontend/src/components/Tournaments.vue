@@ -4,8 +4,7 @@
                     <div class="tournament" v-for="tournament in tournaments" v-bind:key="tournament.id" 
         v-bind:currentTournament="tournament" v-on:click="viewTournamentDetails(tournament)">
             <h2>{{tournament.tournamentName}}</h2>
-            <h3>Start Date: {{tournament.startDate}}</h3>
-            <h3>End Date: {{tournament.endDate}}</h3>
+            <h3>{{tournament.startDate}} to {{tournament.endDate}}</h3>
         </div>
     </div>
 </template>
@@ -39,10 +38,18 @@ export default {
     .tournament {
         display: block;
         text-align: center;
-        color: black;
+        color: white;
         font-weight: bolder;
         text-shadow: 2px;
-        font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
         font-size: 20px;
+        margin-left: 500px;
+        margin-right: 500px;
+        background-color: rgb(8, 69, 97);
+    }
+    h2 {
+        font-size: 30px;
+    }
+    h3 {
+        font-size: 18px;
     }
 </style>
