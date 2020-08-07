@@ -1,6 +1,7 @@
 <template>
   <div>
     <home-page />
+    <user-nav />
     <sidebar />
     <bracket />
   </div>
@@ -10,13 +11,14 @@
 import HomePage from '../components/HomePage'
 import Sidebar from '../components/Sidebar'
 import Bracket from '../components/Bracket'
-
+import UserNav from "../components/UserNav"
 
 export default {
   components: {
     HomePage,
     Sidebar,
-    Bracket
+    Bracket,
+    UserNav
   }
 };
 </script>

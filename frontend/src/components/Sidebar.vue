@@ -16,6 +16,7 @@
         width: 150px;
         height: 50px;
         display: block;
+        margin-left: 25px;
     }
     .sidebar {
         height: 350px;
