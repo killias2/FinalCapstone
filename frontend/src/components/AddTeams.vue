@@ -17,6 +17,7 @@
         </form>
     </div>
 </template>
+
 <script>
 import TeamService from '../services/TeamService'
 

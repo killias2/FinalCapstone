@@ -7,6 +7,7 @@ import Register from '../views/Register.vue'
 import store from '../store/index'
 import CreateTournament from '../views/CreateTournament'
 import Tournament from '../views/Tournaments'
+import MyTournament from '../components/MyTournament'
 
 
 Vue.use(Router)
@@ -68,6 +69,11 @@ const router = new Router({
       path: "/tournaments",
       name: "tournament",
       component: Tournament
+    }, 
+    {
+      path: "/tournaments/:id",
+      name: "my-tournaments",
+      component: MyTournament
     }
   ]
 })
