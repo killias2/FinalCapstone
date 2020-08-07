@@ -30,7 +30,7 @@ public class TournamentBuilder {
 		
 		bye.setTeamName("Bye");
 		for(int i = 0; i < roundCount; i++) {
-			for(int j = 0; j < (teams.length / 2) / (i + 1); j++) {
+			for(int j = 0; j < (Math.pow(2,  roundCount) / 2) / (i + 1); j++) {
 			Match m = new Match();
 			m.setTournamentId(tournament.getId());
 			m.setComplete(false);
