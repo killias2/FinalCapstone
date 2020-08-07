@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="teamList">
         <h1>My Tournaments</h1>
         <div class="team" v-for="team in teams" v-bind:key="team.teamname">
             <h2>Name: {{team.teamName}}</h2>
@@ -24,3 +24,7 @@ export default {
     }
 }
 </script>
+
+<style scoped>
+
+</style>

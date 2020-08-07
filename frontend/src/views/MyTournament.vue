@@ -1,18 +1,19 @@
 <template>
     <div>
-        <my-tournaments />
         <add-teams />
+        <my-tournament />
+        
     </div>
 </template>
 
 <script>
 import AddTeams from "../components/AddTeams"
-import MyTournaments from "../components/MyTournaments"
+import MyTournament from "../components/MyTournament"
 
 export default {
     components: {
         AddTeams,
-        MyTournaments
+        MyTournament
     }
 }
 </script>

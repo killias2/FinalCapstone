@@ -52,7 +52,8 @@ private JdbcTemplate jdbcTemplate;
 
 	@Override
 	public Team getTeamById(Long id) {
-		String sql = "SELECT * FROM teams WHERE teamid = ?";
+		String sql = "SELECT * FROM teams WHERE teamid = ? " +
+					"ORDER BY seed";
 		SqlRowSet results = jdbcTemplate.queryForRowSet(sql, id);
 		if(results.next()) {
 			return mapRowToTeam(results);
@@ -73,6 +74,9 @@ private JdbcTemplate jdbcTemplate;
 		Team newTeam = new Team();
 		newTeam.setTeamId(results.getLong("teamid"));
 		newTeam.setTournamentId(results.getLong("tournamentid"));
+		if(results.getLong("seed") > 0) {
+			newTeam.setSeed(results.getLong("seed"));
+		}
 		if(results.getLong("general_manager_id") > 0) {
 			newTeam.setGeneralManagerId(results.getLong("generalManagerId"));
 		}
