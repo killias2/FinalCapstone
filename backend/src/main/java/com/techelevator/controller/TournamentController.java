@@ -4,6 +4,9 @@ import java.util.List;
 
 import org.springframework.web.bind.annotation.*;
 
+import com.techelevator.TournamentBuilder;
+import com.techelevator.dao.MatchDAO;
+import com.techelevator.dao.TeamDAO;
 import com.techelevator.dao.TournamentDAO;
 import com.techelevator.model.Tournament;
 
@@ -11,9 +14,13 @@ import com.techelevator.model.Tournament;
 @RestController
 public class TournamentController {
 	private TournamentDAO tournamentDAO;
+	private TeamDAO teamDAO;
+	private MatchDAO matchDAO;
 	
-	public TournamentController(TournamentDAO tournamentDAO) {
+	public TournamentController(TournamentDAO tournamentDAO, TeamDAO teamDAO, MatchDAO matchDAO) {
 		this.tournamentDAO = tournamentDAO;
+		this.teamDAO = teamDAO;
+		this.matchDAO = matchDAO;
 	}
 	
 	@RequestMapping(value = "/tournaments", method = RequestMethod.POST)
@@ -31,7 +38,8 @@ public class TournamentController {
 	}
 	@RequestMapping(value = "/tournaments", method = RequestMethod.PUT)
 	public boolean completeTournament(@RequestBody Tournament tournament) {
-		return false;
+		TournamentBuilder t = new TournamentBuilder(tournament, teamDAO, matchDAO);
+		return t.buildTournament();
 	}
 	
 }
