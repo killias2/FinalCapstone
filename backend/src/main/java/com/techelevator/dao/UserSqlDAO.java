@@ -86,6 +86,13 @@ public class UserSqlDAO implements UserDAO {
 
         return userCreated;
     }
+    
+    public boolean updateUserPassword(User user) {
+    	String password_hash = new BCryptPasswordEncoder().encode(user.getPassword());
+    	String sql = "UPDATE users SET password_hash = ? WHERE user_id = ?";
+    	return 1 == jdbcTemplate.update(sql, password_hash, user.getId());
+    	
+    }
 
     private User mapRowToUser(SqlRowSet rs) {
         User user = new User();

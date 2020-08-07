@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.techelevator.dao.UserDAO;
 import com.techelevator.email.EmailService;
 import com.techelevator.model.PasswordRequest;
+import com.techelevator.model.User;
 
 @RestController
 public class EmailController {
@@ -31,21 +32,28 @@ public class EmailController {
  
     @RequestMapping(value = "/passwordrecovery", method = RequestMethod.POST)
     public String passwordRecover(@RequestBody PasswordRequest pwR) {
-    	if(userDAO.findByUsername(pwR.getUserName()).getEmailAddress() == pwR.getEmailAddress()) {
-    		
-        	emailBody = bodyBuilder();
-        	emailService.sendMail(pwR.getEmailAddress(), "Your Temporary Password", emailBody);
-        	return "Password Recovery Success";
+    	User thisUser = userDAO.findByUsername(pwR.getUserName());
+    	if(thisUser.getEmailAddress() == pwR.getEmailAddress()) {
+    		String newPassword = generateCommonLangPassword();
+        	emailBody = bodyBuilder(newPassword);
+        	thisUser.setPassword(newPassword);
+        	if(userDAO.updateUserPassword(thisUser)) {
+            	emailService.sendMail(pwR.getEmailAddress(), "Your Temporary Password", emailBody);
+            	return "Password Recovery Successful";
+        	}
+        	else {
+        		return "There was an issue with the database";
+        	}
     	}
     	else {
         	return "Your username did not match the listed email address";	
     	}
     }
     
-    private String bodyBuilder() {
+    private String bodyBuilder(String newPassword) {
     	String newBody = "We have received a lost password request for your account and have generated a new password. The new " +
     			"password is: ";
-    	newBody += generateCommonLangPassword();
+    	newBody += newPassword;
     	return newBody;
     }
     
