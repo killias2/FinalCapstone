@@ -1,5 +1,6 @@
 <template>
   <div id="login" class="text-center">
+    
     <form class="form-signin" @submit.prevent="login">
       <h1 class="h3 mb-3 font-weight-normal">Please Sign In</h1>
       <div
@@ -44,16 +45,20 @@
         <input type="email" name="user_email">
         <input type="submit" value="Send">
     </form>-->
+    <user-nav />
   </div>
 </template>
 
 <script>
 import authService from "../services/AuthService";
+import UserNav from "../components/UserNav"
 // import emailjs from 'emailjs-com';
 
 export default {
   name: "login",
-  components: {},
+  components: {
+    UserNav
+  },
   data() {
     return {
       user: {
