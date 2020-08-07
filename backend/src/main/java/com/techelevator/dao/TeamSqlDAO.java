@@ -13,10 +13,6 @@ import com.techelevator.model.Tournament;
 @Service
 public class TeamSqlDAO implements TeamDAO {
 
-<<<<<<< HEAD
-=======
-
->>>>>>> 12eccbaf4e3656e2d075392521e6ad3bdefa9ee0
 private JdbcTemplate jdbcTemplate;
 	
 	public TeamSqlDAO(JdbcTemplate jdbcTemplate) {
@@ -40,15 +36,9 @@ private JdbcTemplate jdbcTemplate;
 	}
 
 	@Override
-<<<<<<< HEAD
-	public Team[] getTeamsByTournament(Long tournamentId) {
-		String sql = "SELECT * FROM teams WHERE tournamentid = ?;";
-		SqlRowSet results = jdbcTemplate.queryForRowSet(sql, tournamentId);
-=======
 	public Team[] getTeamsByTournament(Long id) {
 		String sql = "SELECT * FROM teams WHERE tournamentid = ?";
 		SqlRowSet results = jdbcTemplate.queryForRowSet(sql, id);
->>>>>>> 12eccbaf4e3656e2d075392521e6ad3bdefa9ee0
 		List<Team> teamList = new ArrayList<Team>();
 		while(results.next()) {
 			Team newTeam = mapRowToTeam(results);
