@@ -1,7 +1,8 @@
 <template>
     <div>
         <h1>All Tournaments</h1>
-        <div class="tournament" v-for="tournament in tournaments" v-bind:key="tournament.id">
+                    <div class="tournament" v-for="tournament in tournaments" v-bind:key="tournament.id" 
+        v-bind:currentTournament="tournament" v-on:click="viewTournamentDetails(tournament)">
             <h2>{{tournament.tournamentName}}</h2>
             <h3>Start Date: {{tournament.startDate}}</h3>
             <h3>End Date: {{tournament.endDate}}</h3>
@@ -19,13 +20,16 @@ export default {
         };
     },
     methods: {
-        viewTournamentDetails(tournamentID) {
-            this.$router.push(`/tournaments/${tournamentID}`);
+        viewTournamentDetails(tournament) {
+            this.$store.commit('SET_CURRENT_TOURNAMENT', {
+            saveMe: tournament
+            })
+            this.$router.push(`/tournaments/${tournament.id}`);
         }
     },
     created() {
         TournamentService.viewTournaments().then(response => {
-            this.tournaments = response.data;
+           this.tournaments = response.data;
         })
     }
 }

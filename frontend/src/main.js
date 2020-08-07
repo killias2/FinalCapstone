@@ -1,12 +1,12 @@
 import '@babel/polyfill'
-import 'mutationobserver-shim'
+// import 'mutationobserver-shim'
 import Vue from 'vue'
 import './plugins/bootstrap-vue'
 import App from './App.vue'
 import router from './router/index'
 import store from './store/index'
 import axios from 'axios'
-import vuetify from './plugins/vuetify'
+// import vuetify from './plugins/vuetify'
 import { BootstrapVue, BootstrapVueIcons } from 'bootstrap-vue'
 
 import 'bootstrap/dist/css/bootstrap.css'
@@ -22,6 +22,5 @@ axios.defaults.baseURL = process.env.VUE_APP_REMOTE_API;
 new Vue({
   router,
   store,
-  vuetify,
   render: h => h(App)
 }).$mount('#app')

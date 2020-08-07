@@ -15,33 +15,30 @@
 </template>
 
 <script>
-import TournamentService from "../services/TournamentService";
+// import TournamentService from "../services/TournamentService";
 
 
 export default {
   data() {
     return {
+      currentTournament: this.$store.state.currentTournament
     };
+    
   },
   methods: {
-    retrieveTournament() {
-        TournamentService
-        .getTournament(this.$route.params.tournamentID)
-        .catch(error => {
-          if (error.response && error.response.status === 404) {
-            alert(
-              "Tournament not available."
-            );
-            this.$router.push("/");
-          }
-        });
+    // retrieveTournament() {
+    //     TournamentService
+    //     .getTournament(this.$route.params.tournament.id)
+    //     .catch(error => {
+    //       if (error.response && error.response.status === 404) {
+    //         alert(
+    //           "Tournament not available."
+    //         );
+    //         this.$router.push("/");
+    //       }
+    //     });
     },
-  },
-  props: ["currentTournament"],
-  created() {
-    this.retrieveTournament(this.tournament.tournamentID);
   }
-};
 </script>
 
 <style>

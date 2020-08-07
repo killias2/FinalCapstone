@@ -1,11 +1,11 @@
 <template>
 
-    <bracket :rounds="rounds">
+    <bracket :rounds="fixedRounds">
         <template #player="{ player }"> 
             {{ player.name }}
         </template>
         <template #player-extension-bottom="{ match }">
-            Game time {{ match.title }}
+            game info: {{ match.title }}
         </template>
     </bracket>
 
@@ -14,78 +14,151 @@
 <script>
     import Bracket from "vue-tournament-bracket";
     import TournamentService from '../services/TournamentService';
-    const rounds = [
-        //quarter finals 
-        {
-            games: [
-                {
- 
-                    player1: { id: "1", name: "Competitor 1" },
-                    player2: { id: "8", name: "Competitor 8"},
-                },
-                {
- 
-                    player1: { id: "4", name: "Competitor 4", winner: false },
-                    player2: { id: "5", name: "Competitor 5", winner: true },
-                },
-                {
- 
-                    player1: { id: "3", name: "Competitor 3" },
-                    player2: { id: "6", name: "Competitor 6"},
-                },
-                {
- 
-                    player1: { id: "2", name: "Competitor 2", winner: false },
-                    player2: { id: "7", name: "Competitor 7", winner: true },
-                }
-            ]
-        },
-        //Semi finals
-        {
-            games: [
-                {
- 
-                    player1: { id: "1", name: "Competitor 1" },
-                    player2: { id: "4", name: "Competitor 4"},
-                },
-                {
- 
-                    player1: { id: "5", name: "Competitor 5"},
-                    player2: { id: "8", name: "Competitor 8"},
-                }
-            ]
-        },
-        //Final
-        {
-            games: [
-                {
- 
-                    player1: { },
-                    player2: { },
-                }
-            ]
-        }
-    ];
- 
+
     export default {
         components: {
             Bracket
         },
         created() {
-        TournamentService.getAllMatches().then(response => {
-            this.matches = response.data;
-        })
-        TournamentService.getAllTeams(this.tournamentId).then(response => {
-            this.teams = response.data;
-        })
+            TournamentService.getAllMatches(this.tournamentId).then(response => {
+                this.matches = response.data;
+            })
+            TournamentService.getAllTeams(this.tournamentId)
+            .then(response => {
+                this.teams = response.data;
+                })
+            .then(() => {
+                this.fixRounds()
+            })
+            .then(() => {
+                this.autoFill()
+            });
+        },
+        methods: {
+            fixRounds() {
+                this.fixedRounds = this.rounds;
+                if(this.teams.length >= 16){
+                    this.fixedRounds = this.rounds;
+                } 
+                else if(this.teams.length >= 8) {
+                    this.fixedRounds.shift();
+                    
+                }
+                else {
+                    this.fixedRounds.splice(-2, 2);
+                }
+            },
+            autoFill() {
+                // function fill(item){
+                //     item.player1.name = "baby baluga"
+                // }
+                for (let i = 0; i < this.fixedRounds[0].games.length; i++){
+                    //this.fixedRounds[0].games[i].player1.name = this.matches[i].teamList[0];
+                    this.fixedRounds[0].games[i].player2.name = "the other team";
+                }
+            }
         },
         data() {
             return {
-                rounds: rounds,
                 matches: [],
                 teams: [],
-                tournamentId: 1
-
+                tournamentId: this.$store.state.currentTournament.id,
+                fixedRounds: [],
+                rounds: [
+                    //sweet 16
+                    {
+                        games: [
+                            {
+                                player1: { id: "", name: "", winner: null },
+                                player2: { id: "", name: "", winner: null },
+                            },
+                            {
+            
+                                player1: { id: "", name: "", winner: null },
+                                player2: { id: "", name: "", winner: null  },
+                            },
+                            {
+            
+                                player1: { id: "", name: "", winner: null },
+                                player2: { id: "", name: "", winner: null},
+                            },
+                            {
+            
+                                player1: { id: "", name: "", winner: null },
+                                player2: { id: "", name: "", winner: null },
+                            },
+                                                        {
+                                player1: { id: "", name: "", winner: null},
+                                player2: { id: "", name: "", winner: null},
+                            },
+                            {
+            
+                                player1: { id: "", name: "", winner: null },
+                                player2: { id: "", name: "", winner: null},
+                            },
+                            {
+            
+                                player1: { id: "", name: "", winner: null },
+                                player2: { id: "", name: "", winner: null},
+                            },
+                            {
+            
+                                player1: { id: "", name: "", winner: null},
+                                player2: { id: "", name: "", winner: null},
+                            }
+                        ]
+                    },
+                //elite 8 
+                    {
+                        games: [
+                            {
+            
+                                player1: { id: "", name: "", winner: null},
+                                player2: { id: "", name: "", winner: null},
+                            },
+                            {
+            
+                                player1: { id: "", name: "", winner: null},
+                                player2: { id: "", name: "", winner: null},
+                            },
+                            {
+            
+                                player1: { id: "", name: "", winner: null},
+                                player2: { id: "", name: "", winner: null},
+                            },
+                            {
+            
+                                player1: { id: "", name: "", winner: null},
+                                player2: { id: "", name: "", winner: null},
+                            }
+                        ]
+                    },
+                    //final 4
+                    {
+                        games: [
+                            {
+            
+                                player1: { id: "", name: "", winner: null},
+                                player2: { id: "", name: "", winner: null},
+                            },
+                            {
+            
+                                player1: { id: "", name: "", winner: null},
+                                player2: { id: "", name: "", winner: null},
+                            }
+                        ]
+                    },
+                    //Final
+                    {
+                        games: [
+                            {
+            
+                                player1: {id: "", name: "", winner: null},
+                                player2: {id: "", name: "", winner: null },
+                            }
+                        ]
+                    }
+                ]
             }
         }
     }

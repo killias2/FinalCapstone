@@ -38,6 +38,9 @@ export default new Vuex.Store({
       state.token = '';
       state.user = {};
       axios.defaults.headers.common = {};
+    },
+    SET_CURRENT_TOURNAMENT(state, payload){
+      state.currentTournament = payload.saveMe;
     }
   }
 })
