@@ -22,7 +22,6 @@ public class TeamController {
 	
 	@RequestMapping(value = "/teams", method = RequestMethod.POST)
 	public boolean createTeam(@RequestBody Team newTeam) {
-		System.out.println(newTeam.getTeamName());
 		return teamDAO.createTeam(newTeam);
 	}
 	
