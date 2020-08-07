@@ -58,9 +58,9 @@
             autoFill() { 
                 for (let i = 0; i < this.fixedRounds[0].games.length; i++){
                     this.fixedRounds[0].games[i].player1.name = this.matches[i].teamList[0].teamName;
-                    //this.fixedRounds[0].games[i].player1.id = toString(this.matches[i].teamsList[0].seed);
+                    this.fixedRounds[0].games[i].player1.id = toString(this.matches[i].teamsList[0].seed);
                     this.fixedRounds[0].games[i].player2.name = this.matches[i].teamList[1].teamName;
-                    //this.fixedRounds[0].games[i].player2.id = toString(this.matches[i].teamsList[1].seed);
+                    this.fixedRounds[0].games[i].player2.id = toString(this.matches[i].teamsList[1].seed);
                     // if win, mark em.
                     // if(this team wins make them winner and the other team loser then do opposite){
                     // this.fixedRounds[0].games[i].player1.winner = this.matches[i].;
