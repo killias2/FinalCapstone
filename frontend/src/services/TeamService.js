@@ -10,8 +10,8 @@ export default {
     return http.get(`/tournaments/${id}/teams`);
   },
 
-  addTeams(team) {
-    return http.post('/teams', team);
+  addTeams(id) {
+    return http.post(`/tournaments/${id}`);
   }
 
 

@@ -20,9 +20,19 @@ public class Tournament {
 	private LocalDate endDate;
 	private Boolean isComplete;
 	private Long winnerTeamId;
+	private Long numberOfTeams;
+	
 	public Tournament() {
 		
 	}
+	
+	public Long getNumberOfTeams() {
+		return numberOfTeams;
+	}
+	public void setNumberOfTeams(Long numberOfTeams) {
+		this.numberOfTeams = numberOfTeams;
+	}
+	
 	public Tournament( String tournamentName, Long tournamentOrganizerId, Long[] teamIds, Boolean isSeeded, Long gameId, String tournamentDescription
 					, Long bracketId, Boolean openToJoin, LocalDate startDate, LocalDate endDate) {
 		

@@ -1,5 +1,5 @@
 <template>
-    <form v-on:submit.prevent="addNewTournament">
+    <form v-on:submit.prevent="addNewTournament()">
         <div class="form-element">
             <div class="tournamentName">
                 <label class="title" for="tournament-name">Tournament Name:</label>
@@ -49,7 +49,7 @@
         </div>
         <div class="form-element">
             <label class="title" for="dropdown">How many Teams?</label>
-            <input type="number" min="4" max="64" step="2" v-model="newTournament.teams" class="number"/>
+            <input type="number" min="4" max="64" step="2" v-model="newTournament.numberOfTeams" class="number"/>
         </div>
         <div class="form-element">
             <label class="title" for="start-date">Start Date:</label>
@@ -82,7 +82,7 @@ export default {
                 endDate: '',
                 tournamentOrganizerId: this.$store.state.user.id,
                 isSeeded: false,
-                teams: 0
+                numberOfTeams: 0
             }
         }
     },
@@ -91,7 +91,7 @@ export default {
             this.newTournament = {};
         },
         addNewTournament() {
-            tournamentService.newTournament(this.newTournament)
+            tournamentService.newTournament(1)
             .then(response => {
                 if (response.status < 299) {
                  console.log('success');
