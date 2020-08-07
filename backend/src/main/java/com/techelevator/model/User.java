@@ -99,4 +99,4 @@ public class User {
               ", authorities=" + authorities +
               '}';
    }
-}
+

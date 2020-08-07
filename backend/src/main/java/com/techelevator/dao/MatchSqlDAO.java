@@ -45,16 +45,18 @@ public class MatchSqlDAO implements MatchDAO {
 		newMatch.setMatchid(getNextMatchId());
 		jdbcTemplate.update(sql, newMatch.getMatchid(), newMatch.isComplete(), newMatch.getRound(), newMatch.getStartTime(), 
 				newMatch.getEndTime(), newMatch.getTournamentId());
-		String sqlLinking = "INSERT INTO team_match (matchid, teamid) VALUES ";
-		Team[] teamArray = newMatch.getTeamList();
-		for(int i = 0; i < teamArray.length; i++) {
-			String newString = "(" + newMatch.getMatchid() + ", " + teamArray[i].getTeamId() + ")";
-			if(i < teamArray.length - 1) {
-				newString += ",";
+		if(newMatch.getTeamList() != null) {
+			String sqlLinking = "INSERT INTO team_match (matchid, teamid) VALUES ";
+			Team[] teamArray = newMatch.getTeamList();
+			for(int i = 0; i < teamArray.length; i++) {
+				String newString = "(" + newMatch.getMatchid() + ", " + teamArray[i].getTeamId() + ")";
+				if(i < teamArray.length - 1) {
+					newString += ",";
+				}
+				sqlLinking += newString;
 			}
-			sqlLinking += newString;
+			jdbcTemplate.update(sqlLinking);
 		}
-		jdbcTemplate.update(sqlLinking);
 		return newMatch;
 		
 	}

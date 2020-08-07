@@ -30,12 +30,12 @@ public class TournamentBuilder {
 		
 		bye.setTeamName("Bye");
 		for(int i = 0; i < roundCount; i++) {
-			for(int j = 0; j < (Math.pow(2,  roundCount) / 2) / (i + 1); j++) {
+			for(int j = 0; j < (((Math.pow(2,  roundCount) / 2)) / Math.pow(2, i)); j++) {
 			Match m = new Match();
 			m.setTournamentId(tournament.getId());
 			m.setComplete(false);
-			m.setRound(i+1);
-			if( i == 0) { //only put teams in for match 0
+			m.setRound(i);
+			if(i == 0) { //only put teams in for match 0
 				Team[] teamsInMatch = new Team[2];
 				if(2 * i < teams.length) {
 					teamsInMatch[0] = teams[2 * i];
@@ -52,7 +52,6 @@ public class TournamentBuilder {
 				m.setTeamList(teamsInMatch);
 			}
 			matchDAO.createMatch(m);
-			
 		}
 		}
 		
