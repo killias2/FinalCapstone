@@ -49,12 +49,11 @@
                 }
             },
             autoFill() {
-                // function fill(item){
-                //     item.player1.name = "baby baluga"
-                // }
                 for (let i = 0; i < this.fixedRounds[0].games.length; i++){
                     //this.fixedRounds[0].games[i].player1.name = this.matches[i].teamList[0];
                     this.fixedRounds[0].games[i].player2.name = "the other team";
+                    // if win, mark em.
+                    
                 }
             }
         },
