@@ -1,18 +1,18 @@
 <template>
     <div>
         <tournament-details/>
-        <bracket/>
+        <bracket-display/>
     </div>
 </template>
 
 <script>
 import TournamentDetails from "../components/TournamentDetails"
-import bracket from '../components/Bracket';
+import BracketDisplay from '../components/BracketDisplay';
 
 export default {
     components: {
         TournamentDetails,
-        bracket
+        BracketDisplay
     }
 };
 </script>
