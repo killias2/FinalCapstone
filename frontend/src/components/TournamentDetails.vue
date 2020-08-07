@@ -54,17 +54,15 @@ export default {
   margin-bottom: 10px;
 }
 .title {
-  font-size: 30px; 
+  font-size: 50px; 
 }
 .date {
-  font-size: 16px;
+  font-size: 20px;
 }
 
 .tournament {
   text-align: center;
   display: block;
 }
-.tournament:hover {
-        background: blueviolet;
-    }
+
 </style>

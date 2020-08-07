@@ -15,7 +15,7 @@
         width: 150px;
         height: 100px;
         display: block;
-        margin-left: 25px;
+        margin: 20px;
     }
     .sidebar {
         height: 400px;

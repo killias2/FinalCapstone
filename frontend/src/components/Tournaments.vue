@@ -37,6 +37,7 @@ export default {
 <style scoped>
     .tournament {
         
+        
         display: block;
         text-align: center;
         color: white;
@@ -52,5 +53,8 @@ export default {
     }
     h3 {
         font-size: 18px;
+    }
+    .tournament:hover {
+        background: blueviolet;
     }
 </style>
