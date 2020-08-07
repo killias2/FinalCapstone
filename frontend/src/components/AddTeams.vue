@@ -1,7 +1,8 @@
 <template>
     <div>
-        <h1>Add Team to Tournament</h1>
+        
         <form v-on:submit.prevent="addNewTeam">
+            <h2>Add Team to Tournament</h2>
             <div class="form-fields">
                 <label class="title" for="teamName" required >Team Name:</label>
                 <input v-model="newTeam.teamName" type="text" />
@@ -48,6 +49,7 @@ export default {
                 }
             });
             this.resetForm();
+            this.$router.go;
         }
     }
     
@@ -56,11 +58,26 @@ export default {
 
 <style scoped>
     form {
-        width: auto;
+        width: 25%;
+        position: fixed;
+        right: 0;
+        margin-right: 20px;
+        margin-top: 150px;
     }
     .form-fields {
-        display: flex;
+        text-align: center;
         width: auto;
+    }
+    h2 {
+        text-align: center;
+    }
+    input {
+        display: block;
+        text-align: center;
+        width: 80%;
+    }
+    button {
+        width: 80%;
     }
 
 </style>

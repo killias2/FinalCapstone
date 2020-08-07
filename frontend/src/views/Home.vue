@@ -1,8 +1,8 @@
 <template>
   <div>
     <home-page />
+    <user-nav />
     <sidebar />
-    <add-teams />
     <bracket />
   </div>
 </template>
@@ -11,14 +11,14 @@
 import HomePage from '../components/HomePage'
 import Sidebar from '../components/Sidebar'
 import Bracket from '../components/Bracket'
-import AddTeams from '../components/AddTeams'
+import UserNav from "../components/UserNav"
 
 export default {
   components: {
     HomePage,
     Sidebar,
     Bracket,
-    AddTeams
+    UserNav
   }
 };
 </script>
