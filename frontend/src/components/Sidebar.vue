@@ -1,9 +1,8 @@
 <template>
     <div class="sidebar">
         <aside>
-            <router-link :to="{name: 'tournament'}" tag="button" class="button">Current Tournaments</router-link>
+            <router-link :to="{name: 'tournament'}" tag="button" class="button">Upcoming Tournaments</router-link>
             <button type="button" class="button">Past Tournaments</button>
-            <button type="button" class="button">Future Tournaments</button>
             <router-link :to="{name: 'new-tournament'}" tag="button" class="button">Create Tournament</router-link>
         </aside>
     </div>
@@ -14,12 +13,12 @@
     .button {
         text-align: center;
         width: 150px;
-        height: 50px;
+        height: 100px;
         display: block;
-        margin-left: 25px;
+        margin: 20px;
     }
     .sidebar {
-        height: 350px;
+        height: 400px;
         width: 200px;
         position:fixed;
         margin-top: 200px;
@@ -29,13 +28,12 @@
         left: 0;
         background-color: rgb(8, 69, 97);
         overflow-x: hidden;
-        padding-top: 20px;
+        padding-top: 10px;
         border-radius: 25px;
     }
     aside {
-        margin-top: 25px;
         text-decoration: none;
-        font-size: 25px;
+        font-size: 18px;
         color: #818181;
         display: block;
     }

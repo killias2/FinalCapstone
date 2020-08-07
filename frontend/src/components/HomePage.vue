@@ -39,7 +39,6 @@ p {
     color: red;
     font-weight: bolder;
     text-shadow: 2px;
-    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
     font-size: 50px;
 }
     

@@ -13,7 +13,6 @@ import com.techelevator.model.Tournament;
 @Service
 public class TeamSqlDAO implements TeamDAO {
 
-
 private JdbcTemplate jdbcTemplate;
 	
 	public TeamSqlDAO(JdbcTemplate jdbcTemplate) {
