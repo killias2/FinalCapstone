@@ -29,11 +29,17 @@ public class EmailController {
     	this.userDAO = userDAO;
     }
  
-    @RequestMapping(value = "/sendmail", method = RequestMethod.POST)
-    public String sendmail(@RequestBody PasswordRequest pwR) {
-    	emailBody = bodyBuilder();
-    	emailService.sendMail(pwR.getEmailAddress(), "Your Temporary Password", emailBody);
-    	return "EmailSent";
+    @RequestMapping(value = "/passwordrecovery", method = RequestMethod.POST)
+    public String passwordRecover(@RequestBody PasswordRequest pwR) {
+    	if(userDAO.findByUsername(pwR.getUserName()).getEmailAddress() == pwR.getEmailAddress()) {
+    		
+        	emailBody = bodyBuilder();
+        	emailService.sendMail(pwR.getEmailAddress(), "Your Temporary Password", emailBody);
+        	return "Password Recovery Success";
+    	}
+    	else {
+        	return "Your username did not match the listed email address";	
+    	}
     }
     
     private String bodyBuilder() {
