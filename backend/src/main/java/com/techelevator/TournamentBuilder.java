@@ -37,14 +37,14 @@ public class TournamentBuilder {
 			m.setRound(i);
 			if(i == 0) { //only put teams in for match 0
 				Team[] teamsInMatch = new Team[2];
-				if(2 * i < teams.length) {
-					teamsInMatch[0] = teams[2 * i];
+				if(2 * j < teams.length) {
+					teamsInMatch[0] = teams[j];
 				}
 				else {
 					teamsInMatch[0] = bye;
 				}
-				if(2 * i < teams.length - 1) {
-					teamsInMatch[1] = teams[(2 * i) + 1];
+				if(2 * j < teams.length - 1) {
+					teamsInMatch[1] = teams[(teams.length - j) - 1];
 				}
 				else {
 					teamsInMatch[1] = bye;
