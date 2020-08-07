@@ -91,7 +91,7 @@ export default {
             this.newTournament = {};
         },
         addNewTournament() {
-            tournamentService.newTournament(1)
+            tournamentService.newTournament(this.newTournament)
             .then(response => {
                 if (response.status < 299) {
                  console.log('success');

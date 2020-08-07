@@ -22,7 +22,7 @@ public class TournamentSqlDAO implements TournamentDAO{
 		String sql = "INSERT INTO tournaments (t_name, is_open, gameid, bracketid, organizerid, start_date, end_date, is_seeded, is_complete, number_of_teams)"
 					+ "values(?,?,?,?,?,?,?,?, ?, ?)";
 		return 1 == jdbcTemplate.update(sql, tournament.getTournamentName(), tournament.getOpenToJoin(), tournament.getGameId(), tournament.getBracketId(),
-										tournament.getTournamentOrganizerId(), tournament.getStartDate(), tournament.getEndDate(), tournament.getIsSeeded(), tournament.getIsComplete(), tournament.getNumberOfTeams(), false);
+										tournament.getTournamentOrganizerId(), tournament.getStartDate(), tournament.getEndDate(), tournament.getIsSeeded(), false, tournament.getNumberOfTeams());
 		
 		// TODO Auto-generated method stub
 		
@@ -53,7 +53,7 @@ public class TournamentSqlDAO implements TournamentDAO{
 	String sql = "UPDATE tournaments  SET (t_name, is_open, gameid, bracketid, organizerid, start_date, end_date, is_seeded, is_complete, winner_team_id)"
 				+ "= (?,?,?,?,?,?,?,?,?, ?) WHERE tournamentid = ?";
 	return 1 == jdbcTemplate.update(sql, tournament.getTournamentName(), tournament.getOpenToJoin(), tournament.getGameId(), tournament.getBracketId(),
-									tournament.getTournamentOrganizerId(), tournament.getStartDate(), tournament.getEndDate(), tournament.getIsSeeded(), tournament.getIsComplete(), tournament.getWinnerTeamId(), tournament.getId());
+									tournament.getTournamentOrganizerId(), tournament.getStartDate(), tournament.getEndDate(), tournament.getIsSeeded(), tournament.getWinnerTeamId(), tournament.getId());
 	}
 	
 	
