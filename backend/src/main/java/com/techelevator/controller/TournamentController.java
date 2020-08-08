@@ -41,5 +41,9 @@ public class TournamentController {
 		TournamentBuilder t = new TournamentBuilder(tournament, teamDAO, matchDAO);
 		return t.buildTournament();
 	}
+	@RequestMapping(value = "/tournament/my-tournaments/{id}", method = RequestMethod.GET)
+	public List<Tournament> getTournamentByOrganizerId(@PathVariable long id) {
+		return tournamentDAO.getTournamentByOrganizerId(id);
+	}
 	
 }

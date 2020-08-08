@@ -21,7 +21,25 @@ public class Tournament {
 	private Boolean isComplete;
 	private Long winnerTeamId;
 	private Long numberOfTeams;
+	private String gameName;
+	private String gameDescription;
 	
+	public String getGameName() {
+		return gameName;
+	}
+
+	public void setGameName(String gameName) {
+		this.gameName = gameName;
+	}
+
+	public String getGameDescription() {
+		return gameDescription;
+	}
+
+	public void setGameDescription(String gameDescription) {
+		this.gameDescription = gameDescription;
+	}
+
 	public Tournament() {
 		
 	}

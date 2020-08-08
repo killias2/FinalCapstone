@@ -8,11 +8,9 @@
         </div>
         <div class="form-element">
             <label class="title" for="dropdown">Game</label>
-            <div>
-                <select required v-model="newTournament.gameId" name="game" class="dropdown">
-                    <option value=""  disabled>Select an Option </option>
-                    <option value="1">Billiards</option>
-                    <option value="2">Soccer</option>
+            <div >
+                <select  required v-model="newTournament.gameId" name="all-games" class="dropdown">
+                    <option v-for="game in games"  v-bind:key="game.gameId" :value="game.gameId" >{{game.gameName}}</option>
                 </select>
             </div>
         </div>
@@ -68,6 +66,8 @@
 
 <script>
 import tournamentService from "../services/TournamentService";
+import TournamentService from '../services/TournamentService';
+
 
 export default {
     name: "create-tournament",
@@ -83,8 +83,28 @@ export default {
                 tournamentOrganizerId: this.$store.state.user.id,
                 isSeeded: false,
                 numberOfTeams: 0
+            },
+            games: [
+                {
+                gameId: 0,
+                gameName: '',
+                description: ''
             }
+            ]
         }
+    },
+    created() {
+        TournamentService.getAllGames()
+        .then(response => {
+        this.games = response.data;
+        })
+
+
+// created() {
+//         TournamentService.viewTournaments().then(response => {
+//            this.tournaments = response.data;
+//         })
+//     }
     },
     methods: {
         resetForm() {
