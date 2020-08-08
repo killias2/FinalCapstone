@@ -4,11 +4,11 @@
         <form v-on:submit.prevent="addNewTeam">
             <h2>Add Team to Tournament</h2>
             <div class="form-fields">
-                <label class="title" for="teamName" required >Team Name:</label>
+                <label class="text-field" for="teamName" required >Team Name:</label>
                 <input v-model="newTeam.teamName" type="text" />
-                <label class="title" for="email" required >Email Address:</label>
+                <label class="text-field" for="email" required >Email Address:</label>
                 <input v-model="newTeam.email" type="email" />
-                <label class="title" for="seed" required>Seed:</label>
+                <label class="text-field" for="seed" required>Seed:</label>
                 <input v-model="newTeam.seed" type="number" min="1"/>
             </div>
             <div class="actions">
@@ -25,18 +25,22 @@ import TeamService from '../services/TeamService'
 export default {
     data() {
         return {
+            tournament: [],
             newTeam: {
-                tournamentId: 1,
+                tournamentId: this.$route.params.id,
                 teamName: '',
                 seed: 0,
                 email: ''
             }
         }
     },
+    created() {
+
+    },
     methods: {
         resetForm() {
             this.newTeam = {
-                tournamentId: 1,
+                tournamentId: this.$route.params.id,
                 teamName: '',
                 seed: 0,
                 email: ''
@@ -58,11 +62,11 @@ export default {
 
 <style scoped>
     form {
-        width: 25%;
-        position: fixed;
+        width: 300px;
+        /* position: fixed; */
         right: 0;
         margin-right: 20px;
-        margin-top: 150px;
+        margin-top: 50px;
     }
     .form-fields {
         text-align: center;
@@ -75,9 +79,23 @@ export default {
         display: block;
         text-align: center;
         width: 80%;
+        margin-left: 10%;
     }
     button {
         width: 80%;
+        display: block;
+        text-align: center;
     }
+    .actions {
+        display: flex;
+        width: 90%;
+        margin-left: 5%;
+        margin-top: 20px;
+    }
+    .text-field {
+        size: large;
+        padding-top: 10px;
+    }
+
 
 </style>

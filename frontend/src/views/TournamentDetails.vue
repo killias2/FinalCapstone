@@ -1,6 +1,8 @@
 <template>
     <div>
+        <h1>Tournament Details</h1>
         <tournament-details/>
+        <add-teams/>
         <bracket/>
         <user-nav />
     </div>
@@ -10,12 +12,14 @@
 import TournamentDetails from "../components/TournamentDetails"
 import bracket from '../components/Bracket';
 import UserNav from '../components/UserNav'
+import AddTeams from '../components/AddTeams'
 
 export default {
     components: {
         TournamentDetails,
         bracket,
-        UserNav
+        UserNav,
+        AddTeams
     }
 };
 </script>

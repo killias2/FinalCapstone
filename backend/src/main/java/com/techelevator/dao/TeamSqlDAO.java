@@ -21,7 +21,7 @@ private JdbcTemplate jdbcTemplate;
 
 	@Override
 	public boolean createTeam(Team newTeam) {
-		String sql = "INSERT INTO teams (teamid, tournamentid, general_manager_id, teamname, seed, email) VALUES "
+		String sql = "INSERT INTO teams (teamid, tournamentid, general_manager_id, teamname, seed, team_email_address) VALUES "
 				+"(?, ?, ?, ?, ?, ?)";
 		newTeam.setTeamId(getNextTeamId());
 		return 1 == jdbcTemplate.update(sql, newTeam.getTeamId(), newTeam.getTournamentId(), 
