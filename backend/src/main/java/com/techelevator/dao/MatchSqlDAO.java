@@ -83,7 +83,7 @@ public class MatchSqlDAO implements MatchDAO {
 	}
 	
 	public Team[] getMatchTeams(Match match) {
-		String sql = "SELECT teams.teamid, tournamentid, general_manager_id, teamname FROM teams JOIN " +
+		String sql = "SELECT teams.teamid, tournamentid, general_manager_id, teamname, seed FROM teams JOIN " +
 				"team_match ON teams.teamid = team_match.teamid WHERE matchid = ?";
 		SqlRowSet results = jdbcTemplate.queryForRowSet(sql, match.getMatchid());
 		List<Team> teamList = new ArrayList<>();
@@ -123,6 +123,7 @@ public class MatchSqlDAO implements MatchDAO {
 		Team newTeam = new Team();
 		newTeam.setTeamId(results.getLong("teamid"));
 		newTeam.setTournamentId(results.getLong("tournamentid"));
+		newTeam.setSeed(results.getLong("seed"));
 		if(results.getLong("general_manager_id") > 0) {
 			newTeam.setGeneralManagerId(results.getLong("general_manager_id"));
 		}

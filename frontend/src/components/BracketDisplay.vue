@@ -2,7 +2,7 @@
 
     <bracket :rounds="fixedRounds">
         <template #player="{ player }"> 
-            {{ player.name }} {{ player.id }} <!-- only show if seeded -->
+           {{ player.id }} {{ player.name }}  <!-- only show if seeded -->
         </template>
         <template #player-extension-bottom="{ match }">
             game info: {{ match.title }}
@@ -49,29 +49,47 @@
                 } 
                 else if(this.matches.length >= 7) {
                     this.fixedRounds.shift();
-                    
                 }
                 else {
                     this.fixedRounds.splice(-2, 2);
                 }
             },
             autoFill() { 
+                this.matches.forEach((match) => {
+                    if(match.round == 0){
+                        this.firstRoundMatches.push(match);
+                    }
+                })
+                while (this.firstRoundMatches.length)
+                    {
+                        this.sortedMatches.push(this.firstRoundMatches.shift());
+                        this.sortedMatches.push(this.firstRoundMatches.pop());
+                    }
+                    //fill out each match of the first round based on the sorted matches objects
                 for (let i = 0; i < this.fixedRounds[0].games.length; i++){
-                    this.fixedRounds[0].games[i].player1.name = this.matches[i].teamList[0].teamName;
-                    this.fixedRounds[0].games[i].player1.id = toString(this.matches[i].teamsList[0].seed);
-                    this.fixedRounds[0].games[i].player2.name = this.matches[i].teamList[1].teamName;
-                    this.fixedRounds[0].games[i].player2.id = toString(this.matches[i].teamsList[1].seed);
+                    this.fixedRounds[0].games[i].player1.name = this.sortedMatches[i].teamList[0].teamName;
+                    this.fixedRounds[0].games[i].player1.id = this.sortedMatches[i].teamList[0].seed;
+                    this.fixedRounds[0].games[i].player2.name = this.sortedMatches[i].teamList[1].teamName;
+                    this.fixedRounds[0].games[i].player2.id = this.sortedMatches[i].teamList[1].seed;
                     // if win, mark em.
                     // if(this team wins make them winner and the other team loser then do opposite){
                     // this.fixedRounds[0].games[i].player1.winner = this.matches[i].;
                     // this.fixedRounds[0].games[i].player1.winner = this.matches[i].teamList[1].teamName;
                     // }
-                    //still need seed
                 }
+                //fill out the rest of the matches based on winners of previous matches... or should it be filled out based on sorted matches
+                for (let i = 0; i < this.fixedRounds[1].games.length; i++){
+                    if(this.fixedRounds[0].games[i])
+                    this.fixedRounds[1].games[i].player1.name 
+                    this.fixedRounds[1].games[i].player1.id 
+                }
+
             }
         },
         data() {
             return {
+                firstRoundMatches: [],
+                sortedMatches: [],
                 matches: [],
                 teams: [],
                 currentTournament: this.$store.state.currentTournament,
