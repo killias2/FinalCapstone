@@ -1,6 +1,5 @@
 <template>
     <div>
-        
         <tournament-details/>
         <bracket/>
         <user-nav />

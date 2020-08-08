@@ -21,7 +21,7 @@
         type="email" 
         class="form-control"
         placeholder="Email Address" 
-        
+        v-model="user.emailAddress"
         required 
       />
       <label for="password" class="sr-only">Password</label>
@@ -78,6 +78,7 @@ export default {
         password: '',
         confirmPassword: '',
         role: '',
+        emailAddress: ''
       },
       registrationErrors: false,
       registrationErrorMsg: 'There were problems registering this user.',
