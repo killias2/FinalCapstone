@@ -5,6 +5,7 @@
         v-bind:currentTournament="tournament" v-on:click="viewTournamentDetails(tournament)">
             <h2>{{tournament.tournamentName}}</h2>
             <h3>{{tournament.startDate}} to {{tournament.endDate}}</h3>
+            <h3>{{tournament.numberOfTeams}} teams</h3>
         </div>
     </div>
 </template>

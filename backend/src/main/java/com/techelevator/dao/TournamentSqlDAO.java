@@ -29,7 +29,9 @@ public class TournamentSqlDAO implements TournamentDAO{
 	}
 	@Override
 	public List<Tournament> getTournaments(){
-		String sql = "SELECT * FROM tournaments";
+		String sql = "SELECT * FROM tournaments t " +
+				"JOIN users ON user_id = organizerid " + 
+				"JOIN games g ON t.gameid = g.gameid ";
 		SqlRowSet results = jdbcTemplate.queryForRowSet(sql);
 		List<Tournament> tournaments = new ArrayList<>();
 		while(results.next()) {
@@ -56,6 +58,22 @@ public class TournamentSqlDAO implements TournamentDAO{
 									tournament.getTournamentOrganizerId(), tournament.getStartDate(), tournament.getEndDate(), tournament.getIsSeeded(), tournament.getWinnerTeamId(), tournament.getId());
 	}
 	
+	@Override
+	public List<Tournament> getTournamentByOrganizerId(Long id) {
+		List<Tournament> tournaments = new ArrayList<>();
+		String sql = "SELECT * " + 
+				"FROM tournaments t " + 
+				"JOIN users ON user_id = organizerid " + 
+				"JOIN games g ON t.gameid = g.gameid " +
+				"WHERE organizerid = ?";
+		SqlRowSet results = jdbcTemplate.queryForRowSet(sql, id);
+		while(results.next()) {
+			Tournament tournament = mapRowToTournament(results);
+			tournaments.add(tournament);
+		}
+		return tournaments;
+	}
+	
 	
 	private Tournament mapRowToTournament(SqlRowSet rs) {
 		Tournament tournament = new Tournament();
@@ -71,6 +89,8 @@ public class TournamentSqlDAO implements TournamentDAO{
 		tournament.setEndDate(rs.getDate("end_date").toLocalDate());
 		tournament.setIsSeeded(rs.getBoolean("is_seeded"));
 		tournament.setNumberOfTeams(rs.getLong("number_of_teams"));
+		tournament.setGameName(rs.getString("game_name"));
+		tournament.setGameDescription(rs.getString("game_description"));
 		return tournament;
 	}
 	
