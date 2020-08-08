@@ -23,7 +23,7 @@ public class MatchSqlDAO implements MatchDAO {
 	@Override
 	public Match[] getMatchList(Long tournamentId) {
 		String sql = "SELECT tournamentid, matchid, is_complete, winner_team_id, round, start_time, end_time " +
-				"FROM matches WHERE tournamentid = ?";
+				"FROM matches WHERE tournamentid = ? ORDER BY matchid";
 		SqlRowSet results = jdbcTemplate.queryForRowSet(sql, tournamentId);
 		List<Match> matchList = new ArrayList<>();
 		while(results.next()) {
