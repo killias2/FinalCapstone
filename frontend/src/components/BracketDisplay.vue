@@ -78,11 +78,11 @@
                     // }
                 }
                 //fill out the rest of the matches based on winners of previous matches... or should it be filled out based on sorted matches
-                for (let i = 0; i < this.fixedRounds[1].games.length; i++){
-                    if(this.fixedRounds[0].games[i])
-                    this.fixedRounds[1].games[i].player1.name 
-                    this.fixedRounds[1].games[i].player1.id 
-                }
+                // for (let i = 0; i < this.fixedRounds[1].games.length; i++){
+                //     if(this.fixedRounds[0].games[i])
+                //     this.fixedRounds[1].games[i].player1.name 
+                //     this.fixedRounds[1].games[i].player1.id 
+                // }
 
             }
         },
