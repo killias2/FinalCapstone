@@ -76,6 +76,16 @@ const router = new Router({
       component: Tournament
     },
     {
+      path: "/tournaments/current",
+      name: "tournaments-current",
+      component: Tournament
+    },
+    {
+      path: "/tournaments/past",
+      name: "tournaments-past",
+      component: Tournament
+    },
+    {
       path: '/tournaments/:id',
       name: 'tournament-details',
       component: TournamentDetails
