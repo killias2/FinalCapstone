@@ -6,5 +6,6 @@ public interface MatchDAO {
 	
 	public Match[] getMatchList(Long tournamentId);
 	public Match createMatch(Match newMatch);
+	Match completeMatch(Match newMatch);
 		
 }
