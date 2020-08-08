@@ -11,6 +11,7 @@ import Tournament from '../views/Tournaments'
 import MyTournament from '../views/MyTournament'
 import TournamentDetails from '../views/TournamentDetails.vue'
 import UserProfile from '../views/UserProfile.vue'
+import ChangePassword from '../views/ChangePassword.vue'
 
 
 
@@ -88,6 +89,11 @@ const router = new Router({
       path: "/users/:id",
       name: "user-profile",
       component: UserProfile
+    },
+    {
+      path: "/user/:id/change-password",
+      name: "change-password",
+      component: ChangePassword
     }
   ]
 })
