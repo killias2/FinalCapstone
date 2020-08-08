@@ -24,7 +24,17 @@ export default {
 
   getTournament(tournamentId) {
     return http.get(`/tournaments/${tournamentId}`, tournamentId);
-  }
+  },
+
+  getCurrentTournaments() {
+    return http.get('/tournaments/current');
+  },
+  getPastTournaments() {
+    return http.get('/tournaments/past');
+  },
+
+
+
 
 
 }
