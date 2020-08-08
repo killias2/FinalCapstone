@@ -4,7 +4,7 @@
       <router-link class="nav" tag="button" v-bind:to="{ name: 'logout' }" v-if="$store.state.token != ''">Logout</router-link>
       <router-link class="nav" tag="button" v-bind:to="{name: 'login'}"  v-if="$store.state.token == ''">Login</router-link>
       <router-link class="nav" tag="button" v-bind:to="{name: 'register'}"  v-if="$store.state.token == ''">Register</router-link>
-      <router-link class="nav" tag="button" v-if="$store.state.token != ''">My Profile</router-link> 
+      <router-link class="nav" tag="button" v-bind:to="{name:'user-profile'}" v-if="$store.state.token != ''">My Profile</router-link> 
       <!-- NEED TO ADD V-BIND ONCE MY PROFILE PAGE ADDED -->
       <router-link class="nav" tag="button" v-bind:to="{ name: 'my-tournament'}" v-if="$store.state.token != ''">My Tournaments</router-link>
     </div>
