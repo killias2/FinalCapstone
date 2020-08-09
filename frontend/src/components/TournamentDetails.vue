@@ -15,7 +15,7 @@
 </template>
 
 <script>
-// import TournamentService from "../services/TournamentService";
+
 
 
 export default {
@@ -26,17 +26,6 @@ export default {
     
   },
   methods: {
-    // retrieveTournament() {
-    //     TournamentService
-    //     .getTournament(this.$route.params.tournament.id)
-    //     .catch(error => {
-    //       if (error.response && error.response.status === 404) {
-    //         alert(
-    //           "Tournament not available."
-    //         );
-    //         this.$router.push("/");
-    //       }
-    //     });
     },
   }
 </script>
