@@ -111,8 +111,8 @@ public class TournamentSqlDAO implements TournamentDAO{
 		tournament.setEndDate(rs.getDate("end_date").toLocalDate());
 		tournament.setIsSeeded(rs.getBoolean("is_seeded"));
 		tournament.setNumberOfTeams(rs.getLong("number_of_teams"));
-		tournament.setGameName(rs.getString("game_name"));
-		tournament.setGameDescription(rs.getString("game_description"));
+//		tournament.setGameName(rs.getString("game_name"));
+//		tournament.setGameDescription(rs.getString("game_description"));
 		return tournament;
 	}
 
