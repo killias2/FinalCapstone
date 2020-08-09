@@ -1,7 +1,7 @@
 <template>
     <div>
         
-        <form v-on:submit.prevent="addNewTeam">
+        <form v-on:submit.prevent="addNewTeam" v-show="this.teams.length < this.currentTournament.numberOfTeams">
             <h2>Add Team to Tournament</h2>
             <div class="form-fields">
                 <label class="text-field" for="teamName" required >Team Name:</label>
@@ -25,17 +25,23 @@ import TeamService from '../services/TeamService'
 export default {
     data() {
         return {
-            tournament: [],
+            currentTournament: this.$store.state.currentTournament,
+            teams: [],
             newTeam: {
                 tournamentId: this.$route.params.id,
                 teamName: '',
                 seed: 0,
-                email: ''
+                email: '', 
+                generalManagerId: this.$store.state.user.id
             }
         }
     },
     created() {
-
+       
+        TeamService.viewTeams(this.$route.params.id).then(response => {
+            this.teams = response.data;
+        })
+ 
     },
     methods: {
         resetForm() {
@@ -46,12 +52,21 @@ export default {
                 email: ''
             };
         },
+        getTeams() {
+            TeamService.viewTeams(this.$route.params.id).then(response => {
+            this.teams = response.data;
+        })
+        },
         addNewTeam() {
             TeamService.addTeams(this.newTeam).then(response => {
                 if (response.status < 299) {
-                 console.log('success');
+                console.log('success');
                 }
+                
+                }).then(() => {
+                    this.getTeams();
             });
+
             this.resetForm();
             this.$router.go;
         }

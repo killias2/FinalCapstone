@@ -30,9 +30,9 @@ private JdbcTemplate jdbcTemplate;
 	
 	@Override
 	public boolean updateTeam(Team team) {
-	String sql = "UPDATE teams  SET (tournamentid, general_manager_id, teamname)"
+	String sql = "UPDATE teams  SET (tournamentid, general_manager_id, teamname, team_email_address)"
 				+ "= (?, ?, ?) WHERE teamid = ?";
-	return 1 == jdbcTemplate.update(sql, team.getTournamentId(), team.getGeneralManagerId(), team.getTeamName(), team.getTeamId());
+	return 1 == jdbcTemplate.update(sql, team.getTournamentId(), team.getGeneralManagerId(), team.getTeamName(), team.getTeamId(), team.getEmail());
 	}
 
 	@Override
@@ -77,9 +77,10 @@ private JdbcTemplate jdbcTemplate;
 			newTeam.setSeed(results.getLong("seed"));
 		}
 		if(results.getLong("general_manager_id") > 0) {
-			newTeam.setGeneralManagerId(results.getLong("generalManagerId"));
+			newTeam.setGeneralManagerId(results.getLong("general_manager_id"));
 		}
 		newTeam.setTeamName(results.getString("teamname"));
+		newTeam.setEmail(results.getString("team_email_address"));
 		return newTeam;
 	}
 
