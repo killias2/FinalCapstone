@@ -1,14 +1,12 @@
 <template>
   <div>
-    <div>
-       <h2>{{currentTournament.tournamentName}}</h2>
-        <h3>Start Date: {{currentTournament.startDate}}</h3>
-        <h3>End Date: {{currentTournament.endDate}}</h3>
+    <div class="tournament">
+       <h2 class="title">{{currentTournament.tournamentName}}</h2>
+        <h3 class="date">{{currentTournament.startDate}} to {{currentTournament.endDate}}</h3>
       <router-link
         tag="button"
         :to="{ name: 'EditTournament', params: {tournamentID: $route.params.tournamentID} }"
-        class="btn editTournament"
-      >Edit Tournament</router-link>
+        class="btn editTournament">Edit Tournament</router-link>
       <button class="btn deleteTournament" v-on:click="deleteTournament">Delete Tournament</button>
     </div>
   </div>
@@ -31,6 +29,7 @@ export default {
 </script>
 
 <style>
+
 .btn.editTournament {
   color: #fff;
   background-color: #508ca8;
@@ -43,4 +42,16 @@ export default {
   border-color: #ef031a;
   margin-bottom: 10px;
 }
+.title {
+  font-size: 50px; 
+}
+.date {
+  font-size: 20px;
+}
+
+.tournament {
+  text-align: center;
+  display: block;
+}
+
 </style>

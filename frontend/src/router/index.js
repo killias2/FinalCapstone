@@ -8,9 +8,11 @@ import Register from '../views/Register.vue'
 import store from '../store/index'
 import CreateTournament from '../views/CreateTournament'
 import Tournament from '../views/Tournaments'
+import MyTournament from '../views/MyTournament'
 import TournamentDetails from '../views/TournamentDetails.vue'
-import MyTournament from '../components/MyTournament'
 import TournamentHQ from '../views/TournamentHQ'
+
+
 
 Vue.use(Router)
 
@@ -79,7 +81,7 @@ const router = new Router({
     },
     {
       path: "/tournaments/:id",
-      name: "my-tournaments",
+      name: "my-tournament",
       component: MyTournament
     },
     {

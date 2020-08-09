@@ -1,18 +1,25 @@
 <template>
     <div>
+        <h1>Tournament Details</h1>
         <tournament-details/>
         <bracket-display/>
+        <add-teams/>
+        <user-nav />
     </div>
 </template>
 
 <script>
 import TournamentDetails from "../components/TournamentDetails"
 import BracketDisplay from '../components/BracketDisplay';
+import UserNav from '../components/UserNav'
+import AddTeams from '../components/AddTeams'
 
 export default {
     components: {
         TournamentDetails,
-        BracketDisplay
+        BracketDisplay,
+        UserNav,
+        AddTeams
     }
 };
 </script>

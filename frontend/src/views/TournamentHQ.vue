@@ -14,8 +14,8 @@ import BracketEditor from '../components/BracketEditor.vue';
 export default {
     name: 'TournamentHQ',
     components:{
-        'BracketDisplay': BracketDisplay,
-        'BracketEditor': BracketEditor
+        BracketDisplay,
+        BracketEditor
     }
     
 }
