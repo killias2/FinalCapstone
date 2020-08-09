@@ -35,22 +35,15 @@
             fixRounds() {
                 for (let i = 0; i < this.numRounds; i++){
                     let tempArray = {games: []};
-                    //let thisRound = this.matches.filter((match) => {
-                    //    return match.round == i;
-                    //})
-                    let thisRound = [];
-                    for(let j = 0; j < this.matches.length; j++){ 
-                      if(this.matches[j].round == i){
-                            thisRound.push(this.matches[j]);
-                        }
-                    }
-                    
-                    for(let k = 0; k < thisRound.length; k++){
-                        tempArray.games.push(this.matchObj);
-                    }
-                    //thisRound.forEach(() => {
-                    //    tempArray.games.push(this.matchObj)
-                     //   })
+                    let thisRound = this.matches.filter((match) => {
+                       return match.round == i;
+                    })
+                    thisRound.forEach(() => {
+                        tempArray.games.push({
+                            player1: { teamId: "", teamName: "", winner: null, seed: ""},
+                            player2: { teamId: "", teamName: "", winner: null, seed: ""},
+                        })
+                    })
                         this.fixedRounds.push(tempArray)
                     }
             },
@@ -62,7 +55,7 @@
                     if (this.matches[i].winnerTeamId){
                         //filter through this game's teamList to match that team. then, mark that team as winner in fixedRounds based on seed.
                         let winnerSeed = 0
-                        for(let x = 0; this.matches[i].teamList.length; x++){
+                        for(let x = 0; x < this.matches[i].teamList.length; x++){
                             if(this.matches[i].teamList[x].teamId == this.matches[i].winnerTeamId){
                                 winnerSeed = this.matches[i].teamList[x].seed;
                             }
@@ -131,11 +124,7 @@
                 matches: [],
                 currentTournament: this.$store.state.currentTournament,
                 tournamentId: this.$store.state.currentTournament.id,
-                fixedRounds: [],
-                matchObj: {
-                                player1: { teamId: "", teamName: "", winner: null, seed: ""},
-                                player2: { teamId: "", teamName: "", winner: null, seed: ""},
-                            },
+                fixedRounds: []
             }
         }
     }
