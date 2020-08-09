@@ -77,7 +77,7 @@ private JdbcTemplate jdbcTemplate;
 			newTeam.setSeed(results.getLong("seed"));
 		}
 		if(results.getLong("general_manager_id") > 0) {
-			newTeam.setGeneralManagerId(results.getLong("generalManagerId"));
+			newTeam.setGeneralManagerId(results.getLong("general_manager_id"));
 		}
 		newTeam.setTeamName(results.getString("teamname"));
 		newTeam.setEmail(results.getString("team_email_address"));
