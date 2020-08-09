@@ -37,7 +37,7 @@ private JdbcTemplate jdbcTemplate;
 
 	@Override
 	public Team[] getTeamsByTournament(Long id) {
-		String sql = "SELECT * FROM teams WHERE tournamentid = ?";
+		String sql = "SELECT * FROM teams WHERE tournamentid = ? ORDER BY seed";
 		SqlRowSet results = jdbcTemplate.queryForRowSet(sql, id);
 		List<Team> teamList = new ArrayList<Team>();
 		while(results.next()) {
