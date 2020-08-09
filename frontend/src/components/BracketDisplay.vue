@@ -46,13 +46,13 @@
                 //     this.fixedRounds.splice(-2, 2);
                 // }
                 for (let i = 0; i < this.numRounds; i++){
-                        let tempArray = {games: []};
-                        let thisRound = this.matches.filter((match) => {
-                            return match.round == i;
-                        })
-                        thisRound.forEach(() => {
-                            tempArray.games.push(this.matchObj)
-                        })
+                    let tempArray = {games: []};
+                    let thisRound = this.matches.filter((match) => {
+                        return match.round == i;
+                    })
+                    thisRound.forEach(() => {
+                        tempArray.games.push(this.matchObj)
+                    })
                         this.fixedRounds.push(tempArray)
                     }
             },
