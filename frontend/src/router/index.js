@@ -11,6 +11,10 @@ import Tournament from '../views/Tournaments'
 import MyTournament from '../views/MyTournament'
 import TournamentDetails from '../views/TournamentDetails.vue'
 import TournamentHQ from '../views/TournamentHQ'
+import UserProfile from '../views/UserProfile.vue'
+import ChangePassword from '../views/ChangePassword.vue'
+import CurrentTournaments from '../views/CurrentTournaments.vue'
+import PastTournaments from '../views/PastTournaments.vue'
 
 
 
@@ -75,6 +79,16 @@ const router = new Router({
       component: Tournament
     },
     {
+      path: "/tournaments/current",
+      name: "tournaments-current",
+      component: CurrentTournaments
+    },
+    {
+      path: "/tournaments/past",
+      name: "tournaments-past",
+      component: PastTournaments
+    },
+    {
       path: '/tournaments/:id',
       name: 'tournament-details',
       component: TournamentDetails
@@ -88,6 +102,16 @@ const router = new Router({
       path: "/tournamentHQ/:id",
       name: 'tournamenthq',
       component: TournamentHQ
+    },
+    {
+      path: "/users/:id",
+      name: "user-profile",
+      component: UserProfile
+    },
+    {
+      path: "/user/:id/change-password",
+      name: "change-password",
+      component: ChangePassword
     }
   ]
 })

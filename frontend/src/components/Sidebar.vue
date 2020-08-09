@@ -1,8 +1,8 @@
 <template>
     <div class="sidebar">
         <aside>
-            <router-link :to="{name: 'tournament'}" tag="button" class="button">Upcoming Tournaments</router-link>
-            <button type="button" class="button">Past Tournaments</button>
+            <router-link :to="{name: 'tournaments-current'}" tag="button" class="button">Upcoming Tournaments</router-link>
+            <router-link :to="{name: 'tournaments-past'}" tag="button" class="button">Past Tournaments</router-link>
             <router-link :to="{name: 'new-tournament'}" tag="button" class="button">Create Tournament</router-link>
         </aside>
     </div>

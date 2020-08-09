@@ -1,22 +1,19 @@
 <template>
     <div>
+        <h1>Update Password</h1>
         
-        <add-teams />
-        <my-tournament />
+        <change-password />
         <user-nav />
-        
     </div>
 </template>
 
 <script>
-import AddTeams from "../components/AddTeams"
-import MyTournament from "../components/MyTournament"
+import ChangePassword from "../components/ChangePassword"
 import UserNav from "../components/UserNav"
 
 export default {
     components: {
-        AddTeams,
-        MyTournament,
+        ChangePassword,
         UserNav
     }
 }

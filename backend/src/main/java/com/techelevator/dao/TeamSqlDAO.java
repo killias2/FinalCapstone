@@ -19,38 +19,28 @@ private JdbcTemplate jdbcTemplate;
 	}
 
 	@Override
-<<<<<<< HEAD
-	public Team createTeam(Team newTeam) {
-		String sql = "INSERT INTO teams (teamid, tournamentid, general_manager_id, teamname) VALUES "
-				+"(?, ?, ?, ?)";
-=======
+
 	public boolean createTeam(Team newTeam) {
 		String sql = "INSERT INTO teams (teamid, tournamentid, general_manager_id, teamname, seed, team_email_address) VALUES "
 				+"(?, ?, ?, ?, ?, ?)";
->>>>>>> b46f31c5aa99111ca9b476906ccbe7c5725e82b4
 		newTeam.setTeamId(getNextTeamId());
-		jdbcTemplate.update(sql, newTeam.getTeamId(), newTeam.getTournamentId(), 
-				newTeam.getGeneralManagerId(), newTeam.getTeamName());
-		return newTeam;
-	}
+		return 1 == jdbcTemplate.update(sql, newTeam.getTeamId(), newTeam.getTournamentId(),
+				newTeam.getGeneralManagerId(), newTeam.getTeamName(), newTeam.getSeed(), newTeam.getEmail());
+		}
 	
 	@Override
 	public boolean updateTeam(Team team) {
-	String sql = "UPDATE teams  SET (tournamentid, general_manager_id, teamname, team_email_address)"
-				+ "= (?, ?, ?) WHERE teamid = ?";
-	return 1 == jdbcTemplate.update(sql, team.getTournamentId(), team.getGeneralManagerId(), team.getTeamName(), team.getTeamId(), team.getEmail());
+	String sql = "UPDATE teams  SET (tournamentid, general_manager_id, teamname, seed, team_email_address)"
+				+ "= (?, ?, ?, ?, ?) WHERE teamid = ?";
+	return 1 == jdbcTemplate.update(sql, team.getTournamentId(), team.getGeneralManagerId(),
+			team.getTeamName(), team.getSeed(), team.getEmail(), team.getTeamId());
 	}
 
 	@Override
-<<<<<<< HEAD
-	public Team[] getTeamsByTournament(Long tournamentId) {
-		String sql = "SELECT * FROM teams WHERE tournamentid = ?;";
-		SqlRowSet results = jdbcTemplate.queryForRowSet(sql, tournamentId);
-=======
+
 	public Team[] getTeamsByTournament(Long id) {
 		String sql = "SELECT * FROM teams WHERE tournamentid = ? ORDER BY seed";
 		SqlRowSet results = jdbcTemplate.queryForRowSet(sql, id);
->>>>>>> b46f31c5aa99111ca9b476906ccbe7c5725e82b4
 		List<Team> teamList = new ArrayList<Team>();
 		while(results.next()) {
 			Team newTeam = mapRowToTeam(results);
@@ -85,13 +75,11 @@ private JdbcTemplate jdbcTemplate;
 		Team newTeam = new Team();
 		newTeam.setTeamId(results.getLong("teamid"));
 		newTeam.setTournamentId(results.getLong("tournamentid"));
-<<<<<<< HEAD
-		newTeam.setSeed(results.getLong("seed"));
-=======
+
 		if(results.getLong("seed") > 0) {
 			newTeam.setSeed(results.getLong("seed"));
 		}
->>>>>>> b46f31c5aa99111ca9b476906ccbe7c5725e82b4
+
 		if(results.getLong("general_manager_id") > 0) {
 			newTeam.setGeneralManagerId(results.getLong("general_manager_id"));
 		}
