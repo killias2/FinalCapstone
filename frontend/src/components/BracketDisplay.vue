@@ -2,7 +2,7 @@
 
     <bracket :rounds="fixedRounds">
         <template #player="{ player }"> 
-           {{ player.seed }} {{ player.teamName }}  <!-- only show if seeded -->
+           {{ player.seed }} {{ player.teamName }}
         </template>
         <template #player-extension-bottom="{ match }">
             game info: {{ match.title }}
@@ -28,21 +28,33 @@
                 })
             .then(() => {
                 this.fixRounds();
+            })
+            .then(() => {
                 this.autoFill();
             })
         },
         methods: {
             fixRounds() {
-                this.fixedRounds = this.rounds;
-                if(this.matches.length >= 15){
-                    this.fixedRounds = this.rounds;
-                } 
-                else if(this.matches.length >= 7) {
-                    this.fixedRounds.shift();
-                }
-                else {
-                    this.fixedRounds.splice(-2, 2);
-                }
+                // this.fixedRounds = this.rounds;
+                // if(this.matches.length >= 15){
+                //     this.fixedRounds = this.rounds;
+                // } 
+                // else if(this.matches.length >= 7) {
+                //     this.fixedRounds.shift();
+                // }
+                // else {
+                //     this.fixedRounds.splice(-2, 2);
+                // }
+                for (let i = 0; i < this.numRounds; i++){
+                        let tempArray = {games: []};
+                        let thisRound = this.matches.filter((match) => {
+                            return match.round == i;
+                        })
+                        thisRound.forEach(() => {
+                            tempArray.games.push(this.matchObj)
+                        })
+                        this.fixedRounds.push(tempArray)
+                    }
             },
             autoFill() { 
                     //fill out each match of the first round based on the sorted matches objects
@@ -100,7 +112,7 @@
         },
         computed: {
             numRounds() {
-                return this.fixedRounds.length;
+                return this.matches[this.matches.length - 1].round +1;
             },
             currentRoundMatches() {
                 return this.matches.filter((match) => {
@@ -113,105 +125,13 @@
                 currentRound: 0,
                 sortedMatches: [],
                 matches: [],
-                teams: [],
                 currentTournament: this.$store.state.currentTournament,
                 tournamentId: this.$store.state.currentTournament.id,
                 fixedRounds: [],
-                rounds: [
-                    //sweet 16
-                    {
-                        games: [
-                            {
-                                player1: { teamId: "", teamName: "", winner: null, seed: "" },
-                                player2: { teamId: "", teamName: "", winner: null, seed: ""},
-                            },
-                            {
-            
-                                player1: { teamId: "", teamName: "", winner: null, seed: "" },
-                                player2: { teamId: "", teamName: "", winner: null, seed: ""  },
-                            },
-                            {
-            
-                                player1: { teamId: "", teamName: "", winner: null, seed: "" },
-                                player2: { teamId: "", teamName: "", winner: null, seed: ""},
-                            },
-                            {
-            
-                                player1: { teamId: "", teamName: "", winner: null, seed: "" },
-                                player2: { teamId: "", teamName: "", winner: null, seed: "" },
-                            },
-                                                        {
+                matchObj: {
                                 player1: { teamId: "", teamName: "", winner: null, seed: ""},
                                 player2: { teamId: "", teamName: "", winner: null, seed: ""},
                             },
-                            {
-            
-                                player1: { teamId: "", teamName: "", winner: null, seed: "" },
-                                player2: { teamId: "", teamName: "", winner: null, seed: ""},
-                            },
-                            {
-            
-                                player1: { teamId: "", teamName: "", winner: null, seed: "" },
-                                player2: { teamId: "", teamName: "", winner: null, seed: ""},
-                            },
-                            {
-            
-                                player1: { teamId: "", teamName: "", winner: null, seed: ""},
-                                player2: { teamId: "", teamName: "", winner: null, seed: ""},
-                            }
-                        ]
-                    },
-                //elite 8 
-                    {
-                        games: [
-                            {
-            
-                                player1: { teamId: "", teamName: "", winner: null, seed: ""},
-                                player2: { teamId: "", teamName: "", winner: null, seed: ""},
-                            },
-                            {
-            
-                                player1: { teamId: "", teamName: "", winner: null, seed: ""},
-                                player2: { teamId: "", teamName: "", winner: null, seed: ""},
-                            },
-                            {
-            
-                                player1: { teamId: "", teamName: "", winner: null, seed: ""},
-                                player2: { teamId: "", teamName: "", winner: null, seed: ""},
-                            },
-                            {
-            
-                                player1: { teamId: "", teamName: "", winner: null, seed: ""},
-                                player2: { teamId: "", teamName: "", winner: null, seed: ""},
-                            }
-                        ]
-                    },
-                    //final 4
-                    {
-                        games: [
-                            {
-            
-                                player1: { teamId: "", teamName: "", winner: null, seed: ""},
-                                player2: { teamId: "", teamName: "", winner: null, seed: ""},
-                            },
-                            {
-            
-                                player1: { teamId: "", teamName: "", winner: null, seed: ""},
-                                player2: { teamId: "", teamName: "", winner: null, seed: ""},
-                            }
-                        ]
-                    },
-                    //Final
-                    {
-                        games: [
-                            {
-            
-                                player1: {teamId: "", name: "", winner: null, seed: ""},
-                                player2: {teamId: "", name: "", winner: null, seed: "" },
-                            }
-                        ]
-                    }
-                ]
             }
         }
     }
