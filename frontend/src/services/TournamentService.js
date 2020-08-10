@@ -22,19 +22,25 @@ export default {
     return http.get(`/tournaments/${tournamentId}/teams`);
   },
 
-  getTournament(tournamentId) {
-    return http.get(`/tournaments/${tournamentId}`, tournamentId);
+  getTournament(tournamentID) {
+    return http.get(`/tournaments/${tournamentID}`, tournamentID);
+  },
+
+  getAllGames() {
+    return http.get('/games');
+  }, 
+
+  getUsersTournaments(organizerID) {
+    return http.get(`/tournament/my-tournaments/${organizerID}`);
   },
 
   getCurrentTournaments() {
     return http.get('/tournaments/current');
   },
+  
   getPastTournaments() {
     return http.get('/tournaments/past');
-  },
-
-
-
+  }
 
 
 }
