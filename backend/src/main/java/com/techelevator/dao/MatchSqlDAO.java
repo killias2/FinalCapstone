@@ -67,18 +67,31 @@ public class MatchSqlDAO implements MatchDAO {
 		newMatch.setComplete(true);
 		jdbcTemplate.update(sql, newMatch.isComplete(), newMatch.getMatchid());
 		
-		sql = "SELECT * FROM teams WHERE tourmanetid = ? ";
-		SqlRowSet results = jdbcTemplate.queryForRowSet(sql, newMatch.getMatchid());
-		int teamsInTournament = 0;
-		int currentMatchIndex = 0;
-		while(results.next()) {
-			if(results.getLong("matchid") == newMatch.getMatchid()) {
-				currentMatchIndex = teamsInTournament;
-			}
-			teamsInTournament++;
-		}
-		int nextMatchIndex = currentMatchIndex / 2;
+		sql = "SELECT * FROM matches WHERE tournamentid = ? AND round = ? ORDER BY matchid ASC";
+		SqlRowSet results = jdbcTemplate.queryForRowSet(sql, newMatch.getTournamentId(), newMatch.getRound());
 		
+		int currentMatchIndex = 0;
+		int matchesInCurrentRound = 0;
+		//long firstMatchId = 0;
+		while(results.next()) {
+			/*if(matchesInCurrentRound == 0) {
+				firstMatchId = results.getLong("matchid");
+			}*/
+			if(results.getLong("matchid") == newMatch.getMatchid()) {
+				currentMatchIndex = matchesInCurrentRound;
+				System.out.println("if statement entered");
+			}
+
+			matchesInCurrentRound ++;
+		}
+		
+		long nextMatchIndex = currentMatchIndex / 2;
+		SqlRowSet nextRoundResults = jdbcTemplate.queryForRowSet(sql, newMatch.getTournamentId(), newMatch.getRound() + 1);
+		if(nextRoundResults.next()) {
+		long startingIndex = nextRoundResults.getLong("matchid");
+		System.out.println(currentMatchIndex + " " + matchesInCurrentRound + " " + nextMatchIndex + " " + startingIndex);
+		sql = "INSERT INTO team_match (matchid, teamid) VALUES (?, ?)";
+		jdbcTemplate.update(sql,  startingIndex + nextMatchIndex, newMatch.getWinnerTeamId());}
 		return newMatch;
 	}
 	@Override

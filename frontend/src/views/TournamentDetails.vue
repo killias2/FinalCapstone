@@ -10,16 +10,16 @@
 
 <script>
 import TournamentDetails from "../components/TournamentDetails"
-import BracketDisplay from '../components/BracketDisplay';
 import UserNav from '../components/UserNav'
 import AddTeams from '../components/AddTeams'
+import BracketDisplay from '../components/BracketDisplay';
 
 export default {
     components: {
         TournamentDetails,
-        BracketDisplay,
         UserNav,
-        AddTeams
+        AddTeams,
+        BracketDisplay
     }
 };
 </script>

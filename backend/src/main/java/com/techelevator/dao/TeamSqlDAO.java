@@ -74,11 +74,9 @@ private JdbcTemplate jdbcTemplate;
 		Team newTeam = new Team();
 		newTeam.setTeamId(results.getLong("teamid"));
 		newTeam.setTournamentId(results.getLong("tournamentid"));
-
 		if(results.getLong("seed") > 0) {
 			newTeam.setSeed(results.getLong("seed"));
 		}
-
 		if(results.getLong("general_manager_id") > 0) {
 			newTeam.setGeneralManagerId(results.getLong("general_manager_id"));
 		}
