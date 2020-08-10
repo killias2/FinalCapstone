@@ -7,7 +7,7 @@ const http = axios.create({
 export default {
 
   changePassword(passwordChange, id) {
-    return http.put(`/users/${id}/changepassword`, passwordChange)
+    return http.put(`/users/${id}/change-password`, passwordChange)
   }
 
 }

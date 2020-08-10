@@ -65,7 +65,7 @@ public class EmailController {
     }
     
     @ResponseStatus(HttpStatus.OK)
-    @RequestMapping(value = "/users/{id}/changepassword", method = RequestMethod.PUT)
+    @RequestMapping(value = "/users/{id}/change-password", method = RequestMethod.PUT)
     public void changePassword(@PathVariable Long id, @RequestBody PasswordChange passwordChange ) {
     	try {
     		User thisUser = userDAO.getUserById(id);
