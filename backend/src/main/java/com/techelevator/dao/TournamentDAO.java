@@ -13,6 +13,10 @@ public interface TournamentDAO {
 
 	
 	List<Tournament> getTournamentByOrganizerId(Long id);
-
-
+	
+	List<Tournament> getCompleteTournaments();
+	
+	List<Tournament> getCurrentTournaments();
+	
+	
 }

@@ -32,6 +32,14 @@ export default {
 
   getUsersTournaments(organizerID) {
     return http.get(`/tournament/my-tournaments/${organizerID}`);
+  },
+
+  getCurrentTournaments() {
+    return http.get('/tournaments/current');
+  },
+  
+  getPastTournaments() {
+    return http.get('/tournaments/past');
   }
 
 
