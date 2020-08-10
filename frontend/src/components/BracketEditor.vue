@@ -2,10 +2,10 @@
     <div>
         <bracket-display v-bind:edit-mode="true"/>
         <div>
-            <form v-on:submit="sendWinner">
+            <form v-on:submit.prevent="sendWinner">
                 <label for="winnerInput"> Enter winner of game: </label>
                     <select name="winnerInput" v-model="winningTeam">
-                        <option v-for="team in selectedMatchTeams" :key="team.id">{{ team.teamName }} </option>
+                        <option v-for="team in selectedMatch.teamList" :key="team.id" :value="team.teamId">{{ team.teamName }} </option>
                     </select>
                 <input type="submit" value="Submit">
             </form>
@@ -22,14 +22,16 @@ export default {
         'BracketDisplay': BracketDisplay
     },
     computed: {
-        selectedMatchId: function() {
-            return this.$store.state.selectedMatchId;
+        selectedMatch: function() {
+            return this.$store.state.selectedMatch;
         }
     },
     watch: {
-        selectedMatchId: function(val) {
-            this.fetchMatch(val);
-        }
+        // selectedMatch: function(val) {
+        //     let match = val;
+        //     let matchId =  match.matchid;
+        //     this.fetchMatch(matchId);
+        // }
     },
     methods: {
         fetchMatch(matchId){
@@ -39,13 +41,17 @@ export default {
                 })
         },
         sendWinner() {
-            
+            this.selectedMatch.winnerTeamId = this.winningTeam
+            TournamentService.completeMatch(this.selectedMatch)
+                // .then(() => {
+                //     this.$router.push('/');
+                // })
         }
     },
     data() {
         return {
             selectedMatchTeams: [],
-            winningTeam: {},
+            winningTeam: 0
         }
     }
 }

@@ -47,7 +47,9 @@ export default {
   },
   generateBrackets(tournament) {
     return http.put('/tournaments', tournament);
+  },
+  completeMatch(match){
+    return http.put(`/matches/${match.matchid}/complete`, match);
   }
-
 
 }

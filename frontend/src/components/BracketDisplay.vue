@@ -5,7 +5,7 @@
            {{ player.seed }} {{ player.teamName }}
         </template>
         <template #player-extension-bottom="{ match }">
-            game info: {{ match.title }} {{ match.match.matchid }}<button v-if="hasButton" v-on:click="selectMatch(match.match.matchid)" v-bind="match"> {{ match.match.matchid }} Edit Match </button>
+            game info: {{ match.title }} {{ match.match.matchid }}<button v-if="hasButton" v-on:click="selectMatch(match.match)" v-bind="match"> {{ match.match.matchid }} Edit Match </button>
         </template>
     </bracket>
 
