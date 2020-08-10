@@ -82,7 +82,7 @@ public class MatchSqlDAO implements MatchDAO {
 			}
 			matchesInCurrentRound ++;
 		}
-		int nextMatchIndex = currentMatchIndex / 2;
+		long nextMatchIndex = currentMatchIndex / 2;
 		results = jdbcTemplate.queryForRowSet(sql, newMatch.getTournamentId(), newMatch.getRound() + 1);
 		results.next();
 		long startingIndex = results.getLong("matchid");
