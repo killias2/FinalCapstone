@@ -12,4 +12,6 @@ public interface TournamentDAO {
 	Tournament getTournamentById(Long id);
 
 	boolean updateTournament(Tournament tournament);
+	
+	List<Tournament> getTournamentByOrganizerId(Long id);
 }

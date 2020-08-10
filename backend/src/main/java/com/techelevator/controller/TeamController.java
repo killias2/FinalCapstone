@@ -21,7 +21,7 @@ public class TeamController {
 	}
 	
 	@RequestMapping(value = "/teams", method = RequestMethod.POST)
-	public boolean createTeam(@RequestBody Team newTeam) {
+	public Team createTeam(@RequestBody Team newTeam) {
 		return teamDAO.createTeam(newTeam);
 	}
 	

@@ -19,25 +19,27 @@ private JdbcTemplate jdbcTemplate;
 	}
 
 	@Override
-	public boolean createTeam(Team newTeam) {
-		String sql = "INSERT INTO teams (teamid, tournamentid, general_manager_id, teamname, seed, email) VALUES "
-		+"(?, ?, ?, ?, ?, ?)";
+	public Team createTeam(Team newTeam) {
+		String sql = "INSERT INTO teams (teamid, tournamentid, general_manager_id, teamname, seed, team_email_address) VALUES "
+				+"(?, ?, ?, ?, ?, ?)";
 		newTeam.setTeamId(getNextTeamId());
-		return 1 == jdbcTemplate.update(sql, newTeam.getTeamId(), newTeam.getTournamentId(),
-		newTeam.getGeneralManagerId(), newTeam.getTeamName(), newTeam.getSeed(), newTeam.getEmail());
+		jdbcTemplate.update(sql, newTeam.getTeamId(), newTeam.getTournamentId(),
+				newTeam.getGeneralManagerId(), newTeam.getTeamName(), newTeam.getSeed(), newTeam.getEmail());
+		return newTeam;
 		}
 	
 	@Override
 	public boolean updateTeam(Team team) {
-	String sql = "UPDATE teams  SET (tournamentid, general_manager_id, teamname)"
-				+ "= (?, ?, ?) WHERE teamid = ?";
-	return 1 == jdbcTemplate.update(sql, team.getTournamentId(), team.getGeneralManagerId(), team.getTeamName(), team.getTeamId());
+	String sql = "UPDATE teams  SET (tournamentid, general_manager_id, teamname, seed, team_email_address)"
+				+ "= (?, ?, ?, ?, ?) WHERE teamid = ?";
+	return 1 == jdbcTemplate.update(sql, team.getTournamentId(), team.getGeneralManagerId(),
+			team.getTeamName(), team.getSeed(), team.getEmail(), team.getTeamId());
 	}
 
 	@Override
-	public Team[] getTeamsByTournament(Long tournamentId) {
-		String sql = "SELECT * FROM teams WHERE tournamentid = ?;";
-		SqlRowSet results = jdbcTemplate.queryForRowSet(sql, tournamentId);
+	public Team[] getTeamsByTournament(Long id) {
+		String sql = "SELECT * FROM teams WHERE tournamentid = ? ORDER BY seed";
+		SqlRowSet results = jdbcTemplate.queryForRowSet(sql, id);
 		List<Team> teamList = new ArrayList<Team>();
 		while(results.next()) {
 			Team newTeam = mapRowToTeam(results);
@@ -76,9 +78,10 @@ private JdbcTemplate jdbcTemplate;
 			newTeam.setSeed(results.getLong("seed"));
 		}
 		if(results.getLong("general_manager_id") > 0) {
-			newTeam.setGeneralManagerId(results.getLong("generalManagerId"));
+			newTeam.setGeneralManagerId(results.getLong("general_manager_id"));
 		}
 		newTeam.setTeamName(results.getString("teamname"));
+		newTeam.setEmail(results.getString("team_email_address"));
 		return newTeam;
 	}
 

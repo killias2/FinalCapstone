@@ -24,6 +24,14 @@ export default {
 
   getTournament(tournamentID) {
     return http.get(`/tournaments/${tournamentID}`, tournamentID);
+  },
+
+  getAllGames() {
+    return http.get('/games');
+  }, 
+
+  getUsersTournaments(organizerID) {
+    return http.get(`/tournament/my-tournaments/${organizerID}`);
   }
 
 

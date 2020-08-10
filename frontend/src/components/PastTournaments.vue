@@ -1,6 +1,6 @@
 <template>
     <div>
-        <h1>All Tournaments</h1>
+        <h1>Past Tournaments</h1>
                     <div class="tournament" v-for="tournament in tournaments" v-bind:key="tournament.id" 
         v-bind:currentTournament="tournament" v-on:click="viewTournamentDetails(tournament)">
             <h2>{{tournament.tournamentName}}</h2>
@@ -12,7 +12,6 @@
 
 <script>
 import TournamentService from '../services/TournamentService';
-
 export default {
     data() {
         return {
@@ -28,7 +27,7 @@ export default {
         }
     },
     created() {
-        TournamentService.viewTournaments().then(response => {
+        TournamentService.getPastTournaments().then(response => {
            this.tournaments = response.data;
         })
     }

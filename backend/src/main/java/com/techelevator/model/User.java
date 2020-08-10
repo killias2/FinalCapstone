@@ -110,3 +110,4 @@ private Set<Authority> authorities = new HashSet<>();
               '}';
    }
 }
+

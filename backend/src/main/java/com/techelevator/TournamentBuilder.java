@@ -27,6 +27,7 @@ public class TournamentBuilder {
 		}
 		Team bye = new Team();
 		// we need to have a predetermined id saved for the bye team
+		System.out.println(teams[0].getSeed());
 		
 		bye.setTeamName("Bye");
 		bye.setTeamId((long)-1);
@@ -44,15 +45,14 @@ public class TournamentBuilder {
 			Match m = new Match();
 			m.setTournamentId(tournament.getId());
 			m.setComplete(false);
-			m.setRound(i+1);
-			if( i == 0) { //only put teams in for match 0
+			m.setRound(i);
+			if(i == 0) { //only put teams in for match 0
 				Team[] teamsInMatch = new Team[2];
 				teamsInMatch[0] = teamsAndByes[j];
 				teamsInMatch[1] = teamsAndByes[(teamsAndByes.length - 1) - j];
 				m.setTeamList(teamsInMatch);
 			}
 			matchDAO.createMatch(m);
-			
 		}
 		}
 		
