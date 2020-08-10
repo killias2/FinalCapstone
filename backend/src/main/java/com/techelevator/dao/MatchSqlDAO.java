@@ -81,7 +81,7 @@ public class MatchSqlDAO implements MatchDAO {
 		
 		return newMatch;
 	}
-	
+	@Override
 	public Team[] getMatchTeams(Match match) {
 		String sql = "SELECT teams.teamid, tournamentid, general_manager_id, teamname, seed FROM teams JOIN " +
 				"team_match ON teams.teamid = team_match.teamid WHERE matchid = ?";
@@ -95,6 +95,7 @@ public class MatchSqlDAO implements MatchDAO {
 		teamArray = teamList.toArray(teamArray);
 		return teamArray;
 	}
+	
 	
 	public Long getNextMatchId() {
 		SqlRowSet nextIdResult = jdbcTemplate.queryForRowSet("SELECT nextval('matches_matchid_seq')");

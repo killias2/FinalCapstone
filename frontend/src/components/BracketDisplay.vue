@@ -5,7 +5,7 @@
            {{ player.seed }} {{ player.teamName }}
         </template>
         <template #player-extension-bottom="{ match }">
-            game info: {{ match.title }}
+            game info: {{ match.title }} {{ match.match.matchid }}<button v-if="editMode" v-on:click="selectMatch(match.match.matchid)" v-bind="match"> Edit Match </button>
         </template>
     </bracket>
 
@@ -16,6 +16,9 @@
     import TournamentService from '../services/TournamentService';
 
     export default {
+        props: {
+            editMode: Boolean
+        },
         name: 'BracketDisplay',
         components: {
             Bracket
@@ -32,6 +35,12 @@
             })
         },
         methods: {
+            selectMatch(matchid){
+                this.$store.commit('SET_CURRENT_MATCH', {
+                saveMe: matchid
+            })
+
+            },
             fixRounds() {
                 for (let i = 0; i < this.numRounds; i++){
                     let tempArray = {games: []};
@@ -40,6 +49,7 @@
                     })
                     thisRound.forEach(() => {
                         tempArray.games.push({
+                            match: {},
                             player1: { teamId: "", teamName: "", winner: null, seed: ""},
                             player2: { teamId: "", teamName: "", winner: null, seed: ""},
                         })
@@ -50,6 +60,7 @@
             autoFill() { 
                     //fill out each match of the first round based on the sorted matches objects
                 for (let i = 0; i < this.fixedRounds[0].games.length; i++){
+                    this.fixedRounds[0].games[i].match = this.matches[i];
                     this.fixedRounds[0].games[i].player1 = this.matches[i].teamList[0];
                     this.fixedRounds[0].games[i].player2 = this.matches[i].teamList[1];
                     if (this.matches[i].winnerTeamId){

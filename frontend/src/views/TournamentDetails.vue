@@ -2,7 +2,7 @@
     <div>
         <h1>Tournament Details</h1>
         <tournament-details/>
-        <bracket-display/>
+        <bracket-display v-bind:edit-mode="false"/>
         <add-teams/>
         <user-nav />
     </div>

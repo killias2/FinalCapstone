@@ -3,10 +3,10 @@
     <div class="tournament">
        <h2 class="title">{{currentTournament.tournamentName}}</h2>
         <h3 class="date">{{currentTournament.startDate}} to {{currentTournament.endDate}}</h3>
-      <router-link
-        tag="button"
-        :to="{ name: 'EditTournament', params: {tournamentID: $route.params.tournamentID} }"
-        class="btn editTournament">Edit Tournament</router-link>
+      <button
+        v-on:click="goToEditor"
+        :to="{ name: 'tournamentHQ', params: {id: $route.params.tournamentID} }"
+        class="btn editTournament">Edit Tournament</button>
       <button class="btn deleteTournament" v-on:click="deleteTournament">Delete Tournament</button>
     </div>
   </div>
@@ -24,6 +24,9 @@ export default {
     
   },
   methods: {
+      goToEditor() {
+            this.$router.push(`/tournamentHQ/${this.currentTournament.id}`);
+        }
     },
   }
 </script>

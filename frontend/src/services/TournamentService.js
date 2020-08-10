@@ -33,6 +33,10 @@ export default {
     return http.get('/tournaments/past');
   },
 
+  getMatchFromId(matchId){
+    return http.get(`/matches/${matchId}/teams`);
+  }
+
 
 
 
