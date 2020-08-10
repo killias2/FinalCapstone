@@ -1,6 +1,10 @@
 <template>
     <div class="teamList">
-        <h1>My Tournaments</h1>
+        <!-- <h1>My Tournaments</h1> -->
+        <!-- <div class="team" v-for="team in teams" v-bind:key="team.teamname">
+            <h2>Name: {{team.teamName}}</h2>
+            <h3>Seed: {{team.seed}}</h3>
+        </div> -->
         <div class="tournaments" v-for="tournament in tournaments" v-bind:key="tournament.tournamentName">
             <h2>Tournament Name: {{tournament.tournamentName}}</h2>
             <h3>Game/Sport: {{tournament.gameName}}</h3>

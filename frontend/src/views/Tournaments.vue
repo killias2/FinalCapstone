@@ -1,22 +1,22 @@
 <template>
     <div>
         
-        <sidebar />
+        <!-- <sidebar /> -->
         <tournament />
-        <user-nav />
+        <!-- <user-nav /> -->
     </div>
 </template>
 
 <script>
 import Tournament from "../components/Tournaments"
-import Sidebar from '../components/Sidebar'
-import UserNav from '../components/UserNav'
+// import Sidebar from '../components/Sidebar'
+// import UserNav from '../components/UserNav'
 
 export default {
     components: {
         Tournament,
-        Sidebar,
-        UserNav
+        // Sidebar,
+        // UserNav
     }
 };
 </script>

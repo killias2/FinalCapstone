@@ -1,6 +1,7 @@
 <template>
     <div>
-        <h1>Current Tournaments</h1>
+        <!-- <h1>Current Tournaments</h1> -->
+        <h3>Current Tournaments:</h3>
                     <div class="tournament" v-for="tournament in tournaments" v-bind:key="tournament.id" 
         v-bind:currentTournament="tournament" v-on:click="viewTournamentDetails(tournament)">
             <h2>{{tournament.tournamentName}}</h2>
