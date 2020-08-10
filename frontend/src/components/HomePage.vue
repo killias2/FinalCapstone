@@ -1,11 +1,10 @@
 <template>
     <div class="home">
         <div class="banner">
-            <h1>Welcome to TournaMint!</h1>
+            <h1>Welcome to Brackets! [⚾⚽🥏🎱🎾]</h1>
         </div>
         <div class="body">
             <img alt="Soccer Ball" src="../assets/soccerball.webp">
-            <p>You are an authenticated user!</p>
         </div>
     </div>
 </template>
@@ -16,6 +15,7 @@
 export default {
   name: "home"
 }
+
 </script>
 
 <style>
@@ -31,15 +31,10 @@ img {
     display: block;
     margin-left: auto;
     margin-right: auto;
+    padding-bottom: 20px;
     width: 50%;
     border-radius: 50px;
 }
-p {
-    text-align: center;
-    color: red;
-    font-weight: bolder;
-    text-shadow: 2px;
-    font-size: 50px;
-}
+
     
 </style>

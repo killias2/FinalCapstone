@@ -71,7 +71,10 @@ public class TournamentSqlDAO implements TournamentDAO{
 	}
 	@Override
 	public Tournament getTournamentById(Long id) {
-		String sql = "SELECT * FROM tournaments WHERE tournamentid = ?";
+		String sql = "SELECT * FROM tournaments t " + 
+				"JOIN users ON user_id = organizerid " + 
+				"JOIN games g ON t.gameid = g.gameid " +
+				"WHERE tournamentid = ?";
 		SqlRowSet results = jdbcTemplate.queryForRowSet(sql, id);
 		if(results.next()) {
 			return mapRowToTournament(results);
