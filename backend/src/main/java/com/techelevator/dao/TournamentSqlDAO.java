@@ -16,6 +16,34 @@ public class TournamentSqlDAO implements TournamentDAO{
 	public TournamentSqlDAO(JdbcTemplate jdbcTemplate) {
 		this.jdbcTemplate = jdbcTemplate;
 	}
+	@Override
+	public List<Tournament> getCompleteTournaments() {
+		String sql = "SELECT * FROM tournaments t " +
+				"JOIN users ON user_id = organizerid " + 
+				"LEFT JOIN games g ON t.gameid = g.gameid " +
+				"WHERE is_complete = true;";
+		SqlRowSet results = jdbcTemplate.queryForRowSet(sql);
+		List<Tournament> tournaments = new ArrayList<>();
+		while(results.next()) {
+			Tournament tournament = mapRowToTournament(results);
+			tournaments.add(tournament);
+		}
+		return tournaments;
+	}
+	@Override
+	public List<Tournament> getCurrentTournaments() {
+		String sql = "SELECT * FROM tournaments t " +
+				"JOIN users ON user_id = organizerid " + 
+				"JOIN games g ON t.gameid = g.gameid " +
+				"WHERE is_complete = false;";
+		SqlRowSet results = jdbcTemplate.queryForRowSet(sql);
+		List<Tournament> tournaments = new ArrayList<>();
+		while(results.next()) {
+			Tournament tournament = mapRowToTournament(results);
+			tournaments.add(tournament);
+		}
+		return tournaments;
+	}
 	
 	@Override
 	public boolean createTournament(Tournament tournament) {
@@ -31,7 +59,7 @@ public class TournamentSqlDAO implements TournamentDAO{
 	public List<Tournament> getTournaments(){
 		String sql = "SELECT * FROM tournaments t " +
 				"JOIN users ON user_id = organizerid " + 
-				"JOIN games g ON t.gameid = g.gameid ";
+				"LEFT JOIN games g ON t.gameid = g.gameid ";
 		SqlRowSet results = jdbcTemplate.queryForRowSet(sql);
 		List<Tournament> tournaments = new ArrayList<>();
 		while(results.next()) {
@@ -67,7 +95,7 @@ public class TournamentSqlDAO implements TournamentDAO{
 		String sql = "SELECT * " + 
 				"FROM tournaments t " + 
 				"JOIN users ON user_id = organizerid " + 
-				"JOIN games g ON t.gameid = g.gameid " +
+				"LEFT JOIN games g ON t.gameid = g.gameid " +
 				"WHERE organizerid = ?";
 		SqlRowSet results = jdbcTemplate.queryForRowSet(sql, id);
 		while(results.next()) {
@@ -96,6 +124,8 @@ public class TournamentSqlDAO implements TournamentDAO{
 		tournament.setGameDescription(rs.getString("game_description"));
 		return tournament;
 	}
+
+	
 	
 
 }
