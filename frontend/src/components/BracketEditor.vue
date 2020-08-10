@@ -2,24 +2,32 @@
     <div>
         <bracket-display v-bind:edit-mode="true"/>
         <div>
-            <p> click on a game to enter the winner </p>
-            <label for="winnerInput"> Enter winner of game: </label>
-            <select name="winnerInput" v-model="winningTeam">
-                <option v-for="team in teamsInMatch" :key="team.id">{{ team.teamName }} </option>
-            </select>
+            <form>
+                <label for="winnerInput"> Enter winner of game: </label>
+                    <select name="winnerInput" v-model="winningTeam">
+                        <option v-for="team in selectedMatchTeams" :key="team.id">{{ team.teamName }} </option>
+                    </select>
+                <input type="submit" value="Submit">
+            </form>
         </div>
     </div>
 </template>
 <script>
 import TournamentService from '../services/TournamentService';
-import BracketDisplay from "../components/BracketDisplay.vue"
+import BracketDisplay from "../components/BracketDisplay.vue";
+
 export default {
     name: 'BracketEditor',
     components: {
         'BracketDisplay': BracketDisplay
     },
+    computed: {
+        selectedMatchId: function() {
+            return this.$store.state.selectedMatchId;
+        }
+    },
     watch: {
-        selectedMatch: function(val) {
+        selectedMatchId: function(val) {
             this.fetchMatch(val);
         }
     },
@@ -35,9 +43,7 @@ export default {
         return {
             selectedMatchTeams: [],
             winningTeam: {},
-            selectedMatch: this.$store.state.selectedMatchId
         }
     }
-    
 }
 </script>
