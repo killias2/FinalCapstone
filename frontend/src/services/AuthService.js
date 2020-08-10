@@ -12,6 +12,10 @@ export default {
 
   register(user) {
     return http.post('/register', user)
+  },
+
+  getUser(userId) {
+    return http.get(`/users/${userId}`, userId)
   }
 
 }
