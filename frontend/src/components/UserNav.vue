@@ -29,7 +29,6 @@ export default {
     color: white;
     border-radius: 25px;
     height: auto;
-
   }
   #nav {
       display: flex;

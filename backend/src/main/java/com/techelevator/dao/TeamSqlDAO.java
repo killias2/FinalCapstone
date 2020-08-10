@@ -19,12 +19,13 @@ private JdbcTemplate jdbcTemplate;
 	}
 
 	@Override
-	public boolean createTeam(Team newTeam) {
+	public Team createTeam(Team newTeam) {
 		String sql = "INSERT INTO teams (teamid, tournamentid, general_manager_id, teamname, seed, team_email_address) VALUES "
-		+"(?, ?, ?, ?, ?, ?)";
+				+"(?, ?, ?, ?, ?, ?)";
 		newTeam.setTeamId(getNextTeamId());
-		return 1 == jdbcTemplate.update(sql, newTeam.getTeamId(), newTeam.getTournamentId(),
+		jdbcTemplate.update(sql, newTeam.getTeamId(), newTeam.getTournamentId(),
 				newTeam.getGeneralManagerId(), newTeam.getTeamName(), newTeam.getSeed(), newTeam.getEmail());
+		return newTeam;
 		}
 	
 	@Override
@@ -36,9 +37,9 @@ private JdbcTemplate jdbcTemplate;
 	}
 
 	@Override
-	public Team[] getTeamsByTournament(Long tournamentId) {
-		String sql = "SELECT * FROM teams WHERE tournamentid = ?;";
-		SqlRowSet results = jdbcTemplate.queryForRowSet(sql, tournamentId);
+	public Team[] getTeamsByTournament(Long id) {
+		String sql = "SELECT * FROM teams WHERE tournamentid = ? ORDER BY seed";
+		SqlRowSet results = jdbcTemplate.queryForRowSet(sql, id);
 		List<Team> teamList = new ArrayList<Team>();
 		while(results.next()) {
 			Team newTeam = mapRowToTeam(results);
