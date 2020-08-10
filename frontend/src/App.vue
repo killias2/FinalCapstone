@@ -2,7 +2,7 @@
   <div id="app">
     <div class="header">
       <div class="banner">
-              <h1>Welcome to Brackets[]!</h1>
+              <h1>Brackets[⚾⚽🕹️⛳🃏🎱🏓]!</h1>
       </div>
       <user-nav />
     </div>
