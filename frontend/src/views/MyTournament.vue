@@ -1,18 +1,19 @@
 <template>
     <div>
-        <my-tournaments />
-        <add-teams />
+        <my-tournament />
+        <user-nav />
+        
     </div>
 </template>
 
 <script>
-import AddTeams from "../components/AddTeams"
-import MyTournaments from "../components/MyTournaments"
+import MyTournament from "../components/MyTournament"
+import UserNav from "../components/UserNav"
 
 export default {
     components: {
-        AddTeams,
-        MyTournaments
+        MyTournament,
+        UserNav
     }
 }
 </script>

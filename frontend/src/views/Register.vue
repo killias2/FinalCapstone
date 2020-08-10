@@ -1,5 +1,6 @@
 <template>
   <div id="register" class="text-center">
+    
     <form class="form-register" @submit.prevent="register">
       <h1 class="h3 mb-3 font-weight-normal">Create Account</h1>
       <div class="alert alert-danger" role="alert" v-if="registrationErrors">
@@ -57,14 +58,19 @@
         <router-link class="login" :to="{ name: 'login' }">Have an account?</router-link>
       </div>
     </form>
+    <user-nav />
   </div>
 </template>
 
 <script>
 import authService from '../services/AuthService';
+import UserNav from "../components/UserNav"
 
 export default {
   name: 'register',
+  components: {
+    UserNav
+  },
   data() {
     return {
       user: {

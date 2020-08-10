@@ -1,5 +1,6 @@
 <template>
   <div id="login" class="text-center">
+    
     <form class="form-signin" @submit.prevent="login">
       <h1 class="h3 mb-3 font-weight-normal">Please Sign In</h1>
       <div
@@ -76,7 +77,7 @@ export default {
         .catch(error => {
           const response = error.response;
 
-          if (response.status === 401) {
+          if (response.status >= 400) {
             this.invalidCredentials = true;
           }
         });

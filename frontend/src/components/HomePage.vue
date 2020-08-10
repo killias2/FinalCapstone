@@ -4,7 +4,7 @@
             <h1>Welcome to TournaMint!</h1>
         </div>
         <div class="body">
-            <img alt="Mint Leaves" src="../assets/mintleaf.jpeg">
+            <img alt="Soccer Ball" src="../assets/soccerball.webp">
             <p>You are an authenticated user!</p>
         </div>
     </div>
@@ -31,14 +31,14 @@ img {
     display: block;
     margin-left: auto;
     margin-right: auto;
-    width: 50%
+    width: 50%;
+    border-radius: 50px;
 }
 p {
     text-align: center;
     color: red;
     font-weight: bolder;
     text-shadow: 2px;
-    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
     font-size: 50px;
 }
     

@@ -13,7 +13,6 @@ import com.techelevator.model.Tournament;
 @Service
 public class TeamSqlDAO implements TeamDAO {
 
-
 private JdbcTemplate jdbcTemplate;
 	
 	public TeamSqlDAO(JdbcTemplate jdbcTemplate) {
@@ -22,7 +21,7 @@ private JdbcTemplate jdbcTemplate;
 
 	@Override
 	public boolean createTeam(Team newTeam) {
-		String sql = "INSERT INTO teams (teamid, tournamentid, general_manager_id, teamname, seed, email) VALUES "
+		String sql = "INSERT INTO teams (teamid, tournamentid, general_manager_id, teamname, seed, team_email_address) VALUES "
 				+"(?, ?, ?, ?, ?, ?)";
 		newTeam.setTeamId(getNextTeamId());
 		return 1 == jdbcTemplate.update(sql, newTeam.getTeamId(), newTeam.getTournamentId(), 
@@ -31,14 +30,14 @@ private JdbcTemplate jdbcTemplate;
 	
 	@Override
 	public boolean updateTeam(Team team) {
-	String sql = "UPDATE teams  SET (tournamentid, general_manager_id, teamname)"
+	String sql = "UPDATE teams  SET (tournamentid, general_manager_id, teamname, team_email_address)"
 				+ "= (?, ?, ?) WHERE teamid = ?";
-	return 1 == jdbcTemplate.update(sql, team.getTournamentId(), team.getGeneralManagerId(), team.getTeamName(), team.getTeamId());
+	return 1 == jdbcTemplate.update(sql, team.getTournamentId(), team.getGeneralManagerId(), team.getTeamName(), team.getTeamId(), team.getEmail());
 	}
 
 	@Override
 	public Team[] getTeamsByTournament(Long id) {
-		String sql = "SELECT * FROM teams WHERE tournamentid = ?";
+		String sql = "SELECT * FROM teams WHERE tournamentid = ? ORDER BY seed";
 		SqlRowSet results = jdbcTemplate.queryForRowSet(sql, id);
 		List<Team> teamList = new ArrayList<Team>();
 		while(results.next()) {
@@ -52,7 +51,8 @@ private JdbcTemplate jdbcTemplate;
 
 	@Override
 	public Team getTeamById(Long id) {
-		String sql = "SELECT * FROM teams WHERE teamid = ?";
+		String sql = "SELECT * FROM teams WHERE teamid = ? " +
+					"ORDER BY seed";
 		SqlRowSet results = jdbcTemplate.queryForRowSet(sql, id);
 		if(results.next()) {
 			return mapRowToTeam(results);
@@ -73,10 +73,14 @@ private JdbcTemplate jdbcTemplate;
 		Team newTeam = new Team();
 		newTeam.setTeamId(results.getLong("teamid"));
 		newTeam.setTournamentId(results.getLong("tournamentid"));
+		if(results.getLong("seed") > 0) {
+			newTeam.setSeed(results.getLong("seed"));
+		}
 		if(results.getLong("general_manager_id") > 0) {
-			newTeam.setGeneralManagerId(results.getLong("generalManagerId"));
+			newTeam.setGeneralManagerId(results.getLong("general_manager_id"));
 		}
 		newTeam.setTeamName(results.getString("teamname"));
+		newTeam.setEmail(results.getString("team_email_address"));
 		return newTeam;
 	}
 
