@@ -4,7 +4,7 @@
             <h1>Welcome to TournaMint!</h1>
         </div> -->
         <div class="body">
-            <h3 id="intro"> Brackets[] can help with all your tournament-related needs!</h3>
+            <h3 id="intro"> Brackets[] can help with all of your tournament-related needs!</h3>
             <img alt="Soccer Ball" src="../assets/soccerball.webp">
             <!-- <p>You are an authenticated user!</p> -->
         </div>

@@ -133,7 +133,7 @@ export default {
     .title {
         margin-left: 25px;
         font-weight: bold;
-
+        font-size: medium;
     }
     .dropdown {
         margin-left: 25px;
