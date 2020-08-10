@@ -63,9 +63,9 @@ public class MatchSqlDAO implements MatchDAO {
 	
 	@Override
 	public Match completeMatch(Match newMatch) {
-		String sql = "UPDATE matches SET is_complete = ? WHERE matchid = ?";
+		String sql = "UPDATE matches SET is_complete = ?, winner_team_id = ? WHERE matchid = ?";
 		newMatch.setComplete(true);
-		jdbcTemplate.update(sql, newMatch.isComplete(), newMatch.getMatchid());
+		jdbcTemplate.update(sql, newMatch.isComplete(),newMatch.getWinnerTeamId(), newMatch.getMatchid());
 		
 		sql = "SELECT * FROM matches WHERE tournamentid = ? AND round = ? ORDER BY matchid ASC";
 		SqlRowSet results = jdbcTemplate.queryForRowSet(sql, newMatch.getTournamentId(), newMatch.getRound());
@@ -79,7 +79,7 @@ public class MatchSqlDAO implements MatchDAO {
 			}*/
 			if(results.getLong("matchid") == newMatch.getMatchid()) {
 				currentMatchIndex = matchesInCurrentRound;
-				System.out.println("if statement entered");
+				
 			}
 
 			matchesInCurrentRound ++;
@@ -89,7 +89,6 @@ public class MatchSqlDAO implements MatchDAO {
 		SqlRowSet nextRoundResults = jdbcTemplate.queryForRowSet(sql, newMatch.getTournamentId(), newMatch.getRound() + 1);
 		if(nextRoundResults.next()) {
 		long startingIndex = nextRoundResults.getLong("matchid");
-		System.out.println(currentMatchIndex + " " + matchesInCurrentRound + " " + nextMatchIndex + " " + startingIndex);
 		sql = "INSERT INTO team_match (matchid, teamid) VALUES (?, ?)";
 		jdbcTemplate.update(sql,  startingIndex + nextMatchIndex, newMatch.getWinnerTeamId());}
 		return newMatch;
