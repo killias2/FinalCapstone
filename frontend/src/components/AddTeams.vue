@@ -8,8 +8,9 @@
                     <input v-model="newTeam.teamName" type="text" />
                     <label class="text-field" for="email" required >Email Address:</label>
                     <input v-model="newTeam.email" type="email" />
-                    <label class="text-field" for="seed" required >Seed:</label>
-                    <input v-model="newTeam.seed" type="number" min="1"/>
+                    <label v-show="this.currentTournament.isSeeded" class="text-field" for="seed" required >Seed:</label>
+                    <input v-show="this.currentTournament.isSeeded" v-model="newTeam.seed" type="number" min="1" :max="this.currentTournament.numberOfTeams"/>
+                    <!-- v-show="!this.currentTournament.isSeeded" to hide seed option if seeding is random-->
                 </div>
                 <div class="actions">
                     <button v-on:click.prevent="resetForm" type="cancel">Cancel</button>
@@ -165,6 +166,7 @@ export default {
         generateBrackets() {
             TournamentService.generateBrackets(this.currentTournament).then(response => {
                 if (response.status < 299) {
+                    this.$alert("Brackets generated successfully")
                     console.log('success');
                 }
             })
