@@ -63,7 +63,7 @@ public class MatchSqlDAO implements MatchDAO {
 	
 	@Override
 	public Match completeMatch(Match newMatch) {
-		String sql = "UPDATE matches SET is_complete = ? AND winner_team_id = ? WHERE matchid = ?";
+		String sql = "UPDATE matches SET is_complete = ?, winner_team_id = ? WHERE matchid = ?";
 		newMatch.setComplete(true);
 		jdbcTemplate.update(sql, newMatch.isComplete(),newMatch.getWinnerTeamId(), newMatch.getMatchid());
 		
