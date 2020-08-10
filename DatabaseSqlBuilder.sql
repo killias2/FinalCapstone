@@ -128,6 +128,14 @@ GRANT USAGE, SELECT
 ON ALL SEQUENCES IN SCHEMA public
 TO final_capstone_appuser;
 
+GRANT ALL
+ON ALL TABLES IN SCHEMA public
+TO final_capstone_owner;
+
+GRANT ALL
+ON ALL SEQUENCES IN SCHEMA public
+TO final_capstone_owner;
+
 ALTER TABLE teams ADD COLUMN seed integer;
 ALTER TABLE users ADD COLUMN email_address varchar(40);
 ALTER TABLE teams ADD COLUMN team_email_address varchar(40);
