@@ -19,20 +19,21 @@ private JdbcTemplate jdbcTemplate;
 	}
 
 	@Override
-	public boolean createTeam(Team newTeam) {
+	public Team createTeam(Team newTeam) {
 		String sql = "INSERT INTO teams (teamid, tournamentid, general_manager_id, teamname, seed, team_email_address) VALUES "
 				+"(?, ?, ?, ?, ?, ?)";
 		newTeam.setTeamId(getNextTeamId());
-		jdbcTemplate.update(sql, newTeam.getTeamId(), newTeam.getTournamentId(), 
-				newTeam.getGeneralManagerId(), newTeam.getTeamName());
+		jdbcTemplate.update(sql, newTeam.getTeamId(), newTeam.getTournamentId(),
+				newTeam.getGeneralManagerId(), newTeam.getTeamName(), newTeam.getSeed(), newTeam.getEmail());
 		return newTeam;
-	}
+		}
 	
 	@Override
 	public boolean updateTeam(Team team) {
-	String sql = "UPDATE teams  SET (tournamentid, general_manager_id, teamname, team_email_address)"
-				+ "= (?, ?, ?) WHERE teamid = ?";
-	return 1 == jdbcTemplate.update(sql, team.getTournamentId(), team.getGeneralManagerId(), team.getTeamName(), team.getTeamId(), team.getEmail());
+	String sql = "UPDATE teams  SET (tournamentid, general_manager_id, teamname, seed, team_email_address)"
+				+ "= (?, ?, ?, ?, ?) WHERE teamid = ?";
+	return 1 == jdbcTemplate.update(sql, team.getTournamentId(), team.getGeneralManagerId(),
+			team.getTeamName(), team.getSeed(), team.getEmail(), team.getTeamId());
 	}
 
 	@Override
