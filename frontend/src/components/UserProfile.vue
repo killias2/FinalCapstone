@@ -5,7 +5,7 @@
         <h3>Your Email: {{currentUser.emailAddress}}</h3>
       <router-link 
         tag="button"
-        v-bind:to="{ name: 'change-password', params: {id: this.$store.state.user.id}}"
+        v-bind:to="{ name: 'password-change', params: {id: this.$store.state.user.id}}"
         class="btn changePassword">Change Password</router-link>
     </div>
   </div>
