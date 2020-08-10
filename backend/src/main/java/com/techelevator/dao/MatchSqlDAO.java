@@ -79,7 +79,7 @@ public class MatchSqlDAO implements MatchDAO {
 			}*/
 			if(results.getLong("matchid") == newMatch.getMatchid()) {
 				currentMatchIndex = matchesInCurrentRound;
-				System.out.println("if statement entered");
+				
 			}
 
 			matchesInCurrentRound ++;
@@ -89,7 +89,6 @@ public class MatchSqlDAO implements MatchDAO {
 		SqlRowSet nextRoundResults = jdbcTemplate.queryForRowSet(sql, newMatch.getTournamentId(), newMatch.getRound() + 1);
 		if(nextRoundResults.next()) {
 		long startingIndex = nextRoundResults.getLong("matchid");
-		System.out.println(currentMatchIndex + " " + matchesInCurrentRound + " " + nextMatchIndex + " " + startingIndex);
 		sql = "INSERT INTO team_match (matchid, teamid) VALUES (?, ?)";
 		jdbcTemplate.update(sql,  startingIndex + nextMatchIndex, newMatch.getWinnerTeamId());}
 		return newMatch;
