@@ -13,8 +13,6 @@ import HomePage from '../components/HomePage'
 // import Sidebar from '../components/Sidebar'
 // import UserNav from "../components/UserNav"
 
-// import AddTeams from '../components/AddTeams'
-
 export default {
   components: {
     HomePage,

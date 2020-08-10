@@ -2,6 +2,7 @@
     <div>
         <!-- <h1>Tournament Details</h1> -->
         <tournament-details/>
+        <bracket-display v-bind:edit-mode="false"/>
         <add-teams/>
         <bracket-display/>
         <!-- <user-nav /> -->

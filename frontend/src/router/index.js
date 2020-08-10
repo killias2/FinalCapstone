@@ -10,6 +10,7 @@ import CreateTournament from '../views/CreateTournament'
 import Tournament from '../views/Tournaments'
 import MyTournament from '../views/MyTournament'
 import TournamentDetails from '../views/TournamentDetails.vue'
+import TournamentHQ from '../views/TournamentHQ'
 import UserProfile from '../views/UserProfile.vue'
 import ChangePassword from '../views/ChangePassword.vue'
 import CurrentTournaments from '../views/CurrentTournaments.vue'
@@ -96,6 +97,11 @@ const router = new Router({
       path: "/tournaments/:id",
       name: "my-tournament",
       component: MyTournament
+    },
+    {
+      path: "/tournamentHQ/:id",
+      name: 'tournamenthq',
+      component: TournamentHQ
     },
     {
       path: "/users/:id",
