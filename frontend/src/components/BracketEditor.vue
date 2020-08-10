@@ -2,7 +2,7 @@
     <div>
         <bracket-display v-bind:edit-mode="true"/>
         <div>
-            <form>
+            <form v-on:submit="sendWinner">
                 <label for="winnerInput"> Enter winner of game: </label>
                     <select name="winnerInput" v-model="winningTeam">
                         <option v-for="team in selectedMatchTeams" :key="team.id">{{ team.teamName }} </option>
@@ -37,6 +37,9 @@ export default {
                 .then(response => {
                 this.selectedMatchTeams = response.data;
                 })
+        },
+        sendWinner() {
+            
         }
     },
     data() {

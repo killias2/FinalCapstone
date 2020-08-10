@@ -5,7 +5,7 @@
            {{ player.seed }} {{ player.teamName }}
         </template>
         <template #player-extension-bottom="{ match }">
-            game info: {{ match.title }} {{ match.match.matchid }}<button v-if="editMode" v-on:click="selectMatch(match.match.matchid)" v-bind="match"> {{ match.match.matchid }} Edit Match </button>
+            game info: {{ match.title }} {{ match.match.matchid }}<button v-if="hasButton" v-on:click="selectMatch(match.match.matchid)" v-bind="match"> {{ match.match.matchid }} Edit Match </button>
         </template>
     </bracket>
 
@@ -40,7 +40,6 @@
                 this.$store.commit('SET_CURRENT_MATCH', {
                 saveMe: match
             })
-
             },
             fixRounds() {
                 for (let i = 0; i < this.numRounds; i++){
@@ -127,6 +126,14 @@
                 return this.matches.filter((match) => {
                     return match.round == this.currentRound;
                 })
+            },
+            hasButton(match) {
+                if (this.editMode && (!match.complete)){
+                    return true;
+                }
+                else {
+                    return false;
+                }
             }
         },
         data() {
