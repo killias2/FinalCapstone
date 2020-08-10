@@ -40,6 +40,10 @@ export default {
   
   getPastTournaments() {
     return http.get('/tournaments/past');
+  },
+  
+  generateBrackets(tournament) {
+    return http.put('/tournaments', tournament);
   }
 
 
