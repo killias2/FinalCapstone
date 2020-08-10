@@ -65,18 +65,27 @@ public class MatchSqlDAO implements MatchDAO {
 		newMatch.setComplete(true);
 		jdbcTemplate.update(sql, newMatch.isComplete(), newMatch.getMatchid());
 		
-		sql = "SELECT * FROM teams WHERE tourmanetid = ? ";
-		SqlRowSet results = jdbcTemplate.queryForRowSet(sql, newMatch.getMatchid());
-		int teamsInTournament = 0;
+		sql = "SELECT * FROM matches WHERE tournamentid = ? AND round = ?";
+		SqlRowSet results = jdbcTemplate.queryForRowSet(sql, newMatch.getTournamentId(), newMatch.getRound());
+		
 		int currentMatchIndex = 0;
+		int matchesInCurrentRound = 0;
+		//long firstMatchId = 0;
 		while(results.next()) {
+			/*if(matchesInCurrentRound == 0) {
+				firstMatchId = results.getLong("matchid");
+			}*/
 			if(results.getLong("matchid") == newMatch.getMatchid()) {
-				currentMatchIndex = teamsInTournament;
+				currentMatchIndex = matchesInCurrentRound;
 			}
-			teamsInTournament++;
+			matchesInCurrentRound ++;
 		}
 		int nextMatchIndex = currentMatchIndex / 2;
-		
+		results = jdbcTemplate.queryForRowSet(sql, newMatch.getTournamentId(), newMatch.getRound() + 1);
+		results.next();
+		long startingIndex = results.getLong("matchid");
+		sql = "INSERT INTO team_match (matchid, teamid( VALUES (?, ?)";
+		jdbcTemplate.update(sql, newMatch.getWinnerTeamId(), startingIndex + nextMatchIndex);
 		return newMatch;
 	}
 	

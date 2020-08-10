@@ -19,14 +19,13 @@ private JdbcTemplate jdbcTemplate;
 	}
 
 	@Override
-	public Team createTeam(Team newTeam) {
-		String sql = "INSERT INTO teams (teamid, tournamentid, general_manager_id, teamname) VALUES "
-				+"(?, ?, ?, ?)";
+	public boolean createTeam(Team newTeam) {
+		String sql = "INSERT INTO teams (teamid, tournamentid, general_manager_id, teamname, seed, email) VALUES "
+		+"(?, ?, ?, ?, ?, ?)";
 		newTeam.setTeamId(getNextTeamId());
-		jdbcTemplate.update(sql, newTeam.getTeamId(), newTeam.getTournamentId(), 
-				newTeam.getGeneralManagerId(), newTeam.getTeamName());
-		return newTeam;
-	}
+		return 1 == jdbcTemplate.update(sql, newTeam.getTeamId(), newTeam.getTournamentId(),
+		newTeam.getGeneralManagerId(), newTeam.getTeamName(), newTeam.getSeed(), newTeam.getEmail());
+		}
 	
 	@Override
 	public boolean updateTeam(Team team) {
