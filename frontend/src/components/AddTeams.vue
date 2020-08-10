@@ -18,7 +18,7 @@
             </form>
         </div>
         <div v-if="(this.teams.length === this.currentTournament.numberOfTeams) && this.user.id === this.currentTournament.tournamentOrganizerId">
-            <button  v-on:click.prevent="generateBrackets">Generate Brackets</button>
+            <button v-if="(showGenButton)" v-on:click.prevent="generateBrackets">Generate Brackets</button>
         </div>
         <table>
             <thead>
@@ -51,7 +51,8 @@ export default {
                 seed: 0,
                 email: '', 
                 generalManagerId: this.$store.state.user.id
-            }
+            },
+            showGenButton: true
         }
     },
     created() {
