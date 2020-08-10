@@ -1,5 +1,6 @@
 <template>
   <div>
+    <!-- <h1>User Profile</h1> -->
     <div class="profile">
        <h2 class="title">Welcome back, {{currentUser.username}}!</h2>
         <h3>Your Email: {{currentUser.emailAddress}}</h3>

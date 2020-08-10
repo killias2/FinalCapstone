@@ -20,12 +20,13 @@
     .sidebar {
         height: 400px;
         width: 200px;
-        position:fixed;
-        margin-top: 200px;
-        margin-left: 20px;
+        /* position:fixed; */
+        /* margin-top: 200px; */
+        margin-top: 10px;
+        /* margin-left: 20px; */
         z-index: 1;
-        top: 0;
-        left: 0;
+        /* top: 0;
+        left: 0; */
         background-color: rgb(8, 69, 97);
         overflow-x: hidden;
         padding-top: 10px;
