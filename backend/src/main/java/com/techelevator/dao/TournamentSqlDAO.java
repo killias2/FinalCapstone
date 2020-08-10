@@ -16,20 +16,50 @@ public class TournamentSqlDAO implements TournamentDAO{
 	public TournamentSqlDAO(JdbcTemplate jdbcTemplate) {
 		this.jdbcTemplate = jdbcTemplate;
 	}
+	@Override
+	public List<Tournament> getCompleteTournaments() {
+		String sql = "SELECT * FROM tournaments t " +
+				"JOIN users ON user_id = organizerid " + 
+				"LEFT JOIN games g ON t.gameid = g.gameid " +
+				"WHERE is_complete = true;";
+		SqlRowSet results = jdbcTemplate.queryForRowSet(sql);
+		List<Tournament> tournaments = new ArrayList<>();
+		while(results.next()) {
+			Tournament tournament = mapRowToTournament(results);
+			tournaments.add(tournament);
+		}
+		return tournaments;
+	}
+	@Override
+	public List<Tournament> getCurrentTournaments() {
+		String sql = "SELECT * FROM tournaments t " +
+				"JOIN users ON user_id = organizerid " + 
+				"JOIN games g ON t.gameid = g.gameid " +
+				"WHERE is_complete = false;";
+		SqlRowSet results = jdbcTemplate.queryForRowSet(sql);
+		List<Tournament> tournaments = new ArrayList<>();
+		while(results.next()) {
+			Tournament tournament = mapRowToTournament(results);
+			tournaments.add(tournament);
+		}
+		return tournaments;
+	}
 	
 	@Override
 	public boolean createTournament(Tournament tournament) {
-		String sql = "INSERT INTO tournaments (t_name, is_open, gameid, bracketid, organizerid, start_date, end_date, is_seeded, is_complete)"
-					+ "values(?,?,?,?,?,?,?,?, ?)";
+		String sql = "INSERT INTO tournaments (t_name, is_open, gameid, bracketid, organizerid, start_date, end_date, is_seeded, is_complete, number_of_teams)"
+					+ "values(?,?,?,?,?,?,?,?, ?, ?)";
 		return 1 == jdbcTemplate.update(sql, tournament.getTournamentName(), tournament.getOpenToJoin(), tournament.getGameId(), tournament.getBracketId(),
-										tournament.getTournamentOrganizerId(), tournament.getStartDate(), tournament.getEndDate(), tournament.getIsSeeded(), false);
+										tournament.getTournamentOrganizerId(), tournament.getStartDate(), tournament.getEndDate(), tournament.getIsSeeded(), false, tournament.getNumberOfTeams());
 		
 		// TODO Auto-generated method stub
 		
 	}
 	@Override
 	public List<Tournament> getTournaments(){
-		String sql = "SELECT * FROM tournaments";
+		String sql = "SELECT * FROM tournaments t " +
+				"JOIN users ON user_id = organizerid " + 
+				"LEFT JOIN games g ON t.gameid = g.gameid ";
 		SqlRowSet results = jdbcTemplate.queryForRowSet(sql);
 		List<Tournament> tournaments = new ArrayList<>();
 		while(results.next()) {
@@ -41,19 +71,32 @@ public class TournamentSqlDAO implements TournamentDAO{
 	}
 	@Override
 	public Tournament getTournamentById(Long id) {
-		String sql = "SELECT * FROM tournaments WHERE tournamentid = ?";
+		String sql = "SELECT * FROM tournaments t " + 
+				"JOIN users ON user_id = organizerid " + 
+				"JOIN games g ON t.gameid = g.gameid " +
+				"WHERE tournamentid = ?";
 		SqlRowSet results = jdbcTemplate.queryForRowSet(sql, id);
 		if(results.next()) {
 			return mapRowToTournament(results);
 		}
 		return null;
 	}
+	
+	
 	@Override
-	public boolean updateTournament(Tournament tournament) {
-	String sql = "UPDATE tournaments  SET (t_name, is_open, gameid, bracketid, organizerid, start_date, end_date, is_seeded, is_complete, winner_team_id)"
-				+ "= (?,?,?,?,?,?,?,?,?, ?) WHERE tournamentid = ?";
-	return 1 == jdbcTemplate.update(sql, tournament.getTournamentName(), tournament.getOpenToJoin(), tournament.getGameId(), tournament.getBracketId(),
-									tournament.getTournamentOrganizerId(), tournament.getStartDate(), tournament.getEndDate(), tournament.getIsSeeded(), tournament.getIsComplete(), tournament.getWinnerTeamId(), tournament.getId());
+	public List<Tournament> getTournamentByOrganizerId(Long id) {
+		List<Tournament> tournaments = new ArrayList<>();
+		String sql = "SELECT * " + 
+				"FROM tournaments t " + 
+				"JOIN users ON user_id = organizerid " + 
+				"LEFT JOIN games g ON t.gameid = g.gameid " +
+				"WHERE organizerid = ?";
+		SqlRowSet results = jdbcTemplate.queryForRowSet(sql, id);
+		while(results.next()) {
+			Tournament tournament = mapRowToTournament(results);
+			tournaments.add(tournament);
+		}
+		return tournaments;
 	}
 	
 	
@@ -70,8 +113,11 @@ public class TournamentSqlDAO implements TournamentDAO{
 		tournament.setStartDate(rs.getDate("start_date").toLocalDate());
 		tournament.setEndDate(rs.getDate("end_date").toLocalDate());
 		tournament.setIsSeeded(rs.getBoolean("is_seeded"));
+		tournament.setNumberOfTeams(rs.getLong("number_of_teams"));
+		tournament.setGameName(rs.getString("game_name"));
+		tournament.setGameDescription(rs.getString("game_description"));
 		return tournament;
 	}
-	
 
+	
 }

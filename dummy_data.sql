@@ -1,4 +1,5 @@
-
+DELETE FROM team_match;
+DELETE FROM matches;
 INSERT INTO teams (tournamentid, teamname, seed) VALUES (1, 'alpha', 1);
 INSERT INTO teams (tournamentid, teamname, seed) VALUES (1, 'bravo', 2);
 INSERT INTO teams (tournamentid, teamname, seed) VALUES (1, 'charlie', 3);

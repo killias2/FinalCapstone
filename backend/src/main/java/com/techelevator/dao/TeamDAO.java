@@ -7,12 +7,12 @@ import com.techelevator.model.Team;
 @Service
 public interface TeamDAO {
 	
-	public boolean createTeam(Team newTeam);
+	public Team createTeam(Team newTeam);
 	
 	public boolean updateTeam(Team team);
 	
 	public Team getTeamById(Long id);
-
-	public Team[] getTeamsByTournament(Long tournamentId);
+	
+	public Team[] getTeamsByTournament(Long id);
 
 }

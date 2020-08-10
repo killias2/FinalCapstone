@@ -1,21 +1,28 @@
 <template>
   <div id="app">
-    <div id="nav">
-      <router-link class="nav" tag="button" v-bind:to="{ name: 'home' }">Home</router-link>
-      <router-link class="nav" tag="button" v-bind:to="{ name: 'logout' }" v-if="$store.state.token != ''">Logout</router-link>
-      <router-link class="nav" tag="button" v-bind:to="{ name: 'my-tournaments'}" v-if="$store.state.token != ''">My Tournaments</router-link>
+    <div class="header">
+      <div class="banner">
+              <h1>Brackets[⚾⚽🕹️⛳🃏🎱🏓]!</h1>
+      </div>
+      <user-nav />
     </div>
-    <router-view />
+    <div id="main">
+      <sidebar class="sidebar" />
+      <router-view id="mainbody"/>
+    </div>
   </div>
 </template>
 
 <script>
-
+import Sidebar from '@/components/Sidebar'
+import UserNav from "@/components/UserNav"
 
 export default {
   name: 'App',
 
   components: {
+    Sidebar,
+    UserNav
     
   },
 
@@ -26,17 +33,24 @@ export default {
 </script>
 
 
+
 <style scoped>
+  #app {
+    display: flex-row;
+  }
+  #main {
+    display: flex;
+  }
 
-  #nav {
-    color: blue;
-    text-align: right;
+  .sidebar {
+    flex-basis: auto;
+    min-width: 200px;
   }
-  .nav {
-    color: white;
 
+  #mainbody{
+    margin-left: 10px;
+    flex-grow: 1;
   }
-  .nav:hover {
-    background: blueviolet;
-  }
+
+
 </style>

@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.techelevator.dao.MatchDAO;
 import com.techelevator.model.Match;
+import com.techelevator.model.Team;
 
 @CrossOrigin(origins = "http://localhost:8081", allowedHeaders = "*")
 @RestController
@@ -23,10 +24,21 @@ public class MatchController {
 	public Match createMatch(@RequestBody Match newMatch) {
 		return matchDAO.createMatch(newMatch);
 	}
+	@RequestMapping(value = "/matches/{id}/complete", method = RequestMethod.PUT)
+	public Match completeMatch(@RequestBody Match match) {
+		return matchDAO.completeMatch(match);
+	}
 	
 	@RequestMapping(value = "/tournaments/{tournamentId}/matches", method = RequestMethod.GET)
 	public Match[] getMatchesForTournament(@PathVariable Long tournamentId) {
 		return matchDAO.getMatchList(tournamentId);
+	}
+	
+	@RequestMapping(value = "/matches/{matchId}/teams", method = RequestMethod.GET)
+	public Team[] getMatch(@PathVariable Long matchId) {
+		Match match = new Match();
+		match.setMatchid(matchId);
+		return matchDAO.getMatchTeams(match);
 	}
 
 }

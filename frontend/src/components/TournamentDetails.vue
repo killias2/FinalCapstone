@@ -1,21 +1,19 @@
 <template>
   <div>
-    <div>
-       <h2>{{currentTournament.tournamentName}}</h2>
-        <h3>Start Date: {{currentTournament.startDate}}</h3>
-        <h3>End Date: {{currentTournament.endDate}}</h3>
-      <router-link
-        tag="button"
-        :to="{ name: 'EditTournament', params: {tournamentID: $route.params.tournamentID} }"
-        class="btn editTournament"
-      >Edit Tournament</router-link>
+    <div class="tournament">
+       <h2 class="title">{{currentTournament.tournamentName}}</h2>
+        <h3 class="date">{{currentTournament.startDate}} to {{currentTournament.endDate}}</h3>
+      <button
+        v-on:click="goToEditor"
+        :to="{ name: 'tournamentHQ', params: {id: $route.params.tournamentID} }"
+        class="btn editTournament">Edit Tournament</button>
       <button class="btn deleteTournament" v-on:click="deleteTournament">Delete Tournament</button>
     </div>
   </div>
 </template>
 
 <script>
-// import TournamentService from "../services/TournamentService";
+
 
 
 export default {
@@ -26,22 +24,15 @@ export default {
     
   },
   methods: {
-    // retrieveTournament() {
-    //     TournamentService
-    //     .getTournament(this.$route.params.tournament.id)
-    //     .catch(error => {
-    //       if (error.response && error.response.status === 404) {
-    //         alert(
-    //           "Tournament not available."
-    //         );
-    //         this.$router.push("/");
-    //       }
-    //     });
+      goToEditor() {
+            this.$router.push(`/tournamentHQ/${this.currentTournament.id}`);
+        }
     },
   }
 </script>
 
 <style>
+
 .btn.editTournament {
   color: #fff;
   background-color: #508ca8;
@@ -54,4 +45,16 @@ export default {
   border-color: #ef031a;
   margin-bottom: 10px;
 }
+.title {
+  font-size: 50px; 
+}
+.date {
+  font-size: 20px;
+}
+
+.tournament {
+  text-align: center;
+  display: block;
+}
+
 </style>

@@ -8,8 +8,14 @@ import Register from '../views/Register.vue'
 import store from '../store/index'
 import CreateTournament from '../views/CreateTournament'
 import Tournament from '../views/Tournaments'
+import MyTournament from '../views/MyTournament'
 import TournamentDetails from '../views/TournamentDetails.vue'
-import MyTournament from '../components/MyTournament'
+import TournamentHQ from '../views/TournamentHQ'
+import UserProfile from '../views/UserProfile.vue'
+import ChangePassword from '../views/ChangePassword.vue'
+import CurrentTournaments from '../views/CurrentTournaments.vue'
+import PastTournaments from '../views/PastTournaments.vue'
+
 
 
 Vue.use(Router)
@@ -73,14 +79,39 @@ const router = new Router({
       component: Tournament
     },
     {
+      path: "/tournaments/current",
+      name: "tournaments-current",
+      component: CurrentTournaments
+    },
+    {
+      path: "/tournaments/past",
+      name: "tournaments-past",
+      component: PastTournaments
+    },
+    {
       path: '/tournaments/:id',
       name: 'tournament-details',
       component: TournamentDetails
     },
     {
       path: "/tournaments/:id",
-      name: "my-tournaments",
+      name: "my-tournament",
       component: MyTournament
+    },
+    {
+      path: "/tournamentHQ/:id",
+      name: 'tournamenthq',
+      component: TournamentHQ
+    },
+    {
+      path: "/users/:id",
+      name: "user-profile",
+      component: UserProfile
+    },
+    {
+      path: "/users/:id/change-password",
+      name: "password-change",
+      component: ChangePassword
     }
   ]
 })

@@ -32,6 +32,14 @@ public class TournamentController {
 	public List<Tournament> getTournaments(){
 		return tournamentDAO.getTournaments();
 	}
+	@RequestMapping(value = "/tournaments/past", method = RequestMethod.GET)
+	public List<Tournament> getPastTournaments(){
+		return tournamentDAO.getCompleteTournaments();
+	}
+	@RequestMapping(value = "/tournaments/current", method = RequestMethod.GET)
+	public List<Tournament> getCurrentTournaments(){
+		return tournamentDAO.getCurrentTournaments();
+	}
 	@RequestMapping(value = "/tournaments/{id}", method = RequestMethod.GET)
 	public Tournament getTournamentById(@PathVariable long id) {
 		return tournamentDAO.getTournamentById(id);
@@ -40,6 +48,10 @@ public class TournamentController {
 	public boolean completeTournament(@RequestBody Tournament tournament) {
 		TournamentBuilder t = new TournamentBuilder(tournament, teamDAO, matchDAO);
 		return t.buildTournament();
+	}
+	@RequestMapping(value = "/tournament/my-tournaments/{id}", method = RequestMethod.GET)
+	public List<Tournament> getTournamentByOrganizerId(@PathVariable long id) {
+		return tournamentDAO.getTournamentByOrganizerId(id);
 	}
 	
 }

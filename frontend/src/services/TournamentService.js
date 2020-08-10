@@ -24,7 +24,32 @@ export default {
 
   getTournament(tournamentID) {
     return http.get(`/tournaments/${tournamentID}`, tournamentID);
-  }
+  },
 
+  getAllGames() {
+    return http.get('/games');
+  }, 
+
+  getUsersTournaments(organizerID) {
+    return http.get(`/tournament/my-tournaments/${organizerID}`);
+  },
+
+  getCurrentTournaments() {
+    return http.get('/tournaments/current');
+  },
+  
+  getPastTournaments() {
+    return http.get('/tournaments/past');
+  },
+
+  getMatchFromId(matchId){
+    return http.get(`/matches/${matchId}/teams`);
+  },
+  generateBrackets(tournament) {
+    return http.put('/tournaments', tournament);
+  },
+  completeMatch(match){
+    return http.put(`/matches/${match.matchid}/complete`, match);
+  }
 
 }

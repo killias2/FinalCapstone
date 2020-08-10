@@ -17,6 +17,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.techelevator.dao.UserDAO;
 import com.techelevator.model.LoginDTO;
 import com.techelevator.model.RegisterUserDTO;
+import com.techelevator.model.Tournament;
 import com.techelevator.model.User;
 import com.techelevator.model.UserAlreadyExistsException;
 import com.techelevator.security.jwt.JWTFilter;
@@ -35,6 +36,11 @@ public class AuthenticationController {
         this.authenticationManagerBuilder = authenticationManagerBuilder;
         this.userDAO = userDAO;
     }
+    
+    @RequestMapping(value = "/users/{id}", method = RequestMethod.GET)
+	public User getTournamentById(@PathVariable long id) {
+		return userDAO.getUserById(id);
+	}
 
     @RequestMapping(value = "/login", method = RequestMethod.POST)
     public ResponseEntity<LoginResponse> login(@Valid @RequestBody LoginDTO loginDto) {
@@ -60,7 +66,9 @@ public class AuthenticationController {
             User user = userDAO.findByUsername(newUser.getUsername());
             throw new UserAlreadyExistsException();
         } catch (UsernameNotFoundException e) {
+
             userDAO.create(newUser.getUsername(),newUser.getPassword(), newUser.getRole(), newUser.getEmailAddress());
+
         }
     }
 

@@ -1,24 +1,25 @@
 <template>
   <div>
     <home-page />
-    <sidebar />
-    <add-teams />
-    <bracket />
+    <!-- <user-nav />
+    <sidebar /> -->
+    <!-- <add-teams /> -->
+
   </div>
 </template>
 
 <script>
 import HomePage from '../components/HomePage'
-import Sidebar from '../components/Sidebar'
-import Bracket from '../components/Bracket'
-import AddTeams from '../components/AddTeams'
+// import Sidebar from '../components/Sidebar'
+// import UserNav from "../components/UserNav"
 
 export default {
   components: {
     HomePage,
-    Sidebar,
-    Bracket,
-    AddTeams
+    // Sidebar,
+    // UserNav
+    // ,
+    // AddTeams
   }
 };
 </script>

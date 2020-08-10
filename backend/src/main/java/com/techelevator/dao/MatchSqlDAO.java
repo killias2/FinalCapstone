@@ -23,7 +23,7 @@ public class MatchSqlDAO implements MatchDAO {
 	@Override
 	public Match[] getMatchList(Long tournamentId) {
 		String sql = "SELECT tournamentid, matchid, is_complete, winner_team_id, round, start_time, end_time " +
-				"FROM matches WHERE tournamentid = ?";
+				"FROM matches WHERE tournamentid = ? ORDER BY matchid";
 		SqlRowSet results = jdbcTemplate.queryForRowSet(sql, tournamentId);
 		List<Match> matchList = new ArrayList<>();
 		while(results.next()) {
@@ -45,22 +45,57 @@ public class MatchSqlDAO implements MatchDAO {
 		newMatch.setMatchid(getNextMatchId());
 		jdbcTemplate.update(sql, newMatch.getMatchid(), newMatch.isComplete(), newMatch.getRound(), newMatch.getStartTime(), 
 				newMatch.getEndTime(), newMatch.getTournamentId());
-		String sqlLinking = "INSERT INTO team_match (matchid, teamid) VALUES ";
-		Team[] teamArray = newMatch.getTeamList();
-		for(int i = 0; i < teamArray.length; i++) {
-			String newString = "(" + newMatch.getMatchid() + ", " + teamArray[i].getTeamId() + ")";
-			if(i < teamArray.length - 1) {
-				newString += ",";
+		if(newMatch.getTeamList() != null) {
+			String sqlLinking = "INSERT INTO team_match (matchid, teamid) VALUES ";
+			Team[] teamArray = newMatch.getTeamList();
+			for(int i = 0; i < teamArray.length; i++) {
+				String newString = "(" + newMatch.getMatchid() + ", " + teamArray[i].getTeamId() + ")";
+				if(i < teamArray.length - 1) {
+					newString += ",";
+				}
+				sqlLinking += newString;
 			}
-			sqlLinking += newString;
+			jdbcTemplate.update(sqlLinking);
 		}
-		jdbcTemplate.update(sqlLinking);
 		return newMatch;
 		
 	}
 	
+	@Override
+	public Match completeMatch(Match newMatch) {
+		String sql = "UPDATE matches SET is_complete = ?, winner_team_id = ? WHERE matchid = ?";
+		newMatch.setComplete(true);
+		jdbcTemplate.update(sql, newMatch.isComplete(),newMatch.getWinnerTeamId(), newMatch.getMatchid());
+		
+		sql = "SELECT * FROM matches WHERE tournamentid = ? AND round = ? ORDER BY matchid ASC";
+		SqlRowSet results = jdbcTemplate.queryForRowSet(sql, newMatch.getTournamentId(), newMatch.getRound());
+		
+		int currentMatchIndex = 0;
+		int matchesInCurrentRound = 0;
+		//long firstMatchId = 0;
+		while(results.next()) {
+			/*if(matchesInCurrentRound == 0) {
+				firstMatchId = results.getLong("matchid");
+			}*/
+			if(results.getLong("matchid") == newMatch.getMatchid()) {
+				currentMatchIndex = matchesInCurrentRound;
+				
+			}
+
+			matchesInCurrentRound ++;
+		}
+		
+		long nextMatchIndex = currentMatchIndex / 2;
+		SqlRowSet nextRoundResults = jdbcTemplate.queryForRowSet(sql, newMatch.getTournamentId(), newMatch.getRound() + 1);
+		if(nextRoundResults.next()) {
+		long startingIndex = nextRoundResults.getLong("matchid");
+		sql = "INSERT INTO team_match (matchid, teamid) VALUES (?, ?)";
+		jdbcTemplate.update(sql,  startingIndex + nextMatchIndex, newMatch.getWinnerTeamId());}
+		return newMatch;
+	}
+	@Override
 	public Team[] getMatchTeams(Match match) {
-		String sql = "SELECT teams.teamid, tournamentid, general_manager_id, teamname FROM teams JOIN " +
+		String sql = "SELECT teams.teamid, tournamentid, general_manager_id, teamname, seed FROM teams JOIN " +
 				"team_match ON teams.teamid = team_match.teamid WHERE matchid = ?";
 		SqlRowSet results = jdbcTemplate.queryForRowSet(sql, match.getMatchid());
 		List<Team> teamList = new ArrayList<>();
@@ -72,6 +107,7 @@ public class MatchSqlDAO implements MatchDAO {
 		teamArray = teamList.toArray(teamArray);
 		return teamArray;
 	}
+	
 	
 	public Long getNextMatchId() {
 		SqlRowSet nextIdResult = jdbcTemplate.queryForRowSet("SELECT nextval('matches_matchid_seq')");
@@ -100,6 +136,7 @@ public class MatchSqlDAO implements MatchDAO {
 		Team newTeam = new Team();
 		newTeam.setTeamId(results.getLong("teamid"));
 		newTeam.setTournamentId(results.getLong("tournamentid"));
+		newTeam.setSeed(results.getLong("seed"));
 		if(results.getLong("general_manager_id") > 0) {
 			newTeam.setGeneralManagerId(results.getLong("general_manager_id"));
 		}
