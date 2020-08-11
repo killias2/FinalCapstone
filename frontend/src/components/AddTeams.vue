@@ -29,7 +29,7 @@
                     </div>
                     <div class="form-element" v-if="this.currentTournament.isSeeded == true">
                     <label class="text-field" for="seed" required >Seed:</label>
-                    <input v-model="newTeam.seed" type="number" min="1"/>
+                    <input v-model="newTeam.seed" type="number" min="1" required/>
                     </div>
                 </div>
                 <div class="actions">
@@ -88,7 +88,7 @@ export default {
             newTeam: {
                 tournamentId: this.$route.params.id,
                 teamName: '',
-                seed: 0,
+                seed: 1,
                 email: '', 
                 generalManagerId: null
             },
@@ -242,7 +242,7 @@ export default {
             }
         },
         addNewTeam() {
-            if(this.currentTournament.seed == false){
+            if(this.currentTournament.isSeeded == false){
                 if(this.teams.length < 1){
                     this.newTeam.seed = 1;
                 }
@@ -318,6 +318,7 @@ export default {
             TournamentService.generateBrackets(this.currentTournament).then(response => {
                 if (response.status < 299) {
                     console.log('success');
+                    this.$router.go(0)
                 }
             })
         }
