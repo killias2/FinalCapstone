@@ -37,8 +37,9 @@ export default {
           if (response.status < 299) {
             this.$alert("Tournament successfully deleted")
             console.log('success')
+            this.$router.push({name: 'my-tournament', params: {id: this.user.id}})
           }
-          this.$router.push({name: 'my-tournament'})
+          
           })
         })
 

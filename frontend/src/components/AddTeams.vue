@@ -22,9 +22,9 @@
         <div v-if="(this.teams.length === this.currentTournament.numberOfTeams) && this.user.id === this.currentTournament.tournamentOrganizerId">
             <button v-if="(showGenButton)" v-on:click.prevent="generateBrackets">Generate Brackets</button>
         </div>
-        <div id="remove">
+        <div id="remove" v-if="this.user.id === this.currentTournament.tournamentOrganizerId">
             <select v-model="selectedTeam.teamId" name="all-teams" class="dropdown">
-                <option v-for="team in teams"  v-bind:key="team" :value="team.teamId" >{{team.teamName}}</option>
+                <option v-for="team in teams"  v-bind:key="team.teamId" :value="team.teamId" >{{team.teamName}}</option>
             </select>
             <button type="submit" v-on:click.prevent="removeTeamFromTournament" >Remove Team</button>
         </div>
@@ -35,7 +35,7 @@
                     <th  class="seed">Seed</th>
                 </tr>
             </thead>
-            <tbody v-for="team in teams" v-bind:key="team.id">
+            <tbody v-for="team in teams" v-bind:key="team.teamId">
                 <td>{{team.teamName}}</td>
                 <td  class="seed">{{team.seed}}</td>
             </tbody>
