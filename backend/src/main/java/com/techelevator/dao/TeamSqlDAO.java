@@ -70,6 +70,12 @@ private JdbcTemplate jdbcTemplate;
 		}
 	}
 	
+	public void removeTeam(Long id) {
+		String sql = "DELETE FROM teams " + 
+					"WHERE teamid = ?";
+		jdbcTemplate.update(sql, id);
+	}
+	
 	private Team mapRowToTeam(SqlRowSet results) {
 		Team newTeam = new Team();
 		newTeam.setTeamId(results.getLong("teamid"));

@@ -21,6 +21,12 @@
         <div v-if="(this.teams.length === this.currentTournament.numberOfTeams) && this.user.id === this.currentTournament.tournamentOrganizerId">
             <button v-if="(showGenButton)" v-on:click.prevent="generateBrackets">Generate Brackets</button>
         </div>
+        <div id="remove">
+            <select v-model="selectedTeam.teamId" name="all-teams" class="dropdown">
+                <option v-for="team in teams"  v-bind:key="team" :value="team.teamId" >{{team.teamName}}</option>
+            </select>
+            <button type="submit" v-on:click.prevent="removeTeamFromTournament" >Remove Team</button>
+        </div>
         <table>
             <thead>
                 <tr>
@@ -49,11 +55,12 @@ export default {
             newTeam: {
                 tournamentId: this.$route.params.id,
                 teamName: '',
-                seed: 0,
+                seed: 1,
                 email: '', 
                 generalManagerId: this.$store.state.user.id
             },
-            showGenButton: true
+            showGenButton: true,
+            selectedTeam: {}
         }
     },
     created() {
@@ -169,6 +176,21 @@ export default {
                     this.$alert("Brackets generated successfully")
                     console.log('success');
                 }
+            })
+        },
+        removeTeamFromTournament() {
+            this.$confirm("Are you sure?").then(() => {
+                TeamService.removeTeams(this.selectedTeam).then(response => {
+                    if (response.status < 299) {
+                    this.$alert("Team successfully removed")
+                    console.log('success')
+                    this.teams.filter((team) => {
+                        return team.teamName != this.selectedTeam.teamName;
+                    })
+                    location.reload();
+                    } 
+                })
+            
             })
         }
     }
