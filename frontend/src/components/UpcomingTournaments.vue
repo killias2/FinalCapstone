@@ -4,7 +4,7 @@
         <h3>Upcoming Tournaments:</h3>
                     <div class='tournament' v-for="tournament in tournaments" v-bind:key="tournament.id" 
         v-bind:currentTournament="tournament" v-on:click="viewTournamentDetails(tournament)"
-        v-bind:class="{ open: tournament.openToJoin }">
+        v-bind:class="{ open: tournament.openToJoin && !tournament.isFull}">
             <h2>{{tournament.tournamentName}}</h2>
             <h3>{{tournament.startDate}} to {{tournament.endDate}}</h3>
             <h3>{{tournament.gameName}}</h3>

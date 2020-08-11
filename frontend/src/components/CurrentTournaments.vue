@@ -3,7 +3,8 @@
         <!-- <h1>Current Tournaments</h1> -->
         <h3>Current Tournaments:</h3>
                     <div class="tournament" v-for="tournament in tournaments" v-bind:key="tournament.id" 
-        v-bind:currentTournament="tournament" v-on:click="viewTournamentDetails(tournament)">
+        v-bind:currentTournament="tournament" v-on:click="viewTournamentDetails(tournament)"
+        v-bind:class="{ open: tournament.openToJoin && !tournament.isFull}">
             <h2>{{tournament.tournamentName}}</h2>
             <h3>{{tournament.startDate}} to {{tournament.endDate}}</h3>
             <h3>{{tournament.gameName}}</h3>
@@ -59,5 +60,16 @@ export default {
     }
     .tournament:hover {
         background: blueviolet;
+    }
+    .open {
+        display: block;
+        text-align: center;
+        color: white;
+        font-weight: bolder;
+        text-shadow: 2px;
+        font-size: 20px;
+        margin-left: 300px;
+        margin-right: 300px;
+        background-color: red;
     }
 </style>
