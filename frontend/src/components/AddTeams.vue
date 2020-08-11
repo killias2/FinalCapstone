@@ -8,8 +8,10 @@
                     <input v-model="newTeam.teamName" type="text" />
                     <label class="text-field" for="email" required >Email Address:</label>
                     <input v-model="newTeam.email" type="email" />
-                    <label class="text-field" for="seed" required >Seed:</label>
-                    <input v-model="newTeam.seed" type="number" min="1"/>
+                    <label v-show="this.currentTournament.isSeeded" class="text-field" for="seed" required >Seed:</label>
+                    <input v-show="this.currentTournament.isSeeded" v-model="newTeam.seed" type="number" min="1" :max="this.currentTournament.numberOfTeams"/>
+                    <!-- <label v-show="!this.currentTournament.isSeeded" class="text-field" for="seed" required >Temporary Seed:</label>
+                    <input v-show="!this.currentTournament.isSeeded" v-model="newTeam.seed" type="number" min="1" :max="this.currentTournament.numberOfTeams"/> -->
                 </div>
                 <div class="actions">
                     <button v-on:click.prevent="resetForm" type="cancel">Cancel</button>
@@ -20,16 +22,22 @@
         <div v-if="(this.teams.length === this.currentTournament.numberOfTeams) && this.user.id === this.currentTournament.tournamentOrganizerId">
             <button v-if="(showGenButton)" v-on:click.prevent="generateBrackets">Generate Brackets</button>
         </div>
+        <div id="remove" v-if="this.user.id === this.currentTournament.tournamentOrganizerId">
+            <select v-model="selectedTeam.teamId" name="all-teams" class="dropdown">
+                <option v-for="team in teams"  v-bind:key="team.teamId" :value="team.teamId" >{{team.teamName}}</option>
+            </select>
+            <button type="submit" v-on:click.prevent="removeTeamFromTournament" >Remove Team</button>
+        </div>
         <table>
             <thead>
                 <tr>
                     <th class="teamName">Team Name</th>
-                    <th class="seed">Seed</th>
+                    <th  class="seed">Seed</th>
                 </tr>
             </thead>
-            <tbody v-for="team in teams" v-bind:key="team.id">
+            <tbody v-for="team in teams" v-bind:key="team.teamId">
                 <td>{{team.teamName}}</td>
-                <td class="seed">{{team.seed}}</td>
+                <td  class="seed">{{team.seed}}</td>
             </tbody>
         </table>
     </div>
@@ -48,11 +56,12 @@ export default {
             newTeam: {
                 tournamentId: this.$route.params.id,
                 teamName: '',
-                seed: 0,
+                // seed: 1,
                 email: '', 
                 generalManagerId: this.$store.state.user.id
             },
-            showGenButton: true
+            showGenButton: true,
+            selectedTeam: {}
         }
     },
     created() {
@@ -87,7 +96,6 @@ export default {
     seedIsValid: 
         function(){
         if(this.seedsArray.includes(parseInt(this.newTeam.seed))) {
-            this.$alert("Seed already assigned to team")
             return false 
         } else {
             return true;
@@ -96,7 +104,6 @@ export default {
     emailIsValid:
         function() {
             if(this.emailArray.includes(this.newTeam.email)) {
-                this.$alert("Email already associated with a team")
                 return false
             }   
             else {
@@ -107,7 +114,6 @@ export default {
     teamNameIsValid:
         function() {
             if(this.teamNameArray.includes(this.newTeam.teamName)) {
-                this.$alert("Team Name unavailable")
                 return false
             } 
             else {
@@ -125,13 +131,23 @@ export default {
         }
     },
     methods: {
+
         resetForm() {
-            this.newTeam = {
+            if(this.currentTournament.isSeeded) {
+                this.newTeam = {
                 tournamentId: this.$route.params.id,
                 teamName: '',
-                seed: 0,
+                seed: 1,
                 email: ''
-            };
+                }
+            }
+            else {
+                this.newTeam = {
+                tournamentId: this.$route.params.id,
+                teamName: '',
+                email: ''
+                }
+            }
         },
         getTeams() {
             TeamService.viewTeams(this.$route.params.id).then(response => {
@@ -165,8 +181,24 @@ export default {
         generateBrackets() {
             TournamentService.generateBrackets(this.currentTournament).then(response => {
                 if (response.status < 299) {
+                    this.$alert("Brackets generated successfully")
                     console.log('success');
                 }
+            })
+        },
+        removeTeamFromTournament() {
+            this.$confirm("Are you sure?").then(() => {
+                TeamService.removeTeams(this.selectedTeam).then(response => {
+                    if (response.status < 299) {
+                    this.$alert("Team successfully removed")
+                    console.log('success')
+                    this.teams.filter((team) => {
+                        return team.teamName != this.selectedTeam.teamName;
+                    })
+                    location.reload();
+                    } 
+                })
+            
             })
         }
     }

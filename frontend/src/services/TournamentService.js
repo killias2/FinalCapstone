@@ -54,6 +54,9 @@ export default {
   },
   completeMatch(match){
     return http.put(`/matches/${match.matchid}/complete`, match);
+  },
+  deleteTournament(tournament) {
+    return http.delete(`/tournaments/${tournament.id}`);
   }
 
 }
