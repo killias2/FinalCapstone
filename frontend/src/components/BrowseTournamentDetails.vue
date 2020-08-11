@@ -1,16 +1,13 @@
 <template>
   <div>
     <div class="tournament">
-      <h2 class="title">{{currentTournament.tournamentName}}</h2>
-      <h3 class="date">{{currentTournament.startDate}} to {{currentTournament.endDate}}</h3>
-      <div v-show="this.user.id === this.currentTournament.tournamentOrganizerId">
-        <button
-          v-on:click="goToEditor"
-          :to="{ name: 'tournamentHQ', params: {id: $route.params.tournamentID} }"
-          class="btn editTournament"
-          >Edit Tournament</button>
-        <button class="btn deleteTournament" v-on:click="deleteTournament">Delete Tournament</button>
-      </div>
+       <h2 class="title">{{currentTournament.tournamentName}}</h2>
+        <h3 class="date">{{currentTournament.startDate}} to {{currentTournament.endDate}}</h3>
+      <button
+        v-on:click="goToEditor"
+        :to="{ name: 'tournamentHQ', params: {id: $route.params.tournamentID} }"
+        class="btn editTournament">Edit Tournament</button>
+      <button class="btn deleteTournament" v-on:click="deleteTournament">Delete Tournament</button>
     </div>
   </div>
 </template>
