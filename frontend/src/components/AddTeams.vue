@@ -27,8 +27,10 @@
                         <label class="text-field" for="general_manager" required >General Manager Username:</label>
                         <input v-model="generalManagerName" type="text" />
                     </div>
+                    <div class="form-element" v-if="this.currentTournament.isSeeded == true">
                     <label class="text-field" for="seed" required >Seed:</label>
                     <input v-model="newTeam.seed" type="number" min="1"/>
+                    </div>
                 </div>
                 <div class="actions">
                     <button v-on:click.prevent="resetForm" type="cancel">Cancel</button>
@@ -36,6 +38,24 @@
                 </div>
             </form>
         </div>
+
+        <div v-show="(this.teams.length < this.currentTournament.numberOfTeams) && $store.state.token != '' && 
+            this.user.id != this.currentTournament.tournamentOrganizerId && !this.generalManagerArray.includes(this.user.id)">
+            <form v-on:submit.prevent="addSelfToTeam">
+                <div class="form-fields">
+                    <label class="text-field" >Give a Team Name and Add Your Team to this Tournament!</label>
+                    <br>
+                    <br>
+                    <label class="text-field" for="teamName">Team Name:</label>
+                    <input v-model="newTeam.teamName" type="text" required />
+                        <div class="actions">
+                            <button v-on:click.prevent="resetForm" type="cancel">Cancel</button>
+                            <button type="submit" >Submit</button>
+                        </div>
+                </div>
+            </form>
+        </div>
+
         <div v-if="(this.teams.length === this.currentTournament.numberOfTeams) && this.user.id === this.currentTournament.tournamentOrganizerId">
             <button v-if="(showGenButton)" v-on:click.prevent="generateBrackets">Generate Brackets</button>
         </div>
@@ -84,7 +104,6 @@ export default {
             this.teams = response.data;
         })
     },
-    props: ['tournament'],
     computed: {
     seedsArray: function(){
          let seeds = []
@@ -201,7 +220,36 @@ export default {
             this.teams = response.data;
         })
         },
+        addSelfToTeam(){
+            if(this.teamNameIsValid){
+                this.newTeam.generalManagerId = this.user.id;
+                if(this.teams.length < 1){
+                    this.newTeam.seed = 1;
+                }
+                else {
+                    this.newTeam.seed = this.teams.length + 1;
+                }
+            }
+            if(this.generalManagerIsValid){
+                TeamService.addTeams(this.newTeam).then(response => {
+                    if (response.status < 299) {
+                        console.log('success');
+                    }
+                }).then(() => {
+                    this.getTeams();
+                })
+                this.resetForm();
+            }
+        },
         addNewTeam() {
+            if(this.currentTournament.seed == false){
+                if(this.teams.length < 1){
+                    this.newTeam.seed = 1;
+                }
+                else {
+                    this.newTeam.seed = this.teams.length + 1;
+                }
+            }
             if(this.dropDownChoice == "Yes"){
                 AuthService.getUserByName(this.generalManagerName).then(response =>{
                     this.generalManager = response.data

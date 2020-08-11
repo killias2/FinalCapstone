@@ -35,7 +35,12 @@
                 </select>
             </div>
         </div>
-        <div class="form-element">
+        <div v-if="this.newTournament.openToJoin == 'true'">
+            <label class="title">(Please note that Seeding Only Exists for Private Tournaments)</label>
+            <br>
+            <br>
+        </div>
+        <div class="form-element" v-if="this.newTournament.openToJoin == 'false'">
             <label class="title" for="dropdown">Set Seeding or Random</label>
             <div>
                 <select v-model="newTournament.isSeeded" required name="seeding" class="dropdown">
@@ -75,7 +80,7 @@ export default {
         return {
             newTournament: {
                 tournamentName: '',
-                openToJoin: false, //default is closed tournament
+                openToJoin: 'false', //default is closed tournament
                 gameId: 0, //what sport/game is this tournament for?
                 bracketId: 0, //single elim / double elim / round robin
                 startDate: '',
@@ -111,6 +116,9 @@ export default {
             this.newTournament = {};
         },
         addNewTournament() {
+            if(this.newTournament.openToJoin == 'true'){
+                this.newTournament.isSeeded = 'false'
+            }
             tournamentService.newTournament(this.newTournament)
             .then(response => {
                 if (response.status < 299) {
