@@ -5,8 +5,7 @@
            {{ player.seed }} {{ player.teamName }}
         </template>
         <template #player-extension-bottom="{ match }">
-            game info: {{ match.title }} {{ match.match.matchid }}<button v-if="hasButton" v-on:click="selectMatch(match.match.matchid)" v-bind="match"> {{ match.match.matchid }} Edit Match </button>
-        </template>
+            game number: {{ match.match.matchid }}</template>
     </bracket>
 
 </template>
@@ -28,6 +27,9 @@
             TournamentService.getAllMatches(this.tournamentId)
                 .then(response => {
                 this.matches = response.data;
+                this.$store.commit('SET_MATCHES', {
+                    saveThis: this.matches
+                })
                 })
             .then(() => {
                 this.fixRounds();
@@ -92,6 +94,7 @@
                 for(let i = 1; i < this.numRounds; i++){
                     for(let j = 0; j < this.fixedRounds[i].games.length; j++){
                     if(this.currentRoundMatches[j].teamList.length > 0){
+                        this.fixedRounds[i].games[j].match = this.matches[(this.fixedRounds[0].games.length) + j];
                         this.fixedRounds[i].games[j].player1 = this.currentRoundMatches[j].teamList[0];
                     } 
                     if (this.currentRoundMatches[j].teamList.length > 1){
@@ -126,14 +129,6 @@
                 return this.matches.filter((match) => {
                     return match.round == this.currentRound;
                 })
-            },
-            hasButton(match) {
-                if (this.editMode && (!match.complete)){
-                    return true;
-                }
-                else {
-                    return false;
-                }
             }
         },
         data() {

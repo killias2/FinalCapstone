@@ -22,9 +22,21 @@ export default {
         'BracketDisplay': BracketDisplay
     },
     computed: {
-        selectedMatchId: function() {
-            return this.$store.state.selectedMatchId;
+        selectedMatch: function() {
+            return this.$store.state.selectedMatch;
+        },
+        eligibleGames: function(){
+            return this.storeMatches.filter((match) => {
+                if(!match.complete && match.teamList.length >= 2){
+                    return match;
+                }
+            })
         }
+    },
+    created() {
+    TournamentService.getTournament(this.$route.params.id).then(response => {
+        this.tournament = response.data;
+    })
     },
     watch: {
         selectedMatchId: function(val) {
@@ -39,13 +51,23 @@ export default {
                 })
         },
         sendWinner() {
-            
+            this.selectedMatch.winnerTeamId = this.winningTeam
+            TournamentService.completeMatch(this.selectedMatch).then(() => {
+                // this.$forceUpdate();
+                location.reload();
+            })
+                // .then(() => {
+                //     this.$router.push('/');
+                // })
         }
     },
     data() {
         return {
             selectedMatchTeams: [],
-            winningTeam: {},
+            winningTeam: 0,
+            storeMatches: this.$store.state.currentMatches,
+            selectedGame: {},
+            tournament: {}
         }
     }
 }
