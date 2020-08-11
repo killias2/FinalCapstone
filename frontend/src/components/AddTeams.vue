@@ -180,14 +180,18 @@ export default {
         },
         generateBrackets() {
             TournamentService.generateBrackets(this.currentTournament).then(response => {
+                 this.currentTournament.isFull = true;
                 if (response.status < 299) {
                     this.$alert("Brackets generated successfully")
                     console.log('success');
                 }
             })
+            
         },
         removeTeamFromTournament() {
+
             this.$confirm("Are you sure?").then(() => {
+                this.currentTournament.isFull = false;
                 TeamService.removeTeams(this.selectedTeam).then(response => {
                     if (response.status < 299) {
                     this.$alert("Team successfully removed")
@@ -200,6 +204,7 @@ export default {
                 })
             
             })
+                
         }
     }
     
