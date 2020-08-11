@@ -41,6 +41,11 @@ public class AuthenticationController {
 	public User getTournamentById(@PathVariable long id) {
 		return userDAO.getUserById(id);
 	}
+    
+    @RequestMapping(value = "/users/filter", method = RequestMethod.GET)
+    public User getUserByName(@RequestParam String username) {
+    	return userDAO.findByUsername(username);
+    }
 
     @RequestMapping(value = "/login", method = RequestMethod.POST)
     public ResponseEntity<LoginResponse> login(@Valid @RequestBody LoginDTO loginDto) {

@@ -6,8 +6,27 @@
                 <div class="form-fields">
                     <label class="text-field" for="teamName" required >Team Name:</label>
                     <input v-model="newTeam.teamName" type="text" />
-                    <label class="text-field" for="email" required >Email Address:</label>
-                    <input v-model="newTeam.email" type="email" />
+                    <div class="form-element">
+                        <label class=".text-field" for="dropdown">Does this team have a registered General Manager?</label>
+                        <div>
+                            <select v-model="dropDownChoice" required name="drowpdown-choice" class="dropdown">
+                                <option value="No" selected="selected">No</option>
+                                <option value="Yes">Yes</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-element" v-if="this.dropDownChoice == 'No'">
+                        <label class="text-field" for="email" required >Email Address:</label>
+                        <input v-model="newTeam.email" type="email" />
+                    </div>
+                    <!-- <div class="form-element" v-if="this.dropDownChoice == 'Yes'">
+                        <label class="text-field" for="general_manager" required >General Manager ID#:</label>
+                        <input v-model="newTeam.generalManagerId" type="number" min="1" />
+                    </div> -->
+                    <div class="form-element" v-if="this.dropDownChoice == 'Yes'">
+                        <label class="text-field" for="general_manager" required >General Manager Username:</label>
+                        <input v-model="generalManagerName" type="text" />
+                    </div>
                     <label class="text-field" for="seed" required >Seed:</label>
                     <input v-model="newTeam.seed" type="number" min="1"/>
                 </div>
@@ -38,6 +57,7 @@
 <script>
 import TeamService from '../services/TeamService'
 import TournamentService from '../services/TournamentService'
+import AuthService from '../services/AuthService'
 
 export default {
     data() {
@@ -50,18 +70,21 @@ export default {
                 teamName: '',
                 seed: 0,
                 email: '', 
-                generalManagerId: this.$store.state.user.id
+                generalManagerId: null
             },
-            showGenButton: true
+            generalManagerName: "",
+            dropDownChoice: "No",
+            showGenButton: true,
+            // userValid: true,
+            generalManager: {}
         }
     },
     created() {
-       
         TeamService.viewTeams(this.$route.params.id).then(response => {
             this.teams = response.data;
         })
- 
     },
+    props: ['tournament'],
     computed: {
     seedsArray: function(){
          let seeds = []
@@ -84,6 +107,13 @@ export default {
         })
         return names;
     },
+    generalManagerArray: function() {
+        let gms = []
+        this.teams.forEach((team) => {
+            gms.push(team.generalManagerId)
+        })
+        return gms;
+    },
     seedIsValid: 
         function(){
         if(this.seedsArray.includes(parseInt(this.newTeam.seed))) {
@@ -93,12 +123,36 @@ export default {
             return true;
         }
     },
+    // generalManagerNameIsValid:
+    //     function(){
+    //         if(this.generalManager.id < 1) {
+    //             return false
+    //         } else {
+    //             return true;
+    //         }
+    //     },
+    generalManagerIsValid:
+        function() {
+            if(this.generalManagerArray.includes(parseInt(this.newTeam.generalManagerId)) && this.dropDownChoice=="Yes"){
+                return false
+            }
+            else if (this.newTeam.generalManagerId == null && this.dropDownChoice=="Yes"){
+                return false
+            }
+            else {
+                return true;
+            }
+        },
     emailIsValid:
         function() {
-            if(this.emailArray.includes(this.newTeam.email)) {
+            if(this.emailArray.includes(this.newTeam.email) && this.dropDownChoice!="Yes") {
                 this.$alert("Email already associated with a team")
                 return false
-            }   
+            }
+            else if (this.newTeam.email == "" && this.dropDownChoice!="Yes"){
+                this.$alert("Please add an email or a General Manager")
+                return false  
+            }
             else {
                 return true;
                 }
@@ -116,7 +170,7 @@ export default {
         },
     formIsValid:
         function() {
-            if(this.teamNameIsValid && this.emailIsValid && this.seedIsValid) {
+            if(this.teamNameIsValid && this.emailIsValid && this.seedIsValid && this.generalManagerIsValid) {
                 return true;
             }
             else {
@@ -132,6 +186,15 @@ export default {
                 seed: 0,
                 email: ''
             };
+            this.generalManager = {},
+            this.generalManagerName = "";
+        },
+        getGeneralManagerID(){
+            if(AuthService.getUserByName(this.generalManagerName).id < 1){
+                return false
+            } else {
+                return true;
+            }
         },
         getTeams() {
             TeamService.viewTeams(this.$route.params.id).then(response => {
@@ -139,7 +202,41 @@ export default {
         })
         },
         addNewTeam() {
-            if(this.formIsValid) {
+            if(this.dropDownChoice == "Yes"){
+                AuthService.getUserByName(this.generalManagerName).then(response =>{
+                    this.generalManager = response.data
+                    this.newTeam.generalManagerId = this.generalManager.id
+                    if(this.formIsValid){
+                        TeamService.addTeams(this.newTeam).then(response => {
+                            if (response.status < 299) {
+                            console.log('success');
+                            }
+                        }).then(() => {
+                            this.getTeams();
+                        })
+                        this.resetForm();
+                    }
+                    
+                    else {
+                        if(!this.emailIsValid) {
+                            this.$alert("Please check team email to make sure it exists and is unique")
+                        }
+                        else if(!this.teamNameIsValid) {
+                            this.$alert("Unable to submit due to duplicate team names")
+                        }
+                        else if(!this.generalManagerIsValid){
+                            this.$alert("Unable to submit due to duplicate or non-existent general manager")
+                        }
+                        else if(!this.seedIsValid){
+                            this.$alert("Unable to submit due to duplicate seeds")
+                        }
+                        else {
+                            this.$alert("Please doublecheck the general manager username")
+                        }
+                    }
+                })
+            }
+            else if(this.formIsValid) {
                 TeamService.addTeams(this.newTeam).then(response => {
                 if (response.status < 299) {
                 console.log('success');
@@ -149,16 +246,23 @@ export default {
                     this.getTeams();
             });
             this.resetForm();
+            // this.userValid = true;
             }
             else {
                 if(!this.emailIsValid) {
-                    this.$alert("Unable to submit due to duplicate email addresses")
+                    this.$alert("Please check team email to make sure it exists and is unique")
                 }
                 else if(!this.teamNameIsValid) {
                     this.$alert("Unable to submit due to duplicate team names")
                 }
-                else {
+                else if(!this.generalManagerIsValid){
+                    this.$alert("Unable to submit due to duplicate or non-existent general manager")
+                }
+                else if(!this.seedIsValid){
                     this.$alert("Unable to submit due to duplicate seeds")
+                }
+                else {
+                    this.$alert("Please doublecheck the general manager username")
                 }
             }
         },

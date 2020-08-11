@@ -1,6 +1,6 @@
 <template>
     <div>
-        <bracket-display v-bind:edit-mode="true"/>
+        <browse-bracket-display v-bind:tournament="tournament" v-bind:edit-mode="true"/>
         <div>
             <form v-on:submit.prevent="sendWinner">
                 <label for="winnerInput"> Enter winner of game: </label>
@@ -14,17 +14,22 @@
 </template>
 <script>
 import TournamentService from '../services/TournamentService';
-import BracketDisplay from "../components/BracketDisplay.vue";
+import BrowseBracketDisplay from "../components/BrowseBracketDisplay.vue";
 
 export default {
     name: 'BracketEditor',
     components: {
-        'BracketDisplay': BracketDisplay
+        'BrowseBracketDisplay': BrowseBracketDisplay
     },
     computed: {
         selectedMatch: function() {
             return this.$store.state.selectedMatch;
         }
+    },
+    created() {
+        TournamentService.getTournament(this.$route.params.id).then(response => {
+            this.tournament = response.data;
+    })
     },
     watch: {
         // selectedMatch: function(val) {
@@ -42,7 +47,10 @@ export default {
         },
         sendWinner() {
             this.selectedMatch.winnerTeamId = this.winningTeam
-            TournamentService.completeMatch(this.selectedMatch)
+            TournamentService.completeMatch(this.selectedMatch).then(() => {
+                // this.$forceUpdate();
+                location.reload();
+            })
                 // .then(() => {
                 //     this.$router.push('/');
                 // })
@@ -51,7 +59,8 @@ export default {
     data() {
         return {
             selectedMatchTeams: [],
-            winningTeam: 0
+            winningTeam: 0,
+            tournament: {}
         }
     }
 }
