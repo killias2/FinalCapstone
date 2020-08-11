@@ -20,6 +20,4 @@ public interface TournamentDAO {
 
 	void deleteTournamentById(Long id);
 	
-	void deleteTournamentById(Long id);
-	
 }

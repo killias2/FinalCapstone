@@ -104,16 +104,14 @@ export default {
             newTeam: {
                 tournamentId: this.$route.params.id,
                 teamName: '',
-                seed: 1,
+                seed: null,
                 email: '', 
                 generalManagerId: null
             },
             generalManagerName: "",
             dropDownChoice: "No",
             showGenButton: true,
-            // userValid: true,
             generalManager: {},
-            showGenButton: true,
             selectedTeam: {}
         }
     },
@@ -153,7 +151,7 @@ export default {
     },
     seedIsValid: 
         function(){
-        if(this.seedsArray.includes(parseInt(this.newTeam.seed))) {
+        if(this.seedsArray.includes(parseInt(this.newTeam.seed)) && this.currentTournament.isSeeded == true) {
             return false 
         } else {
             return true;
@@ -181,10 +179,13 @@ export default {
         },
     emailIsValid:
         function() {
-            if(this.emailArray.includes(this.newTeam.email)) {
+            if(this.dropDownChoice == "Yes"){
+                return true
+            }
+            else if(this.emailArray.includes(this.newTeam.email)) {
                 return false
             }
-            else if (this.newTeam.email == "" && this.dropDownChoice!="Yes"){
+            else if (this.newTeam.email == ""){
                 this.$alert("Please add an email or a General Manager")
                 return false  
             }
@@ -215,23 +216,15 @@ export default {
     methods: {
 
         resetForm() {
-            if(this.currentTournament.isSeeded) {
-                this.newTeam = {
+            this.newTeam = {
                 tournamentId: this.$route.params.id,
                 teamName: '',
                 seed: 1,
-                email: ''
-                }
+                email: '',
+                generalManagerId: null
             }
-            else {
-                this.newTeam = {
-                tournamentId: this.$route.params.id,
-                teamName: '',
-                email: ''
-                };
             this.generalManager = {},
             this.generalManagerName = "";
-            }
         },
         getGeneralManagerID(){
             if(AuthService.getUserByName(this.generalManagerName).id < 1){
@@ -248,12 +241,13 @@ export default {
         addSelfToTeam(){
             if(this.teamNameIsValid){
                 this.newTeam.generalManagerId = this.user.id;
-                if(this.teams.length < 1){
-                    this.newTeam.seed = 1;
-                }
-                else {
-                    this.newTeam.seed = this.teams.length + 1;
-                }
+                this.newTeam.seed = null;
+                // if(this.teams.length < 1){
+                //     this.newTeam.seed = 1;
+                // }
+                // else {
+                //     this.newTeam.seed = this.teams.length + 1;
+                // }
             }
             if(this.generalManagerIsValid){
                 TeamService.addTeams(this.newTeam).then(response => {
@@ -268,12 +262,13 @@ export default {
         },
         addNewTeam() {
             if(this.currentTournament.isSeeded == false){
-                if(this.teams.length < 1){
-                    this.newTeam.seed = 1;
-                }
-                else {
-                    this.newTeam.seed = this.teams.length + 1;
-                }
+                this.newTeam.seed = null;
+                // if(this.teams.length < 1){
+                //     this.newTeam.seed = 1;
+                // }
+                // else {
+                //     this.newTeam.seed = this.teams.length + 1;
+                // }
             }
             if(this.dropDownChoice == "Yes"){
                 AuthService.getUserByName(this.generalManagerName).then(response =>{
@@ -306,6 +301,7 @@ export default {
                         else {
                             this.$alert("Please doublecheck the general manager username")
                         }
+                        this.resetForm();
                     }
                 })
             }
@@ -317,13 +313,13 @@ export default {
                 
                 }).then(() => {
                     this.getTeams();
-            });
-            this.resetForm();
-            // this.userValid = true;
+                });
+                this.resetForm();
+
             }
             else {
                 if(!this.emailIsValid) {
-                    this.$alert("Please check team email to make sure it exists and is unique")
+                    this.$alert("Please check team email to make sure that it exists and is unique")
                 }
                 else if(!this.teamNameIsValid) {
                     this.$alert("Unable to submit due to duplicate team names")
@@ -337,6 +333,7 @@ export default {
                 else {
                     this.$alert("Please doublecheck the general manager username")
                 }
+                this.resetForm();
             }
         },
         generateBrackets() {
