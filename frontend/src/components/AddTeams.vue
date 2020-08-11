@@ -10,8 +10,8 @@
                     <input v-model="newTeam.email" type="email" />
                     <label v-show="this.currentTournament.isSeeded" class="text-field" for="seed" required >Seed:</label>
                     <input v-show="this.currentTournament.isSeeded" v-model="newTeam.seed" type="number" min="1" :max="this.currentTournament.numberOfTeams"/>
-                    <label v-show="!this.currentTournament.isSeeded" class="text-field" for="seed" required >Temporary Seed:</label>
-                    <input v-show="!this.currentTournament.isSeeded" v-model="newTeam.seed" type="number" min="1" :max="this.currentTournament.numberOfTeams"/>
+                    <!-- <label v-show="!this.currentTournament.isSeeded" class="text-field" for="seed" required >Temporary Seed:</label>
+                    <input v-show="!this.currentTournament.isSeeded" v-model="newTeam.seed" type="number" min="1" :max="this.currentTournament.numberOfTeams"/> -->
                 </div>
                 <div class="actions">
                     <button v-on:click.prevent="resetForm" type="cancel">Cancel</button>
@@ -32,12 +32,12 @@
             <thead>
                 <tr>
                     <th class="teamName">Team Name</th>
-                    <th class="seed">Seed</th>
+                    <th  class="seed">Seed</th>
                 </tr>
             </thead>
             <tbody v-for="team in teams" v-bind:key="team.id">
                 <td>{{team.teamName}}</td>
-                <td class="seed">{{team.seed}}</td>
+                <td  class="seed">{{team.seed}}</td>
             </tbody>
         </table>
     </div>
@@ -56,7 +56,7 @@ export default {
             newTeam: {
                 tournamentId: this.$route.params.id,
                 teamName: '',
-                seed: 1,
+                // seed: 1,
                 email: '', 
                 generalManagerId: this.$store.state.user.id
             },
@@ -96,7 +96,6 @@ export default {
     seedIsValid: 
         function(){
         if(this.seedsArray.includes(parseInt(this.newTeam.seed))) {
-            this.$alert("Seed already assigned to team")
             return false 
         } else {
             return true;
@@ -105,7 +104,6 @@ export default {
     emailIsValid:
         function() {
             if(this.emailArray.includes(this.newTeam.email)) {
-                this.$alert("Email already associated with a team")
                 return false
             }   
             else {
@@ -116,7 +114,6 @@ export default {
     teamNameIsValid:
         function() {
             if(this.teamNameArray.includes(this.newTeam.teamName)) {
-                this.$alert("Team Name unavailable")
                 return false
             } 
             else {
@@ -136,12 +133,21 @@ export default {
     methods: {
 
         resetForm() {
-            this.newTeam = {
+            if(this.currentTournament.isSeeded) {
+                this.newTeam = {
                 tournamentId: this.$route.params.id,
                 teamName: '',
-                seed: this.seed + 1,
+                seed: 1,
                 email: ''
-            };
+                }
+            }
+            else {
+                this.newTeam = {
+                tournamentId: this.$route.params.id,
+                teamName: '',
+                email: ''
+                }
+            }
         },
         getTeams() {
             TeamService.viewTeams(this.$route.params.id).then(response => {
