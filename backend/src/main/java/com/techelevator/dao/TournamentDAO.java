@@ -17,6 +17,8 @@ public interface TournamentDAO {
 	List<Tournament> getCompleteTournaments();
 	
 	List<Tournament> getCurrentTournaments();
+
+	void deleteTournamentById(Long id);
 	
 	
 }
