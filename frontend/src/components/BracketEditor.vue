@@ -3,14 +3,14 @@
         <div>
             <form v-on:submit.prevent="sendWinner">
                 <label for="gameSelection"> Choose a game to edit: </label>
-                <select name="gameSelection" v-model="selectedGame">
+                <select name="gameSelection" v-model="selectedMatch">
                     <option v-for="game in eligibleGames" :key="game.matchid" :value="game">
                         {{ game.matchid }} 
                     </option>
                 </select><br/>
                 <label for="teamSelection"> Choose a winning team: </label>
                 <select name="teamSelection" v-model="winningTeam">
-                    <option v-for="team in selectedGame.teamList" :key="team.teamId" :value="team.teamId">
+                    <option v-for="team in selectedMatch.teamList" :key="team.teamId" :value="team.teamId">
                         {{ team.teamName }} 
                     </option>
                 </select>
@@ -77,7 +77,7 @@ export default {
             selectedMatchTeams: [],
             winningTeam: 0,
             storeMatches: this.$store.state.currentMatches,
-            selectedGame: [],
+            selectedMatch: {},
             tournament: {}
         }
     }
