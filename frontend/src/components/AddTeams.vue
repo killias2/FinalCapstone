@@ -59,7 +59,7 @@
         <div v-if="(this.teams.length === this.currentTournament.numberOfTeams) && this.user.id === this.currentTournament.tournamentOrganizerId">
             <button v-if="(showGenButton)" v-on:click.prevent="generateBrackets">Generate Brackets</button>
         </div>
-        <table>
+        <table v-if="this.currentTournament.isSeeded == true">
             <thead>
                 <tr>
                     <th class="teamName">Team Name</th>
@@ -69,6 +69,16 @@
             <tbody v-for="team in teams" v-bind:key="team.id">
                 <td>{{team.teamName}}</td>
                 <td class="seed">{{team.seed}}</td>
+            </tbody>
+        </table>
+        <table v-if="this.currentTournament.isSeeded == false">
+            <thead>
+                <tr>
+                    <th class="teamName">Team Name</th>
+                </tr>
+            </thead>
+            <tbody v-for="team in teams" v-bind:key="team.id">
+                <td>{{team.teamName}}</td>
             </tbody>
         </table>
     </div>

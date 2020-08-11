@@ -81,7 +81,13 @@ public class TournamentSqlDAO implements TournamentDAO{
 		}
 		return null;
 	}
-	
+	@Override
+	public void deleteTournamentById(Long id) {
+		String sql = "DELETE FROM teams WHERE tournamentid = ?";
+		jdbcTemplate.update(sql, id);
+		sql = "DELETE FROM tournaments WHERE tournamentid = ?";
+		jdbcTemplate.update(sql, id);
+	}
 	
 	@Override
 	public List<Tournament> getTournamentByOrganizerId(Long id) {
