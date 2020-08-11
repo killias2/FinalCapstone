@@ -1,25 +1,25 @@
 <template>
     <div>
-        <h1>Tournament Details</h1>
+        <!-- <h1>Tournament Details</h1> -->
         <tournament-details/>
-        <bracket-display v-bind:edit-mode="false"/>
         <add-teams/>
-        <user-nav />
+        <bracket-display v-bind:edit-mode="false"/>
+        <!-- <user-nav /> -->
     </div>
 </template>
 
 <script>
 import TournamentDetails from "../components/TournamentDetails"
-import BracketDisplay from '../components/BracketDisplay';
-import UserNav from '../components/UserNav'
+// import UserNav from '../components/UserNav'
 import AddTeams from '../components/AddTeams'
+import BracketDisplay from '../components/BracketDisplay';
 
 export default {
     components: {
         TournamentDetails,
-        BracketDisplay,
-        UserNav,
-        AddTeams
+        // UserNav,
+        AddTeams,
+        BracketDisplay
     }
 };
 </script>

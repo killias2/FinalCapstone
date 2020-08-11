@@ -1,21 +1,21 @@
 <template>
     <div>
-        <sidebar />
+        <!-- <sidebar /> -->
         <current-tournaments />
-        <user-nav />
+        <!-- <user-nav /> -->
     </div>
 </template>
 
 <script>
 import CurrentTournaments from "../components/CurrentTournaments"
-import Sidebar from '../components/Sidebar'
-import UserNav from '../components/UserNav'
+// import Sidebar from '../components/Sidebar'
+// import UserNav from '../components/UserNav'
 
 export default {
     components: {
         CurrentTournaments,
-        Sidebar,
-        UserNav
+        // Sidebar,
+        // UserNav
     }
 };
 </script>

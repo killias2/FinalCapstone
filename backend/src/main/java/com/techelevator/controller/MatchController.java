@@ -24,6 +24,10 @@ public class MatchController {
 	public Match createMatch(@RequestBody Match newMatch) {
 		return matchDAO.createMatch(newMatch);
 	}
+	@RequestMapping(value = "/matches/{id}/complete", method = RequestMethod.PUT)
+	public Match completeMatch(@RequestBody Match match) {
+		return matchDAO.completeMatch(match);
+	}
 	
 	@RequestMapping(value = "/tournaments/{tournamentId}/matches", method = RequestMethod.GET)
 	public Match[] getMatchesForTournament(@PathVariable Long tournamentId) {

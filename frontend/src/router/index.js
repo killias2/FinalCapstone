@@ -109,8 +109,8 @@ const router = new Router({
       component: UserProfile
     },
     {
-      path: "/user/:id/change-password",
-      name: "change-password",
+      path: "/users/:id/change-password",
+      name: "password-change",
       component: ChangePassword
     }
   ]

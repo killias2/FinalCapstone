@@ -17,6 +17,9 @@
                 </div>
             </form>
         </div>
+        <div v-if="(this.teams.length === this.currentTournament.numberOfTeams) && this.user.id === this.currentTournament.tournamentOrganizerId">
+            <button v-if="(showGenButton)" v-on:click.prevent="generateBrackets">Generate Brackets</button>
+        </div>
         <table>
             <thead>
                 <tr>
@@ -34,6 +37,7 @@
 
 <script>
 import TeamService from '../services/TeamService'
+import TournamentService from '../services/TournamentService'
 
 export default {
     data() {
@@ -47,7 +51,8 @@ export default {
                 seed: 0,
                 email: '', 
                 generalManagerId: this.$store.state.user.id
-            }
+            },
+            showGenButton: true
         }
     },
     created() {
@@ -117,14 +122,6 @@ export default {
             else {
                 return false;
             }
-        },
-    alert:
-        function() {
-            if(!this.seedIsValid) {
-            this.$alert("Seed already assigned to team");
-            
-        }
-        return true;
         }
     },
     methods: {
@@ -152,7 +149,6 @@ export default {
                     this.getTeams();
             });
             this.resetForm();
-            this.$router.go;
             }
             else {
                 if(!this.emailIsValid) {
@@ -165,6 +161,13 @@ export default {
                     this.$alert("Unable to submit due to duplicate seeds")
                 }
             }
+        },
+        generateBrackets() {
+            TournamentService.generateBrackets(this.currentTournament).then(response => {
+                if (response.status < 299) {
+                    console.log('success');
+                }
+            })
         }
     }
     

@@ -1,11 +1,12 @@
 <template>
     <div class="home">
-        <div class="banner">
+        <!-- <div class="banner">
             <h1>Welcome to TournaMint!</h1>
-        </div>
+        </div> -->
         <div class="body">
+            <h3 id="intro"> Brackets[] can help with all of your tournament-related needs!</h3>
             <img alt="Soccer Ball" src="../assets/soccerball.webp">
-            <p>You are an authenticated user!</p>
+            <!-- <p>You are an authenticated user!</p> -->
         </div>
     </div>
 </template>
@@ -16,12 +17,12 @@
 export default {
   name: "home"
 }
+
 </script>
 
 <style>
 .body {
-    margin-left: 200px;
-
+    /* margin-left: 200px; */
 }
 .banner {
     margin-left: 0px;
@@ -31,6 +32,7 @@ img {
     display: block;
     margin-left: auto;
     margin-right: auto;
+    padding-bottom: 20px;
     width: 50%;
     border-radius: 50px;
 }
@@ -40,6 +42,10 @@ p {
     font-weight: bolder;
     text-shadow: 2px;
     font-size: 50px;
+}
+
+#intro {
+    text-align: center;
 }
     
 </style>

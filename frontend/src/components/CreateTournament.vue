@@ -1,5 +1,5 @@
 <template>
-    <form v-on:submit.prevent="addNewTournament">
+    <form v-on:submit.prevent="addNewTournament()">
         <div class="form-element">
             <div class="tournamentName">
                 <label class="title" for="tournament-name">Tournament Name:</label>
@@ -8,11 +8,9 @@
         </div>
         <div class="form-element">
             <label class="title" for="dropdown">Game</label>
-            <div>
-                <select required v-model="newTournament.gameId" name="game" class="dropdown">
-                    <option value=""  disabled>Select an Option </option>
-                    <option value="1">Billiards</option>
-                    <option value="2">Soccer</option>
+            <div >
+                <select  required v-model="newTournament.gameId" name="all-games" class="dropdown">
+                    <option v-for="game in games"  v-bind:key="game.gameId" :value="game.gameId" >{{game.gameName}}</option>
                 </select>
             </div>
         </div>
@@ -49,7 +47,7 @@
         </div>
         <div class="form-element">
             <label class="title" for="dropdown">How many Teams?</label>
-            <input type="number" min="4" max="64" step="2" v-model="newTournament.teams" class="number"/>
+            <input type="number" min="4" max="64" step="2" v-model="newTournament.numberOfTeams" class="number"/>
         </div>
         <div class="form-element">
             <label class="title" for="start-date">Start Date:</label>
@@ -68,6 +66,8 @@
 
 <script>
 import tournamentService from "../services/TournamentService";
+import TournamentService from '../services/TournamentService';
+
 
 export default {
     name: "create-tournament",
@@ -82,9 +82,29 @@ export default {
                 endDate: '',
                 tournamentOrganizerId: this.$store.state.user.id,
                 isSeeded: false,
-                teams: 0
+                numberOfTeams: 0
+            },
+            games: [
+                {
+                gameId: 0,
+                gameName: '',
+                description: ''
             }
+            ]
         }
+    },
+    created() {
+        TournamentService.getAllGames()
+        .then(response => {
+        this.games = response.data;
+        })
+
+
+// created() {
+//         TournamentService.viewTournaments().then(response => {
+//            this.tournaments = response.data;
+//         })
+//     }
     },
     methods: {
         resetForm() {
@@ -113,7 +133,7 @@ export default {
     .title {
         margin-left: 25px;
         font-weight: bold;
-
+        font-size: medium;
     }
     .dropdown {
         margin-left: 25px;
