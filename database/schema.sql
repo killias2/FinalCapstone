@@ -23,3 +23,8 @@ INSERT INTO users (username,password_hash,role) VALUES ('admin','$2a$08$UkVvwpUL
 
 
 COMMIT TRANSACTION;
+
+SELECT * FROM tournaments t
+JOIN users ON user_id = organizerid  
+LEFT JOIN games g ON t.gameid = g.gameid
+WHERE CURRENT_DATE > end_date;

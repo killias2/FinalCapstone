@@ -34,12 +34,17 @@ public class TournamentController {
 	}
 	@RequestMapping(value = "/tournaments/past", method = RequestMethod.GET)
 	public List<Tournament> getPastTournaments(){
-		return tournamentDAO.getCompleteTournaments();
+		return tournamentDAO.getPastTournaments();
 	}
 	@RequestMapping(value = "/tournaments/current", method = RequestMethod.GET)
 	public List<Tournament> getCurrentTournaments(){
 		return tournamentDAO.getCurrentTournaments();
 	}
+	@RequestMapping(value = "/tournaments/upcoming", method = RequestMethod.GET)
+	public List<Tournament> getFutureTournaments(){
+		return tournamentDAO.getFutureTournaments();
+	}
+
 	@RequestMapping(value = "/tournaments/{id}", method = RequestMethod.GET)
 	public Tournament getTournamentById(@PathVariable long id) {
 		return tournamentDAO.getTournamentById(id);

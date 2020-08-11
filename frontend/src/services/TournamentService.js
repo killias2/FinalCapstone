@@ -37,6 +37,10 @@ export default {
   getCurrentTournaments() {
     return http.get('/tournaments/current');
   },
+
+  getFutureTournaments() {
+    return http.get('/tournaments/upcoming');
+  },
   
   getPastTournaments() {
     return http.get('/tournaments/past');

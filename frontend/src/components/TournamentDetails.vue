@@ -3,6 +3,7 @@
     <div class="tournament">
        <h2 class="title">{{currentTournament.tournamentName}}</h2>
         <h3 class="date">{{currentTournament.startDate}} to {{currentTournament.endDate}}</h3>
+        <h3>{{currentTournament.gameName}}</h3>
       <button
         v-on:click="goToEditor"
         :to="{ name: 'tournamentHQ', params: {id: $route.params.tournamentID} }"
