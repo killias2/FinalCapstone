@@ -83,9 +83,9 @@ public class TournamentSqlDAO implements TournamentDAO{
 	}
 	@Override
 	public void deleteTournamentById(Long id) {
-		String sql = "DELETE * FROM teams WHERE tournamentid = ?";
+		String sql = "DELETE FROM teams WHERE tournamentid = ?";
 		jdbcTemplate.update(sql, id);
-		sql = "DELETE * from tournaments WHERE tournamentid = ?";
+		sql = "DELETE FROM tournaments WHERE tournamentid = ?";
 		jdbcTemplate.update(sql, id);
 	}
 	

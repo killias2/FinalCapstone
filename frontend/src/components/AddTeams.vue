@@ -10,7 +10,8 @@
                     <input v-model="newTeam.email" type="email" />
                     <label v-show="this.currentTournament.isSeeded" class="text-field" for="seed" required >Seed:</label>
                     <input v-show="this.currentTournament.isSeeded" v-model="newTeam.seed" type="number" min="1" :max="this.currentTournament.numberOfTeams"/>
-                    <!-- v-show="!this.currentTournament.isSeeded" to hide seed option if seeding is random-->
+                    <label v-show="!this.currentTournament.isSeeded" class="text-field" for="seed" required >Temporary Seed:</label>
+                    <input v-show="!this.currentTournament.isSeeded" v-model="newTeam.seed" type="number" min="1" :max="this.currentTournament.numberOfTeams"/>
                 </div>
                 <div class="actions">
                     <button v-on:click.prevent="resetForm" type="cancel">Cancel</button>
@@ -133,11 +134,12 @@ export default {
         }
     },
     methods: {
+
         resetForm() {
             this.newTeam = {
                 tournamentId: this.$route.params.id,
                 teamName: '',
-                seed: 0,
+                seed: this.seed + 1,
                 email: ''
             };
         },
