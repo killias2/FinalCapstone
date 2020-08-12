@@ -6,9 +6,9 @@
                </span> {{ player.teamName }}
             </template>
             <template class="bottom-text" #player-extension-bottom="{ match }">
-                <span v-if="match.match.matchid" class="seed">Game Number: {{ addOne(match.match.matchid) }}
+                <span v-if="match.match.matchid" class="seed">Game Number: {{ match.match.matchid }}
                     </span>
-                <span v-else class="seed"> {{ match.title }}
+                <span v-else class="seed"> {{ addOne(match.title) }}
                 </span>
                 </template>
         </bracket>
@@ -42,9 +42,10 @@
             })
         },
         methods: {
-            addOne(a)
-            {
-                return a + 1;
+            addOne(a){
+                let lastChar = a.substr(a.indexOf(' ')+1); 
+                let newRound = parseInt(lastChar) + 1;
+                return `Round ${newRound}`;
             },
             selectMatch(match){
                 this.test = match;
