@@ -1,13 +1,13 @@
-<template>
-
-    <bracket :rounds="fixedRounds">
-        <template #player="{ player }"> 
-           {{ player.seed }} {{ player.teamName }}
-        </template>
-        <template #player-extension-bottom="{ match }">
-            game number: {{ match.match.matchid }}</template>
-    </bracket>
-
+<template class="bracket">
+    <div class="bracket">
+        <bracket  :rounds="fixedRounds">
+            <template #player="{ player }"> 
+            {{ player.seed }} {{ player.teamName }}
+            </template>
+            <template #player-extension-bottom="{ match }">
+                game number: {{ match.match.matchid }}</template>
+        </bracket>
+    </div>
 </template>
  
 <script>
@@ -148,3 +148,10 @@
         }
     }
 </script> 
+<style scoped>
+
+    .bracket{
+        font-family:'Arial Black', 'Arial Narrow', Arial, sans-serif;
+        background-color: rgba(8, 69, 97, 0.3);
+    }
+</style>

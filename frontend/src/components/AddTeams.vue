@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="add-teams">
         <div v-show="(this.teams.length < this.currentTournament.numberOfTeams) && $store.state.token != '' && this.user.id === this.currentTournament.tournamentOrganizerId">
             <form v-on:submit.prevent="addNewTeam" >
                 <h2>Add Team to Tournament</h2>
@@ -208,7 +208,11 @@ export default {
 </script>
 
 <style scoped>
+    
     form {
+    background-color: rgba(28, 143, 158, 0.9);
+    border-radius: 6px;
+    font-family: 'Arial Narrow', Arial, sans-serif;
         width: 300px;
         /* position: fixed; */
         right: 0;
@@ -250,6 +254,7 @@ export default {
     }
 
     table {
+        background-color: rgba(28, 143, 158, 0.9);
         font-family: 'Open Sans', sans-serif;
         width: 300px;
         border-collapse: collapse;

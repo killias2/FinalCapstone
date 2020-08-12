@@ -1,7 +1,7 @@
 <template>
-    <div>
+    <div class="body">
         <!-- <h1>Create Tournament</h1> -->
-        <h3>Create a Tournament:</h3>
+        
         
         <create-tournament />
         <!-- <user-nav /> -->
