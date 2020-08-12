@@ -37,26 +37,39 @@ export default {
 </script>
 
 <style scoped>
-    .tournament {
-        
-        
-        display: block;
+    .header {
+        font-size: 40px;
         text-align: center;
-        color: white;
-        font-weight: bolder;
-        text-shadow: 2px;
-        font-size: 20px;
-        margin-left: 300px;
-        margin-right: 300px;
-        background-color: rgb(8, 69, 97);
+        background-color:  rgba(8, 69, 97, .7);
+        width: 80%;
+        margin-left: 10%;
+        border-radius: 6px;
     }
-    h2 {
-        font-size: 30px;
+    .tournament {
+        background-color: rgba(28, 143, 158, 0.9);
+        border-radius: 6px;
+        font-family: 'Arial Narrow', Arial, sans-serif;
+        width: 300px;
     }
-    h3 {
-        font-size: 18px;
+    .tournament-card {
+        margin-left: 5%;
+        display: grid;
+        grid-template-columns: 1fr 1fr ;
+        grid-gap: 20px;
+        margin-top: 25px;
     }
-    .tournament:hover {
+    button{
+        background-color: rgba(8, 69, 97, .7);
+    }
+    .tournament>h2 {
+        padding-top: 10px;
+        text-align: center;
+    }
+    .tournament>h3 {
+        text-align: left;
+        padding-left: 20px;
+    }
+    button:hover {
         background: blueviolet;
     }
 </style>
