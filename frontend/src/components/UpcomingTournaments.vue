@@ -4,12 +4,12 @@
         <h3>Upcoming Tournaments:</h3>
                     <div class='tournament' v-for="tournament in tournaments" v-bind:key="tournament.id" 
         v-bind:currentTournament="tournament" v-on:click="viewTournamentDetails(tournament)"
-        v-bind:class="{ open: tournament.openToJoin && !tournament.isFull}">
+        v-bind:class="{ open: (tournament.openToJoin && !tournament.full)}">
             <h2>{{tournament.tournamentName}}</h2>
             <h3>{{tournament.startDate}} to {{tournament.endDate}}</h3>
             <h3>{{tournament.gameName}}</h3>
             <h3>{{tournament.numberOfTeams}} teams</h3>
-            <h4 v-show="tournament.openToJoin && !tournament.isFull"> Join this tournament!</h4>
+            <h4 v-show="tournament.openToJoin && !tournament.full"> Join this tournament!</h4>
         </div>
     </div>
 </template>

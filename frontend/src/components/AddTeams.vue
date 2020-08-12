@@ -184,7 +184,7 @@ export default {
                 if (response.status < 299) {
                     this.$alert("Brackets generated successfully")
                     console.log('success');
-                    TournamentService.setTournamentFull(this.currentTournament.id);
+                    TournamentService.setTournamentFull(this.currentTournament);
                 }
             })
             

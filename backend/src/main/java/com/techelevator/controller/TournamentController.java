@@ -22,7 +22,7 @@ public class TournamentController {
 		this.teamDAO = teamDAO;
 		this.matchDAO = matchDAO;
 	}
-	@RequestMapping(value = "/tournaments/set-full/{id}", method = RequestMethod.GET)
+	@RequestMapping(value = "/tournaments/{id}", method = RequestMethod.PUT)
 	public boolean setTournamentFull(@PathVariable long id) {
 		return tournamentDAO.setFull(id);
 	}

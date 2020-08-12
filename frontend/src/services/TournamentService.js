@@ -58,8 +58,8 @@ export default {
   deleteTournament(tournament) {
     return http.delete(`/tournaments/${tournament.id}`);
   },
-  setTournamentFull(tournamentId) {
-    return http.put(`/tournaments/set-full/${tournamentId}`, tournamentId);
+  setTournamentFull(tournament) {
+    return http.put(`/tournaments/${tournament.id}`, tournament);
   }
 
 }
