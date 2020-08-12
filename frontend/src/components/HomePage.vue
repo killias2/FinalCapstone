@@ -33,7 +33,7 @@ img {
     margin-left: auto;
     margin-right: auto;
     padding-bottom: 20px;
-    width: 50%;
+    width: 20%;
     border-radius: 50px;
 }
 p {

@@ -37,6 +37,12 @@ export default {
 <style scoped>
   #app {
     display: flex-row;
+    background-image: url('~@/assets/MT5rFQ.png');
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: cover;
+    background-color: #464646;
   }
   #main {
     display: flex;
@@ -48,7 +54,7 @@ export default {
   }
 
   #mainbody{
-    margin-left: 10px;
+    margin-left: 20px;
     flex-grow: 1;
   }
 
