@@ -58,8 +58,8 @@ export default {
   #mainbody{
     margin-left: 20px;
     flex-grow: 1;
-    /* background-color: rgb(28, 143, 158);
     color: white;
+    /* background-color: rgb(28, 143, 158);
     margin-right: 40px;
     border-radius: 10px; */
   }
