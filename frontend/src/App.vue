@@ -46,8 +46,6 @@ export default {
   }
   #main {
     display: flex;
-    
-
   }
 
   .sidebar {
@@ -58,9 +56,7 @@ export default {
   #mainbody{
     margin-left: 20px;
     flex-grow: 1;
-  }
-  .container {
-    
+    color: white;
   }
 
 
