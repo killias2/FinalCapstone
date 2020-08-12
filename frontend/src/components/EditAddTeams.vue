@@ -64,7 +64,7 @@
 
 <script>
 import TeamService from '../services/TeamService'
-// import TournamentService from '../services/TournamentService'
+import TournamentService from '../services/TournamentService'
 import AuthService from '../services/AuthService'
 
 export default {
@@ -246,11 +246,15 @@ export default {
                     if(this.formIsValid){
                         TeamService.addTeams(this.newTeam).then(response => {
                             if (response.status < 299) {
-                            console.log('success');
+                                this.teams.add(this.newTeam)
+                                console.log('success');
+                                if (this.tournament.full == false && this.teams.length == (this.tournament.numberOfTeams)){
+                                    this.tournament.full = true;
+                                    TournamentService.setTournamentFull(this.tournament);
+                                }
                             }
-                        }).then(() => {
-                            this.$router.go(0)
                         })
+                        this.$router.go(0);
                         // this.resetForm();
                     }
                     
@@ -276,13 +280,16 @@ export default {
             }
             else if(this.formIsValid) {
                 TeamService.addTeams(this.newTeam).then(response => {
-                if (response.status < 299) {
-                console.log('success');
-                }
-                
-                }).then(() => {
-                    this.$router.go(0)
-                });
+                     if (response.status < 299) {
+                         this.teams.add(this.newTeam)
+                        console.log('success');
+                        if (this.tournament.full == false && this.teams.length == (this.tournament.numberOfTeams)){
+                            this.tournament.full = true;
+                            TournamentService.setTournamentFull(this.tournament);
+                        }
+                    }
+                })
+                this.$router.go(0);
                 // this.resetForm();
 
             }

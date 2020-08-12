@@ -19,6 +19,7 @@
 
 <script>
 import TeamService from '../services/TeamService'
+import TournamentService from '../services/TournamentService'
 
 export default {
     data() {
@@ -50,9 +51,13 @@ export default {
             if(this.generalManagerIsValid){
                 TeamService.addTeams(this.newTeam).then(response => {
                     if (response.status < 299) {
+                        this.teams.add(this.newTeam)
                         console.log('success');
+                        if (this.tournament.full == false && this.teams.length == (this.tournament.numberOfTeams)){
+                            this.tournament.full = true;
+                            TournamentService.setTournamentFull(this.tournament);
+                        }
                     }
-                }).then(() => {
                     this.$router.go(0)
                 })
             }
