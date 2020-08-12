@@ -55,7 +55,7 @@ export default {
         background-color: rgba(28, 143, 158, 0.9);
         border-radius: 6px;
         font-family: 'Arial Narrow', Arial, sans-serif;
-        width: 75%;
+        width: 300px;
     }
     .tournament-card {
         margin-left: 5%;
@@ -79,14 +79,6 @@ export default {
         background: blueviolet;
     }
     .open {
-        display: block;
-        text-align: center;
-        color: white;
-        font-weight: bolder;
-        text-shadow: 2px;
-        font-size: 20px;
-        margin-left: 300px;
-        margin-right: 300px;
         background-color: red;
     }
 </style>

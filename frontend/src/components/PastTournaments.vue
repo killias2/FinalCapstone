@@ -3,15 +3,15 @@
         
         <h3>Past Tournaments:</h3>
         <section class="tournament-card">
-                    <div class="tournament" v-for="tournament in tournaments" v-bind:key="tournament.id" 
-        v-bind:currentTournament="tournament">
+            <div class="tournament" v-for="tournament in tournaments" v-bind:key="tournament.id" 
+                v-bind:currentTournament="tournament">
             <h2>{{tournament.tournamentName}}</h2>
             <h3>{{tournament.startDate}} to {{tournament.endDate}}</h3>
             <h3>{{tournament.gameName}}</h3>
             <h3>{{tournament.numberOfTeams}} teams</h3>
             <button v-bind:currentTournament="tournament" v-on:click="viewTournamentDetails(tournament)">Tournament Details</button>
-        </div>
-          </section>
+            </div>
+        </section>
     </div>
 </template>
 
