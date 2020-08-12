@@ -7,10 +7,10 @@
         role="alert"
         v-if="wasError"
         >{{errorMessage}}</div>
-        <div class="alert alert-success" role="alert" v-if="recoverySubmitted">A new password has been generated and sent to your email!</div>
-        <label>Email Address:</label>
+        <div class="alert-success" role="alert" v-if="recoverySubmitted">A new password has been generated and sent to your email!</div>
+        <label class="label">Email Address:</label>
         <input type="email" name="user_email" class="form-control" v-model="password_request.emailAddress" required/>
-        <label>Username:</label>
+        <label class="label">Username:</label>
         <input type="text" class="form-control" v-model="password_request.userName" required/>
         <button type="submit" value="Send">Submit Request</button>
     </form>
@@ -56,4 +56,19 @@ export default {
     }
 }
 </script>
+
+<style>
+    h6 {
+        margin-top: 5px;
+        padding-top: 10px;
+        padding-left: 20px;
+        font-size: 15px;
+        padding-right: 20px;
+    }
+    .label {
+        padding-left: 20px;
+        font-weight: bold;
+    }
+
+</style>
 

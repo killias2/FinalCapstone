@@ -32,15 +32,17 @@
         v-model="user.password"
         required
       />
-
-      <button type="submit">Sign in</button>
-      <div >
-        <router-link class="register" :to="{ name: 'register' }">Need an account?</router-link>
+      <div class="button">
+        <button type="submit">Sign in</button>
+        <router-link tag="button" class="register" :to="{ name: 'register' }">Need an account?</router-link>
       </div>
+      
     </form>
-        <button type="button" v-on:click="flipRecovery()"><span v-if="showRecovery == false">
-          Click Here to Recover Password</span><span v-if="showRecovery == true">Cancel Password Recovery</span></button>
-    <passwordrecovery v-if="showRecovery"/>
+    <div class="recover">
+      <button type="button" v-on:click="flipRecovery()"><span v-if="showRecovery == false">
+            Click Here to Recover Password</span><span v-if="showRecovery == true">Cancel Password Recovery</span></button>
+      <passwordrecovery class="test" v-if="showRecovery"/>
+    </div>
   </div>
 </template>
 
@@ -96,7 +98,7 @@ export default {
     width: 100%;
     font-size: 45px;
     text-align: center;
-    background: rgb(28, 143, 158);
+    background: rgba(8, 69, 97, .7);
     color: white;
     line-height: 150%;
     border-radius: 3px 3px 0 0;
@@ -107,13 +109,15 @@ export default {
   form {
     box-sizing: border-box;
     width: 500px;
-    margin: auto;
+    margin-left: 15%;
+    margin-bottom: 20px;
     box-shadow: 2px 2px 5px 1px rgba(0,0,0,0.2);
     padding-bottom: 40px;
     border-radius: 3px;
+    background: rgba(28, 143, 158, .9);
   }
   input {
-    margin: 25px 25px;
+    margin: 20px 20px;
     width: 70%;
     display: block;
     border: none;
@@ -124,17 +128,17 @@ export default {
     background-position: -200px 0;
     background-size: 200px 100%;
     background-repeat: no-repeat;
-    color: rgb(28, 143, 158);
+    color: rgba(28, 143, 158, .9);
   }
   button {
     border: none;
-    background: rgb(28, 143, 158);
+    background:  rgba(8, 69, 97, .7);
     cursor: pointer;
     border-radius: 3px;
     padding: 6px;
     width: 200px;
     color: white;
-    margin-left: 25px;
+    margin-left: 20px;
     margin-right: 25px;
     margin-bottom: 25px;
     box-shadow: 0 3px 6px 0 rgba(0,0,0,0.2);
@@ -142,17 +146,24 @@ export default {
   button:hover {
     transform: translateY(-3px);
     box-shadow: 0 6px 6px 0 rgba(0,0,0,0.2);
+    color: blue;
   }
   .sr-only {
-    margin-left: 25px;
+    margin-left: 20px;
     font-weight: bold;
   }
   .register {
-    margin-left: 25px;
-    color: blue;
+    margin-left: 20px;
+    color: white;
   }
   .register:hover {
-    color: blueviolet;
+    color: blue;
+  }
+  .recover {
+    margin-left: 15%;
+  }
+  .test {
+    margin-left: 0px;
   }
 
 </style>

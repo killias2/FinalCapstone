@@ -1,5 +1,6 @@
 <template>
     <div>
+        <browse-bracket-display v-bind:tournament="tournament" v-bind:edit-mode="true"/>
         <div>
             <form class="form" v-on:submit.prevent="sendWinner">
                 <label for="gameSelection"> Choose a game to edit: </label>
@@ -22,12 +23,12 @@
 </template>
 <script>
 import TournamentService from '../services/TournamentService';
-import BracketDisplay from "../components/BracketDisplay.vue";
+import BrowseBracketDisplay from "../components/BrowseBracketDisplay.vue";
 
 export default {
     name: 'BracketEditor',
     components: {
-        'BracketDisplay': BracketDisplay
+        'BrowseBracketDisplay': BrowseBracketDisplay
     },
     computed: {
         // selectedMatch: function() {
@@ -42,10 +43,9 @@ export default {
         }
     },
     created() {
-        TournamentService.getTournament(this.$route.params.id)
-            .then(response => {
-                this.tournament = response.data;
-            })
+        TournamentService.getTournament(this.$route.params.id).then(response => {
+            this.tournament = response.data;
+    })
     },
     watch: {
         // selectedMatch: function(val) {

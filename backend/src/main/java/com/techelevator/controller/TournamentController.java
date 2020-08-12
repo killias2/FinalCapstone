@@ -66,5 +66,4 @@ public class TournamentController {
 	public void deleteTournamentById(@PathVariable long id) {
 		tournamentDAO.deleteTournamentById(id);
 	}
-	
 }

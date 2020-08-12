@@ -6,12 +6,31 @@
                 <div class="form-fields">
                     <label class="text-field" for="teamName" required >Team Name:</label>
                     <input v-model="newTeam.teamName" type="text" />
-                    <label class="text-field" for="email" required >Email Address:</label>
-                    <input v-model="newTeam.email" type="email" />
-                    <label v-show="this.currentTournament.isSeeded" class="text-field" for="seed" required >Seed:</label>
-                    <input v-show="this.currentTournament.isSeeded" v-model="newTeam.seed" type="number" min="1" :max="this.currentTournament.numberOfTeams"/>
-                    <!-- <label v-show="!this.currentTournament.isSeeded" class="text-field" for="seed" required >Temporary Seed:</label>
-                    <input v-show="!this.currentTournament.isSeeded" v-model="newTeam.seed" type="number" min="1" :max="this.currentTournament.numberOfTeams"/> -->
+                    <div class="form-element">
+                        <label class=".text-field" for="dropdown">Does this team have a registered General Manager?</label>
+                        <div>
+                            <select v-model="dropDownChoice" required name="drowpdown-choice" class="dropdown">
+                                <option value="No" selected="selected">No</option>
+                                <option value="Yes">Yes</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-element" v-if="this.dropDownChoice == 'No'">
+                        <label class="text-field" for="email" required >Email Address:</label>
+                        <input v-model="newTeam.email" type="email" />
+                    </div>
+                    <!-- <div class="form-element" v-if="this.dropDownChoice == 'Yes'">
+                        <label class="text-field" for="general_manager" required >General Manager ID#:</label>
+                        <input v-model="newTeam.generalManagerId" type="number" min="1" />
+                    </div> -->
+                    <div class="form-element" v-if="this.dropDownChoice == 'Yes'">
+                        <label class="text-field" for="general_manager" required >General Manager Username:</label>
+                        <input v-model="generalManagerName" type="text" />
+                    </div>
+                    <div class="form-element" v-if="this.currentTournament.isSeeded == true">
+                    <label class="text-field" for="seed" required >Seed:</label>
+                    <input v-model="newTeam.seed" type="number" min="1" required/>
+                    </div>
                 </div>
                 <div class="actions">
                     <button v-on:click.prevent="resetForm" type="cancel">Cancel</button>
@@ -19,6 +38,24 @@
                 </div>
             </form>
         </div>
+
+        <div v-show="(this.teams.length < this.currentTournament.numberOfTeams) && $store.state.token != '' && 
+            this.user.id != this.currentTournament.tournamentOrganizerId && !this.generalManagerArray.includes(this.user.id)">
+            <form v-on:submit.prevent="addSelfToTeam">
+                <div class="form-fields">
+                    <label class="text-field" >Give a Team Name and Add Your Team to this Tournament!</label>
+                    <br>
+                    <br>
+                    <label class="text-field" for="teamName">Team Name:</label>
+                    <input v-model="newTeam.teamName" type="text" required />
+                        <div class="actions">
+                            <button v-on:click.prevent="resetForm" type="cancel">Cancel</button>
+                            <button type="submit" >Submit</button>
+                        </div>
+                </div>
+            </form>
+        </div>
+
         <div v-if="(this.teams.length === this.currentTournament.numberOfTeams) && this.user.id === this.currentTournament.tournamentOrganizerId">
             <button v-if="(showGenButton)" v-on:click.prevent="generateBrackets">Generate Brackets</button>
         </div>
@@ -28,7 +65,7 @@
             </select>
             <button type="submit" v-on:click.prevent="removeTeamFromTournament" >Remove Team</button>
         </div>
-        <table>
+        <table v-if="this.currentTournament.isSeeded == true">
             <thead>
                 <tr>
                     <th class="teamName">Team Name</th>
@@ -40,12 +77,23 @@
                 <td  class="seed">{{team.seed}}</td>
             </tbody>
         </table>
+        <table v-if="this.currentTournament.isSeeded == false">
+            <thead>
+                <tr>
+                    <th class="teamName">Team Name</th>
+                </tr>
+            </thead>
+            <tbody v-for="team in teams" v-bind:key="team.id">
+                <td>{{team.teamName}}</td>
+            </tbody>
+        </table>
     </div>
 </template>
 
 <script>
 import TeamService from '../services/TeamService'
 import TournamentService from '../services/TournamentService'
+import AuthService from '../services/AuthService'
 
 export default {
     data() {
@@ -56,11 +104,14 @@ export default {
             newTeam: {
                 tournamentId: this.$route.params.id,
                 teamName: '',
-                // seed: 1,
+                seed: null,
                 email: '', 
-                generalManagerId: this.$store.state.user.id
+                generalManagerId: null
             },
+            generalManagerName: "",
+            dropDownChoice: "No",
             showGenButton: true,
+            generalManager: {},
             selectedTeam: {}
         }
     },
@@ -68,7 +119,6 @@ export default {
         TeamService.viewTeams(this.$route.params.id).then(response => {
             this.teams = response.data;
         })
- 
     },
     computed: {
         seedsArray: function(){
@@ -92,19 +142,53 @@ export default {
             })
             return names;
     },
+    generalManagerArray: function() {
+        let gms = []
+        this.teams.forEach((team) => {
+            gms.push(team.generalManagerId)
+        })
+        return gms;
+    },
     seedIsValid: 
         function(){
-        if(this.seedsArray.includes(parseInt(this.newTeam.seed))) {
+        if(this.seedsArray.includes(parseInt(this.newTeam.seed)) && this.currentTournament.isSeeded == true) {
             return false 
         } else {
             return true;
         }
     },
+    // generalManagerNameIsValid:
+    //     function(){
+    //         if(this.generalManager.id < 1) {
+    //             return false
+    //         } else {
+    //             return true;
+    //         }
+    //     },
+    generalManagerIsValid:
+        function() {
+            if(this.generalManagerArray.includes(parseInt(this.newTeam.generalManagerId)) && this.dropDownChoice=="Yes"){
+                return false
+            }
+            else if (this.newTeam.generalManagerId == null && this.dropDownChoice=="Yes"){
+                return false
+            }
+            else {
+                return true;
+            }
+        },
     emailIsValid:
         function() {
-            if(this.emailArray.includes(this.newTeam.email)) {
+            if(this.dropDownChoice == "Yes"){
+                return true
+            }
+            else if(this.emailArray.includes(this.newTeam.email)) {
                 return false
-            }   
+            }
+            else if (this.newTeam.email == ""){
+                this.$alert("Please add an email or a General Manager")
+                return false  
+            }
             else {
                 return true;
                 }
@@ -121,7 +205,7 @@ export default {
         },
     formIsValid:
         function() {
-            if(this.teamNameIsValid && this.emailIsValid && this.seedIsValid) {
+            if(this.teamNameIsValid && this.emailIsValid && this.seedIsValid && this.generalManagerIsValid) {
                 return true;
             }
             else {
@@ -132,20 +216,21 @@ export default {
     methods: {
 
         resetForm() {
-            if(this.currentTournament.isSeeded) {
-                this.newTeam = {
+            this.newTeam = {
                 tournamentId: this.$route.params.id,
                 teamName: '',
                 seed: 1,
-                email: ''
-                }
+                email: '',
+                generalManagerId: null
             }
-            else {
-                this.newTeam = {
-                tournamentId: this.$route.params.id,
-                teamName: '',
-                email: ''
-                }
+            this.generalManager = {},
+            this.generalManagerName = "";
+        },
+        getGeneralManagerID(){
+            if(AuthService.getUserByName(this.generalManagerName).id < 1){
+                return false
+            } else {
+                return true;
             }
         },
         getTeams() {
@@ -153,8 +238,74 @@ export default {
             this.teams = response.data;
         })
         },
+        addSelfToTeam(){
+            if(this.teamNameIsValid){
+                this.newTeam.generalManagerId = this.user.id;
+                this.newTeam.seed = null;
+                // if(this.teams.length < 1){
+                //     this.newTeam.seed = 1;
+                // }
+                // else {
+                //     this.newTeam.seed = this.teams.length + 1;
+                // }
+            }
+            if(this.generalManagerIsValid){
+                TeamService.addTeams(this.newTeam).then(response => {
+                    if (response.status < 299) {
+                        console.log('success');
+                    }
+                }).then(() => {
+                    this.getTeams();
+                })
+                this.resetForm();
+            }
+        },
         addNewTeam() {
-            if(this.formIsValid) {
+            if(this.currentTournament.isSeeded == false){
+                this.newTeam.seed = null;
+                // if(this.teams.length < 1){
+                //     this.newTeam.seed = 1;
+                // }
+                // else {
+                //     this.newTeam.seed = this.teams.length + 1;
+                // }
+            }
+            if(this.dropDownChoice == "Yes"){
+                AuthService.getUserByName(this.generalManagerName).then(response =>{
+                    this.generalManager = response.data
+                    this.newTeam.generalManagerId = this.generalManager.id
+                    if(this.formIsValid){
+                        TeamService.addTeams(this.newTeam).then(response => {
+                            if (response.status < 299) {
+                            console.log('success');
+                            }
+                        }).then(() => {
+                            this.getTeams();
+                        })
+                        this.resetForm();
+                    }
+                    
+                    else {
+                        if(!this.emailIsValid) {
+                            this.$alert("Please check team email to make sure it exists and is unique")
+                        }
+                        else if(!this.teamNameIsValid) {
+                            this.$alert("Unable to submit due to duplicate team names")
+                        }
+                        else if(!this.generalManagerIsValid){
+                            this.$alert("Unable to submit due to duplicate or non-existent general manager")
+                        }
+                        else if(!this.seedIsValid){
+                            this.$alert("Unable to submit due to duplicate seeds")
+                        }
+                        else {
+                            this.$alert("Please doublecheck the general manager username")
+                        }
+                        this.resetForm();
+                    }
+                })
+            }
+            else if(this.formIsValid) {
                 TeamService.addTeams(this.newTeam).then(response => {
                 if (response.status < 299) {
                 console.log('success');
@@ -162,19 +313,27 @@ export default {
                 
                 }).then(() => {
                     this.getTeams();
-            });
-            this.resetForm();
+                });
+                this.resetForm();
+
             }
             else {
                 if(!this.emailIsValid) {
-                    this.$alert("Unable to submit due to duplicate email addresses")
+                    this.$alert("Please check team email to make sure that it exists and is unique")
                 }
                 else if(!this.teamNameIsValid) {
                     this.$alert("Unable to submit due to duplicate team names")
                 }
-                else {
+                else if(!this.generalManagerIsValid){
+                    this.$alert("Unable to submit due to duplicate or non-existent general manager")
+                }
+                else if(!this.seedIsValid){
                     this.$alert("Unable to submit due to duplicate seeds")
                 }
+                else {
+                    this.$alert("Please doublecheck the general manager username")
+                }
+                this.resetForm();
             }
         },
         generateBrackets() {
@@ -184,6 +343,7 @@ export default {
                     this.$alert("Brackets generated successfully")
                     console.log('success');
                     TournamentService.setTournamentFull(this.currentTournament);
+                    this.$router.go(0)
                 }
             })
             
@@ -217,11 +377,11 @@ export default {
     background-color: rgba(28, 143, 158, 0.9);
     border-radius: 6px;
     font-family: 'Arial Narrow', Arial, sans-serif;
-        width: 300px;
-        /* position: fixed; */
-        right: 0;
-        margin-right: 20px;
-        margin-top: 50px;
+    width: 300px;
+    /* position: fixed; */
+    right: 0;
+    margin-right: 20px;
+    margin-top: 50px;
     }
     .form-fields {
         text-align: center;
