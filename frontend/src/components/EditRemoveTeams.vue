@@ -26,12 +26,11 @@ export default {
             this.$confirm("Are you sure?").then(() => {
                 TeamService.removeTeams(this.selectedTeam).then(response => {
                     if (response.status < 299) {
-                        this.teams.add(this.newTeam)
                         console.log('success');
-                        if (this.tournament.full == false && this.teams.length == (this.tournament.numberOfTeams)){
-                            this.tournament.full = true;
-                            TournamentService.setTournamentFull(this.tournament);
-                        }
+                    }
+                    if (this.tournament.full == true && this.teams.length == (this.tournament.numberOfTeams)){
+                        this.tournament.full = false;
+                        TournamentService.setTournamentFull(this.tournament);
                     }
                     this.$router.go(0)
                 })

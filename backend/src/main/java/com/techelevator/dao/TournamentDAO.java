@@ -22,7 +22,7 @@ public interface TournamentDAO {
 	
 	List<Tournament> getPastTournaments();
 	
-	boolean setFull(Long id);
+	boolean setFull(Tournament tournament);
 	
 	
 }
