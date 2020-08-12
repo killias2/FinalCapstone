@@ -1,13 +1,18 @@
 <template>
   <div>
-    <div class="tournament">
+    <div class="tournament" >
        <h2 class="title">{{currentTournament.tournamentName}}</h2>
         <h3 class="date">{{currentTournament.startDate}} to {{currentTournament.endDate}}</h3>
-      <button
-        v-on:click="goToEditor"
-        :to="{ name: 'tournamentHQ', params: {id: $route.params.tournamentID} }"
-        class="btn editTournament">Edit Tournament</button>
-      <button class="btn deleteTournament" v-on:click="deleteTournament">Delete Tournament</button>
+      <div v-if="user.id == tournament.tournamentOrganizerId">
+        <button
+          v-on:click="goToEditor"
+          :to="{ name: 'tournamentHQ', params: {id: $route.params.tournamentID} }"
+          class="btn editTournament">Set Match Winners</button>
+        <button class="btn deleteTournament" v-on:click="deleteTournament">Delete Tournament</button>
+        <button v-on:click="goToEditTeams"
+          :to="{ name: 'edit-teams', params: {id: $route.params.tournamentID} }"
+          class="btn editTournament">Edit Teams</button>
+      </div>
     </div>
   </div>
 </template>
@@ -46,7 +51,9 @@ export default {
           this.$router.push({name: 'my-tournament'})
           })
         })
-
+      },
+      goToEditTeams() {
+        this.$router.push(`/tournamentteams/${this.tournament.id}`);
       }
     },
   }

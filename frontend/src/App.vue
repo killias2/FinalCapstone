@@ -54,10 +54,19 @@ export default {
   #mainbody{
     margin-left: 10px;
     flex-grow: 1;
+    /* background-color: rgb(28, 143, 158);
+    color: white;
+    margin-right: 40px;
+    border-radius: 10px; */
   }
-  .container {
-    
-  }
+
+  /* h1{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 50%;
+    border-radius: 10px;
+  } */
 
 
 </style>

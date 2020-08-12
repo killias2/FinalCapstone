@@ -43,5 +43,7 @@ export default {
 </script>
 
 <style scoped>
-
+    /* .tournaments {
+        margin-left: 50px;
+    } */
 </style>
