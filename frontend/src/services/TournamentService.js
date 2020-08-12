@@ -37,6 +37,10 @@ export default {
   getCurrentTournaments() {
     return http.get('/tournaments/current');
   },
+
+  getFutureTournaments() {
+    return http.get('/tournaments/upcoming');
+  },
   
   getPastTournaments() {
     return http.get('/tournaments/past');
@@ -53,6 +57,9 @@ export default {
   },
   deleteTournament(tournament) {
     return http.delete(`/tournaments/${tournament.id}`);
+  },
+  setTournamentFull(tournament) {
+    return http.put(`/tournaments/${tournament.id}`, tournament);
   }
 
 }

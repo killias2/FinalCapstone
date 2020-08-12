@@ -44,14 +44,17 @@ export default {
 
 <style scoped>
     .list{
-        margin-left: 15%;
-        margin-right: 30%;
+        margin-left: 5%;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        grid-gap: 20px;
+        margin-top: 25px;
     }
     .tournaments{
-    background-color: rgba(28, 143, 158, 0.9);
-    border-radius: 6px;
-    font-family: 'Arial Narrow', Arial, sans-serif;
-    margin-right: 200px;
+        background-color: rgba(28, 143, 158, 0.9);
+        border-radius: 6px;
+        font-family: 'Arial Narrow', Arial, sans-serif;
+        width: 300px;
     }
     button{
         background-color: rgb(8, 69, 97);

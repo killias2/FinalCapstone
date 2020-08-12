@@ -2,7 +2,7 @@
   <div id="app" >
     <div class="header">
       <div class="banner">
-              <h1>Brackets [⚾⚽🕹️⛳🃏🎱🏓]!</h1>
+              <h2>Brackets [⚾⚽🕹️⛳🃏🎱🏓]!</h2>
       </div>
       <user-nav />
     </div>
@@ -43,11 +43,10 @@ export default {
     background-attachment: fixed;
     background-size: cover;
     background-color: #464646;
+    padding: 25px;
   }
   #main {
     display: flex;
-    
-
   }
 
   .sidebar {
@@ -64,10 +63,17 @@ export default {
     border-radius: 10px; */
   }
   .banner {
-        margin-left: 200px;
+    margin-left: 200px;
     margin-right: 200px;
-    font-family: 'Arial Black', Arial, sans-serif
+    font-family: 'Arial Black', Arial, sans-serif;
+    border-radius: 6px;
+    background-color:  rgba(28, 143, 158, 0.9);
+    text-align: center;
+    font-size: 30px;
+    color: white;
+    width: auto;
   }
+
 
 
 </style>

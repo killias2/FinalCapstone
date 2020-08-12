@@ -338,15 +338,19 @@ export default {
         },
         generateBrackets() {
             TournamentService.generateBrackets(this.currentTournament).then(response => {
+                 this.currentTournament.isFull = true;
                 if (response.status < 299) {
                     this.$alert("Brackets generated successfully")
                     console.log('success');
+                    TournamentService.setTournamentFull(this.currentTournament);
                     this.$router.go(0)
                 }
             })
+            
         },
         removeTeamFromTournament() {
             this.$confirm("Are you sure?").then(() => {
+                this.currentTournament.isFull = false;
                 TeamService.removeTeams(this.selectedTeam).then(response => {
                     if (response.status < 299) {
                     this.$alert("Team successfully removed")
@@ -359,6 +363,7 @@ export default {
                 })
             
             })
+                
         }
     }
     
@@ -372,11 +377,11 @@ export default {
     background-color: rgba(28, 143, 158, 0.9);
     border-radius: 6px;
     font-family: 'Arial Narrow', Arial, sans-serif;
-        width: 300px;
-        /* position: fixed; */
-        right: 0;
-        margin-right: 20px;
-        margin-top: 50px;
+    width: 300px;
+    /* position: fixed; */
+    right: 0;
+    margin-right: 20px;
+    margin-top: 50px;
     }
     .form-fields {
         text-align: center;

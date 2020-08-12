@@ -6,7 +6,7 @@
                </span> {{ player.teamName }}
             </template>
             <template class="bottom-text" #player-extension-bottom="{ match }">
-                <span v-if="match.match.matchid" class="seed">Game Number: {{ match.match.matchid }}
+                <span v-if="match.match.matchid" class="seed">Game Number: {{ addOne(match.match.matchid) }}
                     </span>
                 <span v-else class="seed"> {{ match.title }}
                 </span>
@@ -47,6 +47,10 @@
             // })
         },
         methods: {
+            addOne(a)
+            {
+                return a + 1;
+            },
             selectMatch(match){
                 this.test = match;
                 this.$store.commit('SET_CURRENT_MATCH', {
