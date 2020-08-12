@@ -1,35 +1,51 @@
 <template>
     <div>
-        <browse-bracket-display v-bind:tournament="tournament" v-bind:edit-mode="true"/>
         <div>
-            <form v-on:submit.prevent="sendWinner">
-                <label for="winnerInput"> Enter winner of game: </label>
-                    <select name="winnerInput" v-model="winningTeam">
-                        <option v-for="team in selectedMatch.teamList" :key="team.id" :value="team.teamId">{{ team.teamName }} </option>
-                    </select>
+            <form class="form" v-on:submit.prevent="sendWinner">
+                <label for="gameSelection"> Choose a game to edit: </label>
+                <select name="gameSelection" v-model="selectedMatch">
+                    <option v-for="game in eligibleGames" :key="game.matchid" :value="game">
+                        {{ game.matchid }} 
+                    </option>
+                </select><br/>
+                <label for="teamSelection"> Choose a winning team: </label>
+                <select name="teamSelection" v-model="winningTeam">
+                    <option v-for="team in selectedMatch.teamList" :key="team.teamId" :value="team.teamId">
+                        {{ team.teamName }} 
+                    </option>
+                </select>
                 <input type="submit" value="Submit">
             </form>
         </div>
+        <bracket-display v-bind:edit-mode="true"/>
     </div>
 </template>
 <script>
 import TournamentService from '../services/TournamentService';
-import BrowseBracketDisplay from "../components/BrowseBracketDisplay.vue";
+import BracketDisplay from "../components/BracketDisplay.vue";
 
 export default {
     name: 'BracketEditor',
     components: {
-        'BrowseBracketDisplay': BrowseBracketDisplay
+        'BracketDisplay': BracketDisplay
     },
     computed: {
-        selectedMatch: function() {
-            return this.$store.state.selectedMatch;
+        // selectedMatch: function() {
+        //     return this.$store.state.selectedMatch;
+        // },
+        eligibleGames: function(){
+            return this.storeMatches.filter((match) => {
+                if(!match.complete && match.teamList.length >= 2){
+                    return match;
+                }
+            })
         }
     },
     created() {
-        TournamentService.getTournament(this.$route.params.id).then(response => {
-            this.tournament = response.data;
-    })
+        TournamentService.getTournament(this.$route.params.id)
+            .then(response => {
+                this.tournament = response.data;
+            })
     },
     watch: {
         // selectedMatch: function(val) {
@@ -60,8 +76,24 @@ export default {
         return {
             selectedMatchTeams: [],
             winningTeam: 0,
+            storeMatches: this.$store.state.currentMatches,
+            selectedMatch: {},
             tournament: {}
         }
     }
 }
 </script>
+
+<style scoped>
+
+    .form{
+    background-color: rgba(28, 143, 158, 0.9);
+    border-radius: 6px;
+    font-family: 'Arial Narrow', Arial, sans-serif;
+    width: 300px;
+    margin-right: 20px;
+    margin-top: 50px;
+}
+
+
+</style>

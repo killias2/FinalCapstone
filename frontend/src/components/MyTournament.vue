@@ -1,12 +1,12 @@
 <template>
-    <div class="teamList">
+    <div class="list">
         <!-- <h1>My Tournaments</h1> -->
         <!-- <div class="team" v-for="team in teams" v-bind:key="team.teamname">
             <h2>Name: {{team.teamName}}</h2>
             <h3>Seed: {{team.seed}}</h3>
         </div> -->
         <div class="tournaments" v-for="tournament in tournaments" v-bind:key="tournament.tournamentName">
-            <h2>Tournament Name: {{tournament.tournamentName}}</h2>
+            <h2>{{tournament.tournamentName}}</h2>
             <h3>Game/Sport: {{tournament.gameName}}</h3>
             <h3>Start Date: {{tournament.startDate}}</h3>
             <h3>End Date: {{tournament.endDate}}</h3>
@@ -43,7 +43,25 @@ export default {
 </script>
 
 <style scoped>
-    /* .tournaments {
-        margin-left: 50px;
-    } */
+    .list{
+        margin-left: 15%;
+        margin-right: 30%;
+    }
+    .tournaments{
+    background-color: rgba(28, 143, 158, 0.9);
+    border-radius: 6px;
+    font-family: 'Arial Narrow', Arial, sans-serif;
+    margin-right: 200px;
+    }
+    button{
+        background-color: rgb(8, 69, 97);
+    }
+    .tournaments>h2{
+        padding-top: 10px;
+        text-align:center;
+    }
+    .tournaments>h3{
+        padding-left: 20px;
+    }
+
 </style>

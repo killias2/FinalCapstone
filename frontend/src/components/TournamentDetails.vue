@@ -50,6 +50,14 @@ export default {
 </script>
 
 <style>
+.tournament {
+      background-color: rgba(28, 143, 158, 0.9);
+    border-radius: 6px;
+    font-family: 'Arial Narrow', Arial, sans-serif;
+    margin-right: 200px;
+  text-align: center;
+  display: block;
+}
 
 .btn.editTournament {
   color: #fff;
@@ -70,9 +78,6 @@ export default {
   font-size: 20px;
 }
 
-.tournament {
-  text-align: center;
-  display: block;
-}
+
 
 </style>

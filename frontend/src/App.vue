@@ -37,8 +37,12 @@ export default {
 <style scoped>
   #app {
     display: flex-row;
-    background-image: url('~@/assets/Vector Illustration of Sport Balls.jpg')
-    /* //style="background-image: url(.src/assets/Background.jpg)" */
+    background-image: url('~@/assets/MT5rFQ.png');
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: cover;
+    background-color: #464646;
   }
   #main {
     display: flex;
@@ -52,21 +56,18 @@ export default {
   }
 
   #mainbody{
-    margin-left: 10px;
+    margin-left: 20px;
     flex-grow: 1;
     /* background-color: rgb(28, 143, 158);
     color: white;
     margin-right: 40px;
     border-radius: 10px; */
   }
-
-  /* h1{
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 50%;
-    border-radius: 10px;
-  } */
+  .banner {
+        margin-left: 200px;
+    margin-right: 200px;
+    font-family: 'Arial Black', Arial, sans-serif
+  }
 
 
 </style>

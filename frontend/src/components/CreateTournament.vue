@@ -1,5 +1,8 @@
 <template>
-    <form v-on:submit.prevent="addNewTournament()">
+  <div class="body">
+      
+    <form v-on:submit.prevent="addNewTournament()" class="form">
+        <h2 class="form-title">Create a Tournament:</h2>
         <div class="form-element">
             <div class="tournamentName">
                 <label class="title" for="tournament-name">Tournament Name:</label>
@@ -67,6 +70,7 @@
             <button type="submit">Submit</button>
         </div>
     </form>
+  </div>
 </template>
 
 <script>
@@ -135,6 +139,15 @@ export default {
 </script>
 
 <style scoped>
+    .body{
+        font-family: 'Arial Narrow', Arial, sans-serif;
+    }
+    .form{
+        background-color: rgba(28, 143, 158, 0.9);
+        border-radius: 6px;
+        font-family: 'Arial Narrow', Arial, sans-serif;
+
+    }
     .number {
         width: auto;
         margin-top: 10px;
@@ -158,6 +171,13 @@ export default {
     }
     #start, #end {
         margin-top: 10px;
+    }
+    .form-title{
+        text-align: center;
+        padding-top: 10px;
+    }
+    button{
+        background-color: rgb(8, 69, 97);
     }
 
 

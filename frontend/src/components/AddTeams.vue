@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="add-teams">
         <div v-show="(this.teams.length < this.currentTournament.numberOfTeams) && $store.state.token != '' && this.user.id === this.currentTournament.tournamentOrganizerId">
             <form v-on:submit.prevent="addNewTeam" >
                 <h2>Add Team to Tournament</h2>
@@ -121,26 +121,26 @@ export default {
         })
     },
     computed: {
-    seedsArray: function(){
-         let seeds = []
-         this.teams.forEach((team) => {
-            seeds.push(team.seed);  
-         })
-         return seeds;
-    },
-    emailArray: function() {
-        let emails = []
-        this.teams.forEach((team) => {
-            emails.push(team.email);
-        })
-        return emails;
-    },
-    teamNameArray: function() {
-        let names = []
-        this.teams.forEach((team) => {
-            names.push(team.teamName);
-        })
-        return names;
+        seedsArray: function(){
+            let seeds = []
+            this.teams.forEach((team) => {
+                seeds.push(team.seed);  
+            })
+            return seeds;
+        },
+        emailArray: function() {
+            let emails = []
+            this.teams.forEach((team) => {
+                emails.push(team.email);
+            })
+            return emails;
+        },
+        teamNameArray: function() {
+            let names = []
+            this.teams.forEach((team) => {
+                names.push(team.teamName);
+            })
+            return names;
     },
     generalManagerArray: function() {
         let gms = []
@@ -367,7 +367,11 @@ export default {
 </script>
 
 <style scoped>
+    
     form {
+    background-color: rgba(28, 143, 158, 0.9);
+    border-radius: 6px;
+    font-family: 'Arial Narrow', Arial, sans-serif;
         width: 300px;
         /* position: fixed; */
         right: 0;
@@ -409,6 +413,7 @@ export default {
     }
 
     table {
+        background-color: rgba(28, 143, 158, 0.9);
         font-family: 'Open Sans', sans-serif;
         width: 300px;
         border-collapse: collapse;
@@ -437,6 +442,9 @@ export default {
     }
     .teamName {
         text-align: center;
+    }
+    button{
+        background-color: rgb(8, 69, 97);
     }
 
 </style>
