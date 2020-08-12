@@ -139,3 +139,5 @@ TO final_capstone_owner;
 ALTER TABLE teams ADD COLUMN seed integer;
 ALTER TABLE users ADD COLUMN email_address varchar(40);
 ALTER TABLE teams ADD COLUMN team_email_address varchar(40);
+
+ALTER TABLE tournaments ADD COLUMN is_full boolean;

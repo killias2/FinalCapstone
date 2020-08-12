@@ -19,7 +19,8 @@ import TournamentService from '../services/TournamentService';
 export default {
   data() {
     return {
-      currentTournament: this.tournament
+      currentTournament: this.tournament,
+      user: JSON.parse(localStorage.getItem('user'))
     };
   },
   props: ['tournament'],
@@ -34,7 +35,19 @@ export default {
             saveMe: this.currentTournament
           })
           this.$router.push(`/tournamentHQ/${this.currentTournament.id}`);
-        }
+        },
+      deleteTournament() {
+        this.$confirm("Are you sure?").then(() => {
+          TournamentService.deleteTournament(this.currentTournament).then(response => {
+          if (response.status < 299) {
+            this.$alert("Tournament successfully deleted")
+            console.log('success')
+          }
+          this.$router.push({name: 'my-tournament'})
+          })
+        })
+
+      }
     },
   }
 </script>
