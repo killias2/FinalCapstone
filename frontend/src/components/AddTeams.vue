@@ -65,33 +65,32 @@ export default {
         }
     },
     created() {
-       
         TeamService.viewTeams(this.$route.params.id).then(response => {
             this.teams = response.data;
         })
  
     },
     computed: {
-    seedsArray: function(){
-         let seeds = []
-         this.teams.forEach((team) => {
-            seeds.push(team.seed);  
-         })
-         return seeds;
-    },
-    emailArray: function() {
-        let emails = []
-        this.teams.forEach((team) => {
-            emails.push(team.email);
-        })
-        return emails;
-    },
-    teamNameArray: function() {
-        let names = []
-        this.teams.forEach((team) => {
-            names.push(team.teamName);
-        })
-        return names;
+        seedsArray: function(){
+            let seeds = []
+            this.teams.forEach((team) => {
+                seeds.push(team.seed);  
+            })
+            return seeds;
+        },
+        emailArray: function() {
+            let emails = []
+            this.teams.forEach((team) => {
+                emails.push(team.email);
+            })
+            return emails;
+        },
+        teamNameArray: function() {
+            let names = []
+            this.teams.forEach((team) => {
+                names.push(team.teamName);
+            })
+            return names;
     },
     seedIsValid: 
         function(){
@@ -283,6 +282,9 @@ export default {
     }
     .teamName {
         text-align: center;
+    }
+    button{
+        background-color: rgb(8, 69, 97);
     }
 
 </style>

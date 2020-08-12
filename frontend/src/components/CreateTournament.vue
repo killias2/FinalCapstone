@@ -168,6 +168,9 @@ export default {
         text-align: center;
         padding-top: 10px;
     }
+    button{
+        background-color: rgb(8, 69, 97);
+    }
 
 
 </style>

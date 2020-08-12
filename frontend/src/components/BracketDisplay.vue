@@ -1,11 +1,16 @@
-<template class="bracket">
-    <div class="bracket">
-        <bracket  :rounds="fixedRounds">
+<template >
+    <div class="bracket-container">
+        <bracket class="bracket" :rounds="fixedRounds">
             <template #player="{ player }"> 
-            {{ player.seed }} {{ player.teamName }}
+               <span v-if="player.seed" class="seed"> {{ player.seed }} 
+               </span> {{ player.teamName }}
             </template>
-            <template #player-extension-bottom="{ match }">
-                game number: {{ match.match.matchid }}</template>
+            <template class="bottom-text" #player-extension-bottom="{ match }">
+                <span v-if="match.match.matchid" class="seed">Game Number: {{ match.match.matchid }}
+                    </span>
+                <span v-else class="seed"> {{ match.title }}
+                </span>
+                </template>
         </bracket>
     </div>
 </template>
@@ -92,13 +97,15 @@
                 }
                 this.currentRound++;
                 //start grabbing the next round
-                // i is the round index we are on, j is the game index within that round
+                // i is the round index we are on, j is the game index within that round, 
+                // k is the overall index of the matches array
+                let k = this.fixedRounds[0].games.length;
                 for(let i = 1; i < this.numRounds; i++){
                     for(let j = 0; j < this.fixedRounds[i].games.length; j++){
-                    if(this.currentRoundMatches[j].teamList.length > 0){
-                        this.fixedRounds[i].games[j].match = this.matches[(this.fixedRounds[0].games.length) + j];
-                        this.fixedRounds[i].games[j].player1 = this.currentRoundMatches[j].teamList[0];
-                        this.fixedRounds[i].games[j].player1.id = this.fixedRounds[i].games[j].player1.teamId
+                        if(this.currentRoundMatches[j].teamList.length > 0){
+                            this.fixedRounds[i].games[j].match = this.matches[k];
+                            this.fixedRounds[i].games[j].player1 = this.currentRoundMatches[j].teamList[0];
+                            this.fixedRounds[i].games[j].player1.id = this.fixedRounds[i].games[j].player1.teamId
                     } 
                     if (this.currentRoundMatches[j].teamList.length > 1){
                         this.fixedRounds[i].games[j].player2 = this.currentRoundMatches[j].teamList[1];
@@ -120,6 +127,7 @@
                                 this.fixedRounds[i].games[j].player1.winner = false;
                             }
                         }
+                        k++;
                     }
                     this.currentRound++;
                 }
@@ -149,9 +157,21 @@
     }
 </script> 
 <style scoped>
+    .seed{
+        font-size: 12px;
+        padding-left: 15px;
+        padding-right: 5px;
+    }
 
-    .bracket{
+    .bracket-container{
         font-family:'Arial Black', 'Arial Narrow', Arial, sans-serif;
-        background-color: rgba(8, 69, 97, 0.3);
+        background-color: rgba(8, 69, 97, 0.9);
+    }
+    .bottom-text{
+        padding-left: 5px;
+        padding-right: 5px;
+    }
+    .bracket{
+        padding-left: 20px;
     }
 </style>

@@ -65,7 +65,7 @@ public class TournamentBuilder {
 			}
 			else {
 				Team t = new Team();
-				t.setSeed((long)i);
+				t.setSeed((long)i + 1);
 				t.setTeamName("Bye");
 				t.setTournamentId(tournament.getId());
 				teamsAndByes[i] = teamDAO.createTeam(t);

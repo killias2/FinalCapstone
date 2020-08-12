@@ -59,8 +59,10 @@ export default {
     margin-left: 20px;
     flex-grow: 1;
   }
-  .container {
-    
+  .banner {
+        margin-left: 200px;
+    margin-right: 200px;
+    font-family: 'Arial Black', Arial, sans-serif
   }
 
 

@@ -1,7 +1,7 @@
 <template>
     <div>
         <div>
-            <form v-on:submit.prevent="sendWinner">
+            <form class="form" v-on:submit.prevent="sendWinner">
                 <label for="gameSelection"> Choose a game to edit: </label>
                 <select name="gameSelection" v-model="selectedMatch">
                     <option v-for="game in eligibleGames" :key="game.matchid" :value="game">
@@ -83,3 +83,17 @@ export default {
     }
 }
 </script>
+
+<style scoped>
+
+    .form{
+    background-color: rgba(28, 143, 158, 0.9);
+    border-radius: 6px;
+    font-family: 'Arial Narrow', Arial, sans-serif;
+    width: 300px;
+    margin-right: 20px;
+    margin-top: 50px;
+}
+
+
+</style>

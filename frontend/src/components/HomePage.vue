@@ -27,7 +27,7 @@ export default {
 
 </script>
 
-<style>
+<style scoped>
 .body {
     /* margin-left: 200px; */
     background-color: rgba(28, 143, 158, 0.8);
