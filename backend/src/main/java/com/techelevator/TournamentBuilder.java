@@ -65,7 +65,7 @@ public class TournamentBuilder {
 			}
 			else {
 				Team t = new Team();
-				t.setSeed((long)i);
+				t.setSeed((long)i+1);
 				t.setTeamName("Bye");
 				t.setTournamentId(tournament.getId());
 				teamsAndByes[i] = teamDAO.createTeam(t);
@@ -109,8 +109,8 @@ public class TournamentBuilder {
 				m.setRound(i);
 				if(i == 0) { //only put teams in for match 0
 					Team[] teamsInMatch = new Team[2];
-					teamsInMatch[0] = seededTeams[2 * j];
-					teamsInMatch[1] = seededTeams[2 * j + 1];
+					teamsInMatch[0] = seededTeams[j];
+					teamsInMatch[1] = seededTeams[seededTeams.length - j - 1];
 					m.setTeamList(teamsInMatch);
 				}
 				matchDAO.createMatch(m);
