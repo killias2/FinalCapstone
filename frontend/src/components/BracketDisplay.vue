@@ -52,8 +52,8 @@
                     thisRound.forEach(() => {
                         tempArray.games.push({
                             match: {},
-                            player1: { teamId: "", teamName: "", winner: null, seed: ""},
-                            player2: { teamId: "", teamName: "", winner: null, seed: ""},
+                            player1: {id:"", teamId: "", teamName: "", winner: null, seed: ""},
+                            player2: {id:"", teamId: "", teamName: "", winner: null, seed: ""},
                         })
                     })
                         this.fixedRounds.push(tempArray)
@@ -65,6 +65,8 @@
                     this.fixedRounds[0].games[i].match = this.matches[i];
                     this.fixedRounds[0].games[i].player1 = this.matches[i].teamList[0];
                     this.fixedRounds[0].games[i].player2 = this.matches[i].teamList[1];
+                    this.fixedRounds[0].games[i].player1.id = this.fixedRounds[0].games[i].player1.teamId;
+                    this.fixedRounds[0].games[i].player2.id = this.fixedRounds[0].games[i].player2.teamId;
                     if (this.matches[i].winnerTeamId){
                         //filter through this game's teamList to match that team. then, mark that team as winner in fixedRounds based on seed.
                         let winnerSeed = 0
@@ -96,9 +98,11 @@
                     if(this.currentRoundMatches[j].teamList.length > 0){
                         this.fixedRounds[i].games[j].match = this.matches[(this.fixedRounds[0].games.length) + j];
                         this.fixedRounds[i].games[j].player1 = this.currentRoundMatches[j].teamList[0];
+                        this.fixedRounds[i].games[j].player1.id = this.fixedRounds[i].games[j].player1.teamId
                     } 
                     if (this.currentRoundMatches[j].teamList.length > 1){
                         this.fixedRounds[i].games[j].player2 = this.currentRoundMatches[j].teamList[1];
+                        this.fixedRounds[i].games[j].player2.id = this.fixedRounds[i].games[j].player2.teamId
                     }
                     if (this.currentRoundMatches[j].winnerTeamId){
                         //filter through this game's teamList to match that team. then, mark that team as winner in fixedRounds based on seed.
