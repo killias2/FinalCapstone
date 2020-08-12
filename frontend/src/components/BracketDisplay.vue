@@ -18,9 +18,10 @@
 <script>
     import Bracket from "vue-tournament-bracket";
     import TournamentService from '../services/TournamentService';
-
     export default {
         props: {
+            tournament: Object,
+            matches: Array,
             editMode: Boolean
         },
         name: 'BracketDisplay',
@@ -29,17 +30,21 @@
         },
         mounted() {
          //Promise.all(
-            TournamentService.getAllMatches(this.tournamentId)
+            TournamentService.getAllMatches(this.$route.params.id)
                 .then(response => {
                 this.matches = response.data;
                 this.$store.commit('SET_MATCHES', {
                     saveThis: this.matches
                 })
+                this.fixRounds()
+                this.autoFill()
                 })
-            .then(() => {
-                this.fixRounds();
-                this.autoFill();
-            })
+            //     })
+            //     })
+            // .then(() => {
+            // this.fixRounds()
+            // this.autoFill()
+            // })
         },
         methods: {
             selectMatch(match){
@@ -148,9 +153,9 @@
                 test: 0,
                 currentRound: 0,
                 sortedMatches: [],
-                matches: [],
-                currentTournament: this.$store.state.currentTournament,
-                tournamentId: this.$store.state.currentTournament.id,
+                // matches: [],
+                // currentTournament: this.$store.state.currentTournament,
+                // tournamentId: this.tournament.id,
                 fixedRounds: []
             }
         }

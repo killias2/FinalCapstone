@@ -81,7 +81,7 @@ export default {
             dropDownChoice: "No",
             showGenButton: true,
             generalManager: {},
-            selectedTeam: {}
+            // selectedTeam: {}
         }
     },
     props: {

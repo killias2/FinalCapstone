@@ -95,8 +95,8 @@ const router = new Router({
       component: TournamentDetails
     },
     {
-      path: "/tournaments/:id",
-      name: "my-tournament",
+      path: '/users/:id/mytournaments',
+      name: 'my-tournament',
       component: MyTournament
     },
     {

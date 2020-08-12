@@ -17,17 +17,20 @@
                 <input type="submit" value="Submit">
             </form>
         </div>
-        <bracket-display v-bind:edit-mode="true"/>
     </div>
 </template>
 <script>
 import TournamentService from '../services/TournamentService';
-import BracketDisplay from "../components/BracketDisplay.vue";
+// import BracketDisplay from "../components/BracketDisplay.vue";
 
 export default {
     name: 'BracketEditor',
-    components: {
-        'BracketDisplay': BracketDisplay
+    // components: {
+    //     'BracketDisplay': BracketDisplay
+    // },
+    props: {
+        tournament: Object,
+        storeMatches: Array
     },
     computed: {
         // selectedMatch: function() {
@@ -41,12 +44,16 @@ export default {
             })
         }
     },
-    created() {
-        TournamentService.getTournament(this.$route.params.id)
-            .then(response => {
-                this.tournament = response.data;
-            })
-    },
+    // created() {
+    //     TournamentService.getTournament(this.$route.params.id)
+    //         .then(response => {
+    //             this.tournament = response.data;
+    //         }),
+    //     TournamentService.getAllMatches(this.$route.params.id)
+    //         .then(response => {
+    //             this.storeMatches = response.data;
+    //         })
+    // },
     watch: {
         // selectedMatch: function(val) {
         //     let match = val;
@@ -76,9 +83,9 @@ export default {
         return {
             selectedMatchTeams: [],
             winningTeam: 0,
-            storeMatches: this.$store.state.currentMatches,
+            // storeMatches: this.$store.state.currentMatches,
             selectedMatch: {},
-            tournament: {}
+            // tournament: {}
         }
     }
 }
