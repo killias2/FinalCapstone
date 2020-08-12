@@ -1,5 +1,7 @@
 package com.techelevator;
 
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 import com.techelevator.dao.MatchDAO;
@@ -25,9 +27,11 @@ public class TournamentBuilder {
 		while(Math.pow(2, roundCount) < teams.length ) {
 			roundCount ++;
 		}
-		Team bye = new Team();
-		// we need to have a predetermined id saved for the bye team
+	
 		
+		
+		/**
+		Team bye = new Team();
 		bye.setTeamName("Bye");
 		bye.setTeamId((long)-1);
 		Team[] teamsAndByes = new Team[(int) Math.pow(2, roundCount)];
@@ -79,11 +83,11 @@ public class TournamentBuilder {
 			Match m = new Match();
 			m.setTournamentId(tournament.getId());
 			m.setComplete(false);
-			m.setRound(i+1);
-			if( i == 0) { //only put teams in for match 0
+			m.setRound(i);
+			if(i == 0) { //only put teams in for match 0
 				Team[] teamsInMatch = new Team[2];
 				teamsInMatch[0] = teamsAndByes[j];
-				teamsInMatch[1] = teamsAndByes[(teamsAndByes.length - 1) - j];
+				teamsInMatch[1] = teamsAndByes[teamsAndByes.length - j - 1];
 				m.setTeamList(teamsInMatch);
 			}
 		
@@ -115,8 +119,19 @@ public class TournamentBuilder {
 			}
 			}
 		}
-		}
 		
 		return true;
+	}
+	//Seed player code taken from user Absurd-Mind on stackoverflow 
+	//https://stackoverflow.com/questions/22959408/algorithm-for-placement-of-32-seeded-players-in-a-128-person-tournament
+	public int seedPlayer(long seed, int partSize) {
+		if(seed <= 1) {
+			return 0;
+		}
+		
+		if(seed % 2 == 0) {
+			return partSize / 2 + seedPlayer(seed / 2, partSize / 2);
+		}
+		return seedPlayer (seed/2 + 1, partSize / 2);
 	}
 }
