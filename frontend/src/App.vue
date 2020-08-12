@@ -2,7 +2,7 @@
   <div id="app" >
     <div class="header">
       <div class="banner">
-              <h1>Brackets[⚾⚽🕹️⛳🃏🎱🏓]!</h1>
+              <h1>Brackets [⚾⚽🕹️⛳🃏🎱🏓]!</h1>
       </div>
       <user-nav />
     </div>
@@ -58,6 +58,10 @@ export default {
   #mainbody{
     margin-left: 20px;
     flex-grow: 1;
+    /* background-color: rgb(28, 143, 158);
+    color: white;
+    margin-right: 40px;
+    border-radius: 10px; */
   }
   .banner {
         margin-left: 200px;

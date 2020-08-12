@@ -1,25 +1,83 @@
 <template>
     <div>
-        <!-- <h1>Tournament Details</h1> -->
-        <tournament-details/>
-        <add-teams/>
-        <bracket-display v-bind:edit-mode="false"/>
-        <!-- <user-nav /> -->
+        <browse-tournament-details v-bind:tournament="tournament"/>
+        <!-- <add-teams v-bind:tournament="tournament"/> -->
+        <div v-if="(this.teams.length === this.tournament.numberOfTeams) && this.user.id === 
+          this.tournament.tournamentOrganizerId">
+          <button v-on:click.prevent="generateBrackets">Generate Brackets</button>
+        </div>
+        <add-self v-bind:tournament="tournament" v-bind:teams="teams" v-bind:user="user"/>
+        <seeded-teams-list v-bind:tournament="tournament" v-bind:teams="teams"  v-if="this.tournament.isSeeded == true && this.teams.length > 0"/>
+        <teams-list v-bind:tournament="tournament" v-bind:teams="teams"  v-if="this.tournament.isSeeded == false && this.teams.length > 0"/>
+        <browse-bracket-display v-bind:tournament="tournament" v-bind:edit-mode="editMode"/>
     </div>
 </template>
 
 <script>
-import TournamentDetails from "../components/TournamentDetails"
-// import UserNav from '../components/UserNav'
-import AddTeams from '../components/AddTeams'
-import BracketDisplay from '../components/BracketDisplay';
+import BrowseTournamentDetails from "../components/BrowseTournamentDetails"
+import TeamService from '../services/TeamService'
+// import AddTeams from '../components/AddTeams'
+import BrowseBracketDisplay from '../components/BrowseBracketDisplay';
+import TournamentService from '../services/TournamentService';
+import TeamsList from '../components/TeamsList'
+import SeededTeamsList from '../components/SeededTeamsList'
+import AddSelf from '../components/AddSelf'
 
 export default {
     components: {
-        TournamentDetails,
-        // UserNav,
-        AddTeams,
-        BracketDisplay
+        BrowseTournamentDetails,
+        // AddTeams,
+        BrowseBracketDisplay,
+        TeamsList,
+        SeededTeamsList,
+        AddSelf
+    },
+  name: "browse-details",
+  data() {
+    return {
+      // tournament: {
+      user: JSON.parse(localStorage.getItem('user')),
+      matches: [],
+      teams: [],
+      tournament: {},
+      editMode: false
+    };
+    
+  },
+  // mounted() {
+  //     this.$store.commit('SET_CURRENT_TOURNAMENT', {
+  //     saveMe: this.tournament
+  //     })
+  // },
+  created() {
+    TournamentService.getTournament(this.$route.params.id).then(response => {
+        this.tournament = response.data;
+    }),
+    TeamService.viewTeams(this.$route.params.id).then(response => {
+      this.teams = response.data;    
+    }),
+    TournamentService.getAllMatches(this.$route.params.id).then(response =>{
+        this.matches = response.data;
+    })
+  },
+  methods: {
+    generateBrackets() {
+      TournamentService.generateBrackets(this.tournament).then(response => {
+        if (response.status < 299) {
+          this.$alert("Brackets generated successfully")
+          console.log('success');
+          this.$router.go(0)
+        }
+      })
     }
-};
+  }
+}
 </script>
+
+<style scoped>
+    button {
+        width: 80%;
+        display: block;
+        text-align: center;
+    }
+</style>

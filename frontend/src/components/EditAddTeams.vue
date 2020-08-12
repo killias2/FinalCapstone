@@ -1,6 +1,5 @@
 <template>
-    <div class="add-teams">
-        <div v-show="(this.teams.length < this.currentTournament.numberOfTeams) && $store.state.token != '' && this.user.id === this.currentTournament.tournamentOrganizerId">
+    <div>
             <form v-on:submit.prevent="addNewTeam" >
                 <h2>Add Team to Tournament</h2>
                 <div class="form-fields">
@@ -19,15 +18,11 @@
                         <label class="text-field" for="email" required >Email Address:</label>
                         <input v-model="newTeam.email" type="email" />
                     </div>
-                    <!-- <div class="form-element" v-if="this.dropDownChoice == 'Yes'">
-                        <label class="text-field" for="general_manager" required >General Manager ID#:</label>
-                        <input v-model="newTeam.generalManagerId" type="number" min="1" />
-                    </div> -->
                     <div class="form-element" v-if="this.dropDownChoice == 'Yes'">
                         <label class="text-field" for="general_manager" required >General Manager Username:</label>
                         <input v-model="generalManagerName" type="text" />
                     </div>
-                    <div class="form-element" v-if="this.currentTournament.isSeeded == true">
+                    <div class="form-element" v-if="this.tournament.isSeeded == true">
                     <label class="text-field" for="seed" required >Seed:</label>
                     <input v-model="newTeam.seed" type="number" min="1" required/>
                     </div>
@@ -37,9 +32,8 @@
                     <button type="submit" >Submit</button>
                 </div>
             </form>
-        </div>
 
-        <div v-show="(this.teams.length < this.currentTournament.numberOfTeams) && $store.state.token != '' && 
+        <!-- <div v-show="(this.teams.length < this.currentTournament.numberOfTeams) && $store.state.token != '' && 
             this.user.id != this.currentTournament.tournamentOrganizerId && !this.generalManagerArray.includes(this.user.id)">
             <form v-on:submit.prevent="addSelfToTeam">
                 <div class="form-fields">
@@ -54,9 +48,9 @@
                         </div>
                 </div>
             </form>
-        </div>
+        </div> -->
 
-        <div v-if="(this.teams.length === this.currentTournament.numberOfTeams) && this.user.id === this.currentTournament.tournamentOrganizerId">
+        <!-- <div v-if="(this.teams.length === this.currentTournament.numberOfTeams) && this.user.id === this.currentTournament.tournamentOrganizerId">
             <button v-if="(showGenButton)" v-on:click.prevent="generateBrackets">Generate Brackets</button>
         </div>
         <div id="remove" v-if="this.user.id === this.currentTournament.tournamentOrganizerId">
@@ -64,43 +58,18 @@
                 <option v-for="team in teams"  v-bind:key="team.teamId" :value="team.teamId" >{{team.teamName}}</option>
             </select>
             <button type="submit" v-on:click.prevent="removeTeamFromTournament" >Remove Team</button>
-        </div>
-        <table v-if="this.currentTournament.isSeeded == true">
-            <thead>
-                <tr>
-                    <th class="teamName">Team Name</th>
-                    <th  class="seed">Seed</th>
-                </tr>
-            </thead>
-            <tbody v-for="team in teams" v-bind:key="team.teamId">
-                <td>{{team.teamName}}</td>
-                <td  class="seed">{{team.seed}}</td>
-            </tbody>
-        </table>
-        <table v-if="this.currentTournament.isSeeded == false">
-            <thead>
-                <tr>
-                    <th class="teamName">Team Name</th>
-                </tr>
-            </thead>
-            <tbody v-for="team in teams" v-bind:key="team.id">
-                <td>{{team.teamName}}</td>
-            </tbody>
-        </table>
+        </div> -->
     </div>
 </template>
 
 <script>
 import TeamService from '../services/TeamService'
-import TournamentService from '../services/TournamentService'
+// import TournamentService from '../services/TournamentService'
 import AuthService from '../services/AuthService'
 
 export default {
     data() {
         return {
-            currentTournament: this.$store.state.currentTournament,
-            teams: [],
-            user: this.$store.state.user,
             newTeam: {
                 tournamentId: this.$route.params.id,
                 teamName: '',
@@ -112,35 +81,35 @@ export default {
             dropDownChoice: "No",
             showGenButton: true,
             generalManager: {},
-            selectedTeam: {}
+            // selectedTeam: {}
         }
     },
-    created() {
-        TeamService.viewTeams(this.$route.params.id).then(response => {
-            this.teams = response.data;
-        })
+    props: {
+        tournament: Object,
+        teams: Array,
+        user: Object
     },
     computed: {
-        seedsArray: function(){
-            let seeds = []
-            this.teams.forEach((team) => {
-                seeds.push(team.seed);  
-            })
-            return seeds;
-        },
-        emailArray: function() {
-            let emails = []
-            this.teams.forEach((team) => {
-                emails.push(team.email);
-            })
-            return emails;
-        },
-        teamNameArray: function() {
-            let names = []
-            this.teams.forEach((team) => {
-                names.push(team.teamName);
-            })
-            return names;
+    seedsArray: function(){
+         let seeds = []
+         this.teams.forEach((team) => {
+            seeds.push(team.seed);  
+         })
+         return seeds;
+    },
+    emailArray: function() {
+        let emails = []
+        this.teams.forEach((team) => {
+            emails.push(team.email);
+        })
+        return emails;
+    },
+    teamNameArray: function() {
+        let names = []
+        this.teams.forEach((team) => {
+            names.push(team.teamName);
+        })
+        return names;
     },
     generalManagerArray: function() {
         let gms = []
@@ -151,7 +120,7 @@ export default {
     },
     seedIsValid: 
         function(){
-        if(this.seedsArray.includes(parseInt(this.newTeam.seed)) && this.currentTournament.isSeeded == true) {
+        if(this.seedsArray.includes(parseInt(this.newTeam.seed)) && this.tournament.isSeeded == true) {
             return false 
         } else {
             return true;
@@ -233,35 +202,35 @@ export default {
                 return true;
             }
         },
-        getTeams() {
-            TeamService.viewTeams(this.$route.params.id).then(response => {
-            this.teams = response.data;
-        })
-        },
-        addSelfToTeam(){
-            if(this.teamNameIsValid){
-                this.newTeam.generalManagerId = this.user.id;
-                this.newTeam.seed = null;
-                // if(this.teams.length < 1){
-                //     this.newTeam.seed = 1;
-                // }
-                // else {
-                //     this.newTeam.seed = this.teams.length + 1;
-                // }
-            }
-            if(this.generalManagerIsValid){
-                TeamService.addTeams(this.newTeam).then(response => {
-                    if (response.status < 299) {
-                        console.log('success');
-                    }
-                }).then(() => {
-                    this.getTeams();
-                })
-                this.resetForm();
-            }
-        },
+        // getTeams() {
+        //     TeamService.viewTeams(this.$route.params.id).then(response => {
+        //     this.teams = response.data;
+        // })
+        // },
+        // addSelfToTeam(){
+        //     if(this.teamNameIsValid){
+        //         this.newTeam.generalManagerId = this.user.id;
+        //         this.newTeam.seed = null;
+        //         // if(this.teams.length < 1){
+        //         //     this.newTeam.seed = 1;
+        //         // }
+        //         // else {
+        //         //     this.newTeam.seed = this.teams.length + 1;
+        //         // }
+        //     }
+        //     if(this.generalManagerIsValid){
+        //         TeamService.addTeams(this.newTeam).then(response => {
+        //             if (response.status < 299) {
+        //                 console.log('success');
+        //             }
+        //         }).then(() => {
+        //             this.getTeams();
+        //         })
+        //         this.resetForm();
+        //     }
+        // },
         addNewTeam() {
-            if(this.currentTournament.isSeeded == false){
+            if(this.tournament.isSeeded == false){
                 this.newTeam.seed = null;
                 // if(this.teams.length < 1){
                 //     this.newTeam.seed = 1;
@@ -280,9 +249,9 @@ export default {
                             console.log('success');
                             }
                         }).then(() => {
-                            this.getTeams();
+                            this.$router.go(0)
                         })
-                        this.resetForm();
+                        // this.resetForm();
                     }
                     
                     else {
@@ -312,9 +281,9 @@ export default {
                 }
                 
                 }).then(() => {
-                    this.getTeams();
+                    this.$router.go(0)
                 });
-                this.resetForm();
+                // this.resetForm();
 
             }
             else {
@@ -336,35 +305,30 @@ export default {
                 this.resetForm();
             }
         },
-        generateBrackets() {
-            TournamentService.generateBrackets(this.currentTournament).then(response => {
-                 this.currentTournament.isFull = true;
-                if (response.status < 299) {
-                    this.$alert("Brackets generated successfully")
-                    console.log('success');
-                    TournamentService.setTournamentFull(this.currentTournament);
-                    this.$router.go(0)
-                }
-            })
+        // generateBrackets() {
+        //     TournamentService.generateBrackets(this.currentTournament).then(response => {
+        //         if (response.status < 299) {
+        //             this.$alert("Brackets generated successfully")
+        //             console.log('success');
+        //             this.$router.go(0)
+        //         }
+        //     })
+        // },
+        // removeTeamFromTournament() {
+        //     this.$confirm("Are you sure?").then(() => {
+        //         TeamService.removeTeams(this.selectedTeam).then(response => {
+        //             if (response.status < 299) {
+        //             this.$alert("Team successfully removed")
+        //             console.log('success')
+        //             this.teams.filter((team) => {
+        //                 return team.teamName != this.selectedTeam.teamName;
+        //             })
+        //             location.reload();
+        //             } 
+        //         })
             
-        },
-        removeTeamFromTournament() {
-            this.$confirm("Are you sure?").then(() => {
-                this.currentTournament.isFull = false;
-                TeamService.removeTeams(this.selectedTeam).then(response => {
-                    if (response.status < 299) {
-                    this.$alert("Team successfully removed")
-                    console.log('success')
-                    this.teams.filter((team) => {
-                        return team.teamName != this.selectedTeam.teamName;
-                    })
-                    location.reload();
-                    } 
-                })
-            
-            })
-                
-        }
+        //     })
+        // }
     }
     
 }
@@ -372,16 +336,12 @@ export default {
 </script>
 
 <style scoped>
-    
     form {
-    background-color: rgba(28, 143, 158, 0.9);
-    border-radius: 6px;
-    font-family: 'Arial Narrow', Arial, sans-serif;
         width: 300px;
         /* position: fixed; */
-        right: 0;
+        /* right: 0;
         margin-right: 20px;
-        margin-top: 50px;
+        margin-top: 50px; */
     }
     .form-fields {
         text-align: center;
@@ -418,7 +378,6 @@ export default {
     }
 
     table {
-        background-color: rgba(28, 143, 158, 0.9);
         font-family: 'Open Sans', sans-serif;
         width: 300px;
         border-collapse: collapse;
@@ -447,9 +406,6 @@ export default {
     }
     .teamName {
         text-align: center;
-    }
-    button{
-        background-color: rgb(8, 69, 97);
     }
 
 </style>
