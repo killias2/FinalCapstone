@@ -1,5 +1,5 @@
 <template>
-  <div id="app">
+  <div id="app" >
     <div class="header">
       <div class="banner">
               <h1>Brackets[⚾⚽🕹️⛳🃏🎱🏓]!</h1>
@@ -46,6 +46,8 @@ export default {
   }
   #main {
     display: flex;
+    
+
   }
 
   .sidebar {
@@ -56,6 +58,9 @@ export default {
   #mainbody{
     margin-left: 20px;
     flex-grow: 1;
+  }
+  .container {
+    
   }
 
 

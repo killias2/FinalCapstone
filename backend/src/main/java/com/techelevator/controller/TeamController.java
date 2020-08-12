@@ -30,5 +30,10 @@ public class TeamController {
 		return teamDAO.getTeamsByTournament(id);
 	}
 	
+	@RequestMapping(value = "/teams/{id}", method = RequestMethod.DELETE)
+	public void removeTeam(@PathVariable Long id) {
+		teamDAO.removeTeam(id);
+	}
+	
 }
 	

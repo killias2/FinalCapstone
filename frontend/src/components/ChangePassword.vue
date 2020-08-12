@@ -64,6 +64,7 @@ export default {
                 passwordService.changePassword(this.passwordChange, this.currentUser.id)
                 .then((response) => {
                     if (response.status == 200) {
+                        this.$alert("Password change successful!")
                         this.$router.push({
                         path: '/',
                         });

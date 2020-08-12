@@ -53,5 +53,9 @@ public class TournamentController {
 	public List<Tournament> getTournamentByOrganizerId(@PathVariable long id) {
 		return tournamentDAO.getTournamentByOrganizerId(id);
 	}
+	@RequestMapping(value = "/tournaments/{id}", method = RequestMethod.DELETE)
+	public void deleteTournamentById(@PathVariable long id) {
+		tournamentDAO.deleteTournamentById(id);
+	}
 	
 }
