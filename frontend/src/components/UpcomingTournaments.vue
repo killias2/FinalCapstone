@@ -1,8 +1,8 @@
 <template>
     <div>
-        <!-- <h1>Current Tournaments</h1> -->
-        <h3>Current Tournaments:</h3>
-                    <div class="tournament" v-for="tournament in tournaments" v-bind:key="tournament.id" 
+        <!-- <h1>Upcoming Tournaments</h1> -->
+        <h3>Upcoming Tournaments:</h3>
+                    <div class='tournament' v-for="tournament in tournaments" v-bind:key="tournament.id" 
         v-bind:currentTournament="tournament" v-on:click="viewTournamentDetails(tournament)"
         v-bind:class="{ open: (tournament.openToJoin && !tournament.full)}">
             <h2>{{tournament.tournamentName}}</h2>
@@ -32,7 +32,7 @@ export default {
         }
     },
     created() {
-        TournamentService.getCurrentTournaments().then(response => {
+        TournamentService.getFutureTournaments().then(response => {
            this.tournaments = response.data;
         })
     }
@@ -41,8 +41,6 @@ export default {
 
 <style scoped>
     .tournament {
-        
-        
         display: block;
         text-align: center;
         color: white;
@@ -73,4 +71,5 @@ export default {
         margin-right: 300px;
         background-color: red;
     }
+   
 </style>
