@@ -41,12 +41,16 @@ export default {
     .header {
         font-size: 40px;
         text-align: center;
+        background-color:  rgba(8, 69, 97, .7);
+        width: 80%;
+        margin-left: 10%;
+        border-radius: 6px;
     }
     .tournament {
         background-color: rgba(28, 143, 158, 0.9);
         border-radius: 6px;
         font-family: 'Arial Narrow', Arial, sans-serif;
-        width: 300px;
+        width: 75%;
     }
     .tournament-card {
         margin-left: 5%;
@@ -56,7 +60,7 @@ export default {
         margin-top: 25px;
     }
     button{
-        background-color: rgb(8, 69, 97);
+        background-color: rgba(8, 69, 97, .7);
     }
     .tournament>h2 {
         padding-top: 10px;

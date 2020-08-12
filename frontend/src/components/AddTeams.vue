@@ -372,11 +372,11 @@ export default {
     background-color: rgba(28, 143, 158, 0.9);
     border-radius: 6px;
     font-family: 'Arial Narrow', Arial, sans-serif;
-        width: 300px;
-        /* position: fixed; */
-        right: 0;
-        margin-right: 20px;
-        margin-top: 50px;
+    width: 300px;
+    /* position: fixed; */
+    right: 0;
+    margin-right: 20px;
+    margin-top: 50px;
     }
     .form-fields {
         text-align: center;

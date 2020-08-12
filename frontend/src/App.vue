@@ -2,7 +2,7 @@
   <div id="app" >
     <div class="header">
       <div class="banner">
-              <h1>Brackets [⚾⚽🕹️⛳🃏🎱🏓]!</h1>
+              <h2>Brackets [⚾⚽🕹️⛳🃏🎱🏓]!</h2>
       </div>
       <user-nav />
     </div>
@@ -43,6 +43,7 @@ export default {
     background-attachment: fixed;
     background-size: cover;
     background-color: #464646;
+    padding: 25px;
   }
   #main {
     display: flex;
@@ -58,6 +59,15 @@ export default {
     flex-grow: 1;
     color: white;
   }
+  .banner {
+    border-radius: 6px;
+    background-color:  rgba(28, 143, 158, 0.9);
+    text-align: center;
+    font-size: 30px;
+    color: white;
+    width: auto;
+  }
+
 
 
 </style>

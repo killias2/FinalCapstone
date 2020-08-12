@@ -51,10 +51,10 @@ export default {
         margin-top: 25px;
     }
     .tournaments{
-    background-color: rgba(28, 143, 158, 0.9);
-    border-radius: 6px;
-    font-family: 'Arial Narrow', Arial, sans-serif;
-    width: 300px;
+        background-color: rgba(28, 143, 158, 0.9);
+        border-radius: 6px;
+        font-family: 'Arial Narrow', Arial, sans-serif;
+        width: 300px;
     }
     button{
         background-color: rgb(8, 69, 97);

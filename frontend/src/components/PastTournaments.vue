@@ -1,6 +1,6 @@
 <template>
     <div>
-        <h1 class="header">Past Tournaments:</h1>
+        <h3 class="header">Past Tournaments:</h3>
         <section class="tournament-card">
             <div class="tournament" v-for="tournament in tournaments" v-bind:key="tournament.id" >
                 <h2>{{tournament.tournamentName}}</h2>
@@ -38,7 +38,12 @@ export default {
 
 <style scoped>
     .header {
-        font-size: large;
+        font-size: 40px;
+        text-align: center;
+        background-color:  rgba(8, 69, 97, .7);
+        width: 80%;
+        margin-left: 10%;
+        border-radius: 6px;
     }
     .tournament {
         background-color: rgba(28, 143, 158, 0.9);
@@ -54,7 +59,7 @@ export default {
         margin-top: 25px;
     }
     button{
-        background-color: rgb(8, 69, 97);
+        background-color: rgba(8, 69, 97, .7);
     }
     .tournament>h2 {
         padding-top: 10px;

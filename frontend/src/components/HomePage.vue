@@ -29,17 +29,19 @@ export default {
 
 <style>
 .body {
-    /* margin-left: 200px; */
+    margin-left: 5%;
     background-color: rgba(28, 143, 158, 0.8);
     border-radius: 6px;
     font-family: 'Arial Narrow', Arial, sans-serif;
     margin-right: 200px;
+    padding: 20px;
 
 }
 .banner {
-    margin-left: 200px;
-    margin-right: 200px;
-    font-family: 'Arial Black', Arial, sans-serif
+    margin-left: 100px;
+    margin-right: 100px;
+    font-family: 'Arial Black', Arial, sans-serif;
+
 }
 img {
     display: block;

@@ -16,6 +16,7 @@
         height: 100px;
         display: block;
         margin: 20px;
+        background-color: rgba(28, 143, 158, 0.8);
     }
     .sidebar {
         height: 400px;
@@ -27,7 +28,7 @@
         z-index: 1;
         /* top: 0;
         left: 0; */
-        background-color: rgb(8, 69, 97);
+        background-color: rgba(8, 69, 97, .7);
         overflow-x: hidden;
         padding-top: 10px;
         border-radius: 25px;
