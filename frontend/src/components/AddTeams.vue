@@ -185,11 +185,11 @@ export default {
                     this.$alert("Brackets generated successfully")
                     console.log('success');
                 }
+                // TournamentService.setTournamentFull(this.currentTournament.id);
             })
             
         },
         removeTeamFromTournament() {
-
             this.$confirm("Are you sure?").then(() => {
                 this.currentTournament.isFull = false;
                 TeamService.removeTeams(this.selectedTeam).then(response => {

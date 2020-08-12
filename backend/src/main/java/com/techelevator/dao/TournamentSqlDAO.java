@@ -17,6 +17,12 @@ public class TournamentSqlDAO implements TournamentDAO{
 		this.jdbcTemplate = jdbcTemplate;
 	}
 	@Override
+	public boolean setFull(Long id) {
+		String sql = "UPDATE tournaments SET is_full = true " +
+					"WHERE tournamentid = ?;";
+		return 1 == jdbcTemplate.update(sql, id);
+	}
+	@Override
 	public List<Tournament> getCurrentTournaments() {
 		String sql = "SELECT * FROM tournaments t " +
 				"JOIN users ON user_id = organizerid " + 
@@ -68,8 +74,6 @@ public class TournamentSqlDAO implements TournamentDAO{
 					+ "values(?,?,?,?,?,?,?,?, ?, ?, ?)";
 		return 1 == jdbcTemplate.update(sql, tournament.getTournamentName(), tournament.getOpenToJoin(), tournament.getGameId(), tournament.getBracketId(),
 										tournament.getTournamentOrganizerId(), tournament.getStartDate(), tournament.getEndDate(), tournament.getIsSeeded(), false, tournament.getNumberOfTeams(), false);
-		
-		// TODO Auto-generated method stub
 		
 	}
 	@Override
@@ -142,6 +146,7 @@ public class TournamentSqlDAO implements TournamentDAO{
 		tournament.setFull(rs.getBoolean("is_full"));
 		return tournament;
 	}
+	
 
 	
 }

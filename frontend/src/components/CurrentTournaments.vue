@@ -9,6 +9,7 @@
             <h3>{{tournament.startDate}} to {{tournament.endDate}}</h3>
             <h3>{{tournament.gameName}}</h3>
             <h3>{{tournament.numberOfTeams}} teams</h3>
+            <h4 v-show="tournament.openToJoin && !tournament.isFull"> Join this tournament!</h4>
         </div>
     </div>
 </template>
