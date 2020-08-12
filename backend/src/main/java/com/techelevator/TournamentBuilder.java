@@ -43,10 +43,19 @@ public class TournamentBuilder {
 				teamsAndByes[i] = bye;
 			}
 		}**/
-		if(!tournament.getIsSeeded()) {
+		/*if(!tournament.getIsSeeded()) {
 			List<Team> teamList = Arrays.asList(teams);
 			Collections.shuffle(teamList);
 			teams = teamList.toArray(teams);
+		}*/
+		
+		if(!tournament.getIsSeeded()) {
+			for(int i = teams.length - 1; i >= 0; i--) {
+				int j =(int)( Math.random() * i);
+				Team temp = teams[i];
+				teams[i] = teams[j];
+				teams[j] = temp;
+			}
 		}
 		
 		Team[] teamsAndByes = new Team[(int) Math.pow(2, roundCount)];
@@ -64,8 +73,11 @@ public class TournamentBuilder {
 		}
 		
 		if(!tournament.getIsSeeded()) {
+			
 		for(int i = 0; i < roundCount; i++) {
+			
 			for(int j = 0; j < (Math.pow(2,  roundCount) / 2) / Math.pow(2, i); j++) {
+			
 			Match m = new Match();
 			m.setTournamentId(tournament.getId());
 			m.setComplete(false);
@@ -76,6 +88,7 @@ public class TournamentBuilder {
 				teamsInMatch[1] = teamsAndByes[teamsAndByes.length - j - 1];
 				m.setTeamList(teamsInMatch);
 			}
+		
 			matchDAO.createMatch(m);
 		}
 		}
@@ -84,7 +97,7 @@ public class TournamentBuilder {
 			Team[] seededTeams = new Team[teamsAndByes.length];
 			for(int i = 0; i < teamsAndByes.length; i++) {
 				int seedPosition = seedPlayer(teamsAndByes[i].getSeed(), (int)Math.pow(2,  roundCount));
-				seededTeams[seedPosition - 1] = teamsAndByes[i];
+				seededTeams[seedPosition] = teamsAndByes[i];
 			}
 			
 			
