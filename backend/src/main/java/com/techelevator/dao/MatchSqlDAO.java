@@ -97,8 +97,10 @@ public class MatchSqlDAO implements MatchDAO {
 		sql = "INSERT INTO team_match (matchid, teamid) VALUES (?, ?)";
 		jdbcTemplate.update(sql,  startingIndex + nextMatchIndex, newMatch.getWinnerTeamId());}
 		else {
-			sql = "UPDATE tournaments SET is_complete = true WHERE tournamentid = ?";
-			jdbcTemplate.update(sql, newMatch.getTournamentId());
+			sql = "UPDATE tournaments SET is_complete = true, winner_team_id = ? WHERE tournamentid = ?";
+			jdbcTemplate.update(sql,newMatch.getWinnerTeamId(), newMatch.getTournamentId());
+			
+			
 		}
 		return newMatch;
 	}

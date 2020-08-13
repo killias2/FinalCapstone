@@ -55,7 +55,7 @@
         </div>
         <div class="form-element">
             <label class="title" for="dropdown">How many Teams?</label>
-            <input type="number" min="4" max="64" step="2" v-model="newTournament.numberOfTeams" class="number"/>
+            <input type="number" min="3" max="64" v-model="newTournament.numberOfTeams" class="number"/>
         </div>
         <div class="form-element">
             <label class="title" for="start-date">Start Date:</label>
