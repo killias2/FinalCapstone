@@ -9,7 +9,7 @@
             <h3>{{tournament.startDate}} to {{tournament.endDate}}</h3>
             <h3>{{tournament.gameName}}</h3>
             <h3>{{tournament.numberOfTeams}} teams</h3>
-            <h4 class="winner" v-if="getWinner(tournament) != ''">{{getWinner(tournament).teamName}}: Winner!</h4>
+            <h4 class="winner">👑 {{winningTeam(tournament).teamName}} 👑 </h4>
             <button v-bind:currentTournament="tournament" v-on:click="viewTournamentDetails(tournament)">Tournament Details</button>
             </div>
         </section>
@@ -23,6 +23,7 @@ import TeamService from '../services/TeamService'
 export default {
     data() {
         return {
+            currentTournament: this.tournament,
             tournaments: [],
             winnerList: []
         
@@ -35,27 +36,18 @@ export default {
             })
             this.$router.push(`/tournaments/${tournament.id}`);
         },
-        getWinner(tournament) {
-            let winner = '';
-            this.winnerList.forEach(winner => {
-                if(winner.tournamentId === tournament.id) {
-                    return winner;
+        winningTeam:
+            function(tournament) {
+                if(tournament.isComplete == true) {
+                  return this.winnerList.find((team) => {
+                    return tournament.winnerTeamId == team.teamId;
+                  });
                 }
-             });
-            return winner;
-        }
+                else {
+                  return null
+                }
+            }
     },
-    // computed: {
-    //     getWinner(tournament) {
-    //         let winner = '';
-    //         this.winnerList.forEach(winner => {
-    //             if(winner.tournamentId === tournament.id) {
-    //                 return winner;
-    //             }
-    //          });
-    //         return winner;
-    //     }
-    // },
     created() {
         TournamentService.getPastTournaments().then(response => {
            this.tournaments = response.data;
