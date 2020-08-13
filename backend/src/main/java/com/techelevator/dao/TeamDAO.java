@@ -14,5 +14,9 @@ public interface TeamDAO {
 	public Team getTeamById(Long id);
 	
 	public Team[] getTeamsByTournament(Long id);
+	
+	public void removeTeam(Long id);
+
+	public Team[] getTeamsByGmId(Long id);
 
 }

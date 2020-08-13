@@ -1,19 +1,19 @@
 <template>
     <div>
         <my-tournament />
-        <user-nav />
+        <!-- <user-nav /> -->
         
     </div>
 </template>
 
 <script>
 import MyTournament from "../components/MyTournament"
-import UserNav from "../components/UserNav"
+// import UserNav from "../components/UserNav"
 
 export default {
     components: {
         MyTournament,
-        UserNav
+        // UserNav
     }
 }
 </script>

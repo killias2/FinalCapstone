@@ -1,5 +1,5 @@
 <template>
-    <form class="change-password" @submit.prevent="changePassword">
+    <form class="change-password" v-on:submit.prevent="changePassword">
         <div
         class="alert alert-danger"
         role="alert"
@@ -44,11 +44,11 @@ export default {
     name: 'password-change',
     data() {
         return {
+            currentUser: this.$store.state.user,
             passwordChange: {
                 oldPassword: "",
                 newPassword: "",
-                confirmPassword: "",
-                id: 3 //to be replace with props? or a call to data store
+                confirmPassword: ""
             },
             wasError: false,
             errorMessage: "There was an error",
@@ -61,9 +61,10 @@ export default {
                 this.registrationErrorMsg = 'Password & Confirm Password do not match.';
             }
             else {
-                passwordService.changePassword(this.passwordChange, this.passwordChange.id)
+                passwordService.changePassword(this.passwordChange, this.currentUser.id)
                 .then((response) => {
-                    if (response.status == 201) {
+                    if (response.status == 200) {
+                        this.$alert("Password change successful!")
                         this.$router.push({
                         path: '/',
                         });

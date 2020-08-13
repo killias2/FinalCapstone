@@ -1,5 +1,8 @@
 <template>
-    <form v-on:submit.prevent="addNewTournament()">
+  <div class="body">
+      
+    <form v-on:submit.prevent="addNewTournament()" class="form">
+        <h2 class="form-title">Create a Tournament:</h2>
         <div class="form-element">
             <div class="tournamentName">
                 <label class="title" for="tournament-name">Tournament Name:</label>
@@ -14,7 +17,7 @@
                 </select>
             </div>
         </div>
-        <div class="form-element">
+        <!-- <div class="form-element">
             <label class="title" for="dropdown">Tournament Type</label>
             <div>
                 <select required  v-model="newTournament.bracketId" name="bracket" class="dropdown">
@@ -24,7 +27,7 @@
                     <option value="3">Round Robin</option>
                 </select>
             </div>
-        </div>
+        </div> -->
         <div class="form-element">
             <label class="title" for="dropdown">Public or Private</label>
             <div>
@@ -35,7 +38,12 @@
                 </select>
             </div>
         </div>
-        <div class="form-element">
+        <div v-if="this.newTournament.openToJoin == 'true'">
+            <label class="title">(Please note that Seeding Only Exists for Private Tournaments)</label>
+            <br>
+            <br>
+        </div>
+        <div class="form-element" v-if="this.newTournament.openToJoin == 'false'">
             <label class="title" for="dropdown">Set Seeding or Random</label>
             <div>
                 <select v-model="newTournament.isSeeded" required name="seeding" class="dropdown">
@@ -62,6 +70,7 @@
             <button type="submit">Submit</button>
         </div>
     </form>
+  </div>
 </template>
 
 <script>
@@ -75,9 +84,9 @@ export default {
         return {
             newTournament: {
                 tournamentName: '',
-                openToJoin: false, //default is closed tournament
+                openToJoin: 'false', //default is closed tournament
                 gameId: 0, //what sport/game is this tournament for?
-                bracketId: 0, //single elim / double elim / round robin
+                bracketId: 1, //single elim - there is support for expansion w/ double elim & round robin
                 startDate: '',
                 endDate: '',
                 tournamentOrganizerId: this.$store.state.user.id,
@@ -111,10 +120,14 @@ export default {
             this.newTournament = {};
         },
         addNewTournament() {
+            if(this.newTournament.openToJoin == 'true'){
+                this.newTournament.isSeeded = 'false'
+            }
             tournamentService.newTournament(this.newTournament)
             .then(response => {
                 if (response.status < 299) {
                  console.log('success');
+                 this.$alert("Tournament successfully created!")
                 }
             });
             this.newTournament = {};
@@ -126,6 +139,15 @@ export default {
 </script>
 
 <style scoped>
+    .body{
+        font-family: 'Arial Narrow', Arial, sans-serif;
+    }
+    .form{
+        background-color: rgba(28, 143, 158, 0.9);
+        border-radius: 6px;
+        font-family: 'Arial Narrow', Arial, sans-serif;
+
+    }
     .number {
         width: auto;
         margin-top: 10px;
@@ -133,7 +155,7 @@ export default {
     .title {
         margin-left: 25px;
         font-weight: bold;
-
+        font-size: medium;
     }
     .dropdown {
         margin-left: 25px;
@@ -149,6 +171,16 @@ export default {
     }
     #start, #end {
         margin-top: 10px;
+    }
+    .form-title{
+        text-align: center;
+        padding-top: 10px;
+    }
+    button{
+        background-color: rgb(8, 69, 97);
+    }
+    .actions{
+        display: flex;
     }
 
 

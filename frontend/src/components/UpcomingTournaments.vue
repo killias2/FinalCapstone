@@ -1,14 +1,17 @@
 <template>
     <div>
-        
-        <h3 class="header">Past Tournaments:</h3>
+        <!-- <h1>Upcoming Tournaments</h1> -->
+        <h3 class="header">Upcoming Tournaments:</h3>
         <section class="tournament-card">
-            <div class="tournament" v-for="tournament in tournaments" v-bind:key="tournament.id" 
-                v-bind:currentTournament="tournament">
+            <div class='tournament' v-for="tournament in tournaments" v-bind:key="tournament.id" 
+                v-bind:currentTournament="tournament"
+                v-bind:class="{ open: (tournament.openToJoin && !tournament.full)}">
             <h2>{{tournament.tournamentName}}</h2>
             <h3>{{tournament.startDate}} to {{tournament.endDate}}</h3>
             <h3>{{tournament.gameName}}</h3>
             <h3>{{tournament.numberOfTeams}} teams</h3>
+            <h4 v-show="!tournament.openToJoin">Private Tournament</h4>
+            <h4 v-show="tournament.openToJoin && !tournament.full"> Join this tournament!</h4>
             <button v-bind:currentTournament="tournament" v-on:click="viewTournamentDetails(tournament)">Tournament Details</button>
             </div>
         </section>
@@ -17,6 +20,7 @@
 
 <script>
 import TournamentService from '../services/TournamentService';
+
 export default {
     data() {
         return {
@@ -32,7 +36,7 @@ export default {
         }
     },
     created() {
-        TournamentService.getPastTournaments().then(response => {
+        TournamentService.getFutureTournaments().then(response => {
            this.tournaments = response.data;
         })
     }
@@ -77,9 +81,14 @@ export default {
     button:hover {
         background: blueviolet;
     }
+    .open {
+        background-color: red;
+    }
+
     @media (max-width: 1250px) {
         .tournament-card {
             grid-template-columns: 1fr 1fr;
         }
     }
+   
 </style>

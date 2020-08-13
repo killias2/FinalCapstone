@@ -1,19 +1,19 @@
 <template>
     <div>
         <!-- <sidebar /> -->
-        <current-tournaments />
+        <upcoming-tournaments/>
         <!-- <user-nav /> -->
     </div>
 </template>
 
 <script>
-import CurrentTournaments from "../components/CurrentTournaments"
+import UpcomingTournaments from "../components/UpcomingTournaments"
 // import Sidebar from '../components/Sidebar'
 // import UserNav from '../components/UserNav'
 
 export default {
     components: {
-        CurrentTournaments,
+        UpcomingTournaments,
         // Sidebar,
         // UserNav
     }

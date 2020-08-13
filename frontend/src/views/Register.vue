@@ -41,7 +41,7 @@
         v-model="user.confirmPassword"
         required
       />
-      <div id="dropdown">
+      <!-- <div id="dropdown">
         <label class="dropdown" for="dropdown">Select Role</label>
         <div>
           <select required  v-model="user.role" name="role" id="role">
@@ -49,35 +49,31 @@
             <option value="Organizer">Organizer</option>
           </select>
         </div>
-      </div>
-      
-      <button class="btn btn-lg btn-primary btn-block" type="submit">
-        Create Account
-      </button>
-      <div>
-        <router-link class="login" :to="{ name: 'login' }">Have an account?</router-link>
+      </div> -->
+      <div class="submit-buttons">
+        <button class="btn btn-lg btn-primary btn-block" type="submit">
+          Create Account
+        </button>
+        <router-link tag="button" class="login" :to="{ name: 'login' }">Have an account?</router-link>
       </div>
     </form>
-    <user-nav />
   </div>
 </template>
 
 <script>
 import authService from '../services/AuthService';
-import UserNav from "../components/UserNav"
+
 
 export default {
   name: 'register',
-  components: {
-    UserNav
-  },
+
   data() {
     return {
       user: {
         username: '',
         password: '',
         confirmPassword: '',
-        role: '',
+        role: 'user',
         emailAddress: ''
       },
       registrationErrors: false,
@@ -123,7 +119,7 @@ export default {
     width: 100%;
     font-size: 45px;
     text-align: center;
-    background: rgb(28, 143, 158);
+    background: rgba(8, 69, 97, .7);
     color: white;
     line-height: 150%;
     border-radius: 3px 3px 0 0;
@@ -131,13 +127,18 @@ export default {
     box-sizing: border-box;
     padding: 20px;
   }
+  .form-control {
+    margin-left: 20px;
+  }
   form {
     box-sizing: border-box;
-    width: 500px;
-    margin: auto;
+    width: 450px;
+    margin-left: 15%;
+    margin-bottom: 20px;
     box-shadow: 2px 2px 5px 1px rgba(0,0,0,0.2);
-    padding-bottom: 40px;
+    padding-bottom: 20px;
     border-radius: 3px;
+    background: rgba(28, 143, 158, .9);
   }
   input {
     margin: 25px 25px;
@@ -160,15 +161,20 @@ export default {
     width: 25%;
     margin-top: 15px;
   }
+  .submit-buttons {
+    width: 79%;
+    display: flex;
+    color: white;
+  }
   button {
     border: none;
-    background: rgb(28, 143, 158);
+    background: rgba(8, 69, 97, .7);
     cursor: pointer;
     border-radius: 3px;
     padding: 6px;
     width: 200px;
     color: white;
-    margin-left: 25px;
+    margin-left: 20px;
     margin-right: 25px;
     margin-bottom: 25px;
     box-shadow: 0 3px 6px 0 rgba(0,0,0,0.2);
@@ -176,9 +182,10 @@ export default {
   button:hover {
     transform: translateY(-3px);
     box-shadow: 0 6px 6px 0 rgba(0,0,0,0.2);
+    color: blue;
   }
   .sr-only {
-    margin-left: 25px;
+    margin-left: 20px;
     font-weight: bold;
   }
   .dropdown {
@@ -187,9 +194,9 @@ export default {
   }
   .login {
     margin-left: 25px;
-    color: blue;
+    color: white;
   }
   .login:hover {
-    color: blueviolet;
+    color: blue;
   }
 </style>

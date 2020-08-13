@@ -3,18 +3,18 @@
         <h1>Update Password</h1>
         
         <change-password />
-        <user-nav />
+        <!-- <user-nav /> -->
     </div>
 </template>
 
 <script>
 import ChangePassword from "../components/ChangePassword"
-import UserNav from "../components/UserNav"
+// import UserNav from "../components/UserNav"
 
 export default {
     components: {
         ChangePassword,
-        UserNav
+        // UserNav
     }
 }
 </script>

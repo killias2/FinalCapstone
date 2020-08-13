@@ -1,18 +1,18 @@
 <template>
     <div>
-        <user-nav />
+        <!-- <user-nav /> -->
         <tournament-editor />
     </div>
 </template>
 
 <script>
 import TournamentEditor from '../components/TournamentEditor'
-import UserNav from '../components/UserNav'
+// import UserNav from '../components/UserNav'
 
 export default {
     components: {
         TournamentEditor,
-        UserNav
+        // UserNav
     }
 }
 </script>

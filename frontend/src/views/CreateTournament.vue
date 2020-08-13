@@ -1,20 +1,21 @@
 <template>
-    <div>
-        <h1>Create Tournament</h1>
+    <div class="body">
+        <!-- <h1>Create Tournament</h1> -->
+        
         
         <create-tournament />
-        <user-nav />
+        <!-- <user-nav /> -->
     </div>
 </template>
 
 <script>
 import CreateTournament from "../components/CreateTournament"
-import UserNav from "../components/UserNav"
+// import UserNav from "../components/UserNav"
 
 export default {
     components: {
         CreateTournament,
-        UserNav
+        // UserNav
     }
 }
 </script>

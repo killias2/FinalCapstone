@@ -12,6 +12,14 @@ export default {
 
   addTeams(team) {
     return http.post('/teams', team);
+  },
+
+  removeTeams(team) {
+      return http.delete(`/teams/${team.teamId}`);
+  },
+
+  getTeamsByGmId(generalManagerId) {
+    return http.get(`/teams/${generalManagerId}`);
   }
 
 

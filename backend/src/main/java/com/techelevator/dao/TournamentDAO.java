@@ -14,11 +14,15 @@ public interface TournamentDAO {
 	
 	List<Tournament> getTournamentByOrganizerId(Long id);
 	
-	List<Tournament> getCompleteTournaments();
+	List<Tournament> getFutureTournaments();
 	
 	List<Tournament> getCurrentTournaments();
 
 	void deleteTournamentById(Long id);
+	
+	List<Tournament> getPastTournaments();
+	
+	boolean setFull(Tournament tournament);
 	
 	
 }
