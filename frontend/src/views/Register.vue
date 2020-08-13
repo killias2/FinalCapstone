@@ -73,7 +73,7 @@ export default {
         username: '',
         password: '',
         confirmPassword: '',
-        role: '',
+        role: 'USER',
         emailAddress: ''
       },
       registrationErrors: false,

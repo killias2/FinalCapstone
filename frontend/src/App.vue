@@ -44,6 +44,9 @@ export default {
     background-size: cover;
     background-color: #464646;
     padding: 25px;
+    padding-bottom: 200px;
+    margin: -20px;
+
   }
   #main {
     display: flex;
