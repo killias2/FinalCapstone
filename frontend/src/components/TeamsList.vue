@@ -30,6 +30,7 @@ export default {
         border-collapse: collapse;
         border: 3px solid #44475C;
         margin: 10px 10px 0 10px;
+        background-color: rgba(8, 69, 97, 0.9);
     }
 
     table th {

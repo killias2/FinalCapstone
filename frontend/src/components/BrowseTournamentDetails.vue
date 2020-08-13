@@ -3,6 +3,11 @@
     <div class="tournament" >
        <h2 class="title">{{currentTournament.tournamentName}}</h2>
         <h3 class="date">{{currentTournament.startDate}} to {{currentTournament.endDate}}</h3>
+        <div class="winner" v-if="currentTournament.isComplete == true">
+          <h3>This Tournament is complete!</h3>
+          <h3>The winning team is: 👑 {{winningTeam.teamName}} 👑 !</h3>
+          <h3>Congratulations!</h3>
+        </div>
       <div v-if="user.id == tournament.tournamentOrganizerId">
         <button
           v-on:click="goToEditor"
@@ -30,8 +35,22 @@ export default {
       user: JSON.parse(localStorage.getItem('user'))
     };
   },
+  computed: {
+        winningTeam:
+            function() {
+                if(this.currentTournament.isComplete == true) {
+                  return this.teams.find((team) => {
+                    return this.currentTournament.winnerTeamId == team.teamId
+                  })
+                }
+                else {
+                  return null
+                }
+            }
+  },
   props: {
     tournament: Object,
+    teams: Array,
     matches: Array
   },
   created() {
