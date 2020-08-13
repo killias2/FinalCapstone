@@ -88,9 +88,10 @@ public class MatchSqlDAO implements MatchDAO {
 		long nextMatchIndex = currentMatchIndex / 2;
 		SqlRowSet nextRoundResults = jdbcTemplate.queryForRowSet(sql, newMatch.getTournamentId(), newMatch.getRound() + 1);
 		if(nextRoundResults.next()) {
-		long startingIndex = nextRoundResults.getLong("matchid");
-		sql = "INSERT INTO team_match (matchid, teamid) VALUES (?, ?)";
-		jdbcTemplate.update(sql,  startingIndex + nextMatchIndex, newMatch.getWinnerTeamId());}
+			long startingIndex = nextRoundResults.getLong("matchid");
+			sql = "INSERT INTO team_match (matchid, teamid) VALUES (?, ?)";
+			jdbcTemplate.update(sql,  startingIndex + nextMatchIndex, newMatch.getWinnerTeamId());
+		}
 		else {
 			sql = "UPDATE tournaments SET is_complete = true, winner_team_id = ? WHERE tournamentid = ?";
 			jdbcTemplate.update(sql,newMatch.getWinnerTeamId(), newMatch.getTournamentId());

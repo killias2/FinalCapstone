@@ -114,9 +114,27 @@ public class TournamentBuilder {
 					teamsInMatch[1] = seededTeams[seededTeams.length - j - 1];
 					m.setTeamList(teamsInMatch);
 				}
-				Team[] test = m.getTeamList();
+				
 				matchDAO.createMatch(m);
+			
+				
+				
 			}
+			}
+		}
+		Match[] matchesInTournament = matchDAO.getMatchList(tournament.getId());
+		for(int i = 0; i < (Math.pow(2, roundCount) / 2); i++) {
+			Match m = matchesInTournament[i];
+			Team[] teamsInMatch = m.getTeamList();
+			if(teamsInMatch[0].getTeamName().equals("Bye")) {
+				m.setWinnerTeamId(teamsInMatch[1].getTeamId());
+				m.setRound(0);
+				matchDAO.completeMatch(m);
+			}
+			else if(teamsInMatch[1].getTeamName().equals("Bye")) {
+				m.setWinnerTeamId(teamsInMatch[0].getTeamId());
+				m.setRound(0);
+				matchDAO.completeMatch(m);
 			}
 		}
 		
