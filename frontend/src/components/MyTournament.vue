@@ -19,7 +19,7 @@
                 <h3>Team Name: {{team.teamName}}</h3>
                 <h3 v-show="team.seed">Seed: {{team.seed}}</h3>
                 <h3 v-show="!team.seed">Tournament Unseeded</h3>
-                <button v-bind:currentTournament="tournament" v-on:click="viewTournamentDetails(tournament)">Tournament Details</button><br>
+                <button v-bind:currentTeam="team" v-on:click="viewTourneyDetails(team)">Tournament Details</button><br>
             </div>
         </div>
     </div>
@@ -50,6 +50,12 @@ export default {
             saveMe: tournament
             })
             this.$router.push(`/tournaments/${tournament.id}`);
+        },
+        viewTourneyDetails(team) {
+            this.$store.commit('SET_CURRENT_TOURNAMENT', {
+                saveMe: team
+            })
+            this.$router.push(`/tournaments/${team.tournamentId}`)
         }
     }
 }
