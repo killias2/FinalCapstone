@@ -27,6 +27,8 @@ export default {
     border-radius: 6px;
     font-family: 'Arial Narrow', Arial, sans-serif;
     width: 500px;
+    margin-left: 5%;
+    padding: 5px;
   }
   .title {
     margin-left: 20px;
