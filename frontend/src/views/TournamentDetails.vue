@@ -32,7 +32,7 @@ export default {
         SeededTeamsList,
         AddSelf
     },
-  name: "browse-details",
+  name: "tourament-details",
   data() {
     return {
       // tournament: {

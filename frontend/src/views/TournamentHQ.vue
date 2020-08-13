@@ -1,6 +1,6 @@
 <template>
     <div>
-
+        <button v-on:click.prevent="returnToTournamentDetails">Click Here to Return to Tournament</button>
         <bracket-editor v-bind:storeMatches="storeMatches" v-bind:tournament="tournament" />
         <bracket-display v-bind:edit-mode="true" v-bind:tournament="tournament"/>
     
@@ -34,7 +34,11 @@ export default {
                 this.storeMatches = response.data;
             })
     },
-    
+    methods: {
+        returnToTournamentDetails(){
+            this.$router.push(`/tournaments/${this.tournament.id}`);
+        }
+    }
 }
 </script>
 

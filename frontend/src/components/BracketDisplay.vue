@@ -21,7 +21,6 @@
     export default {
         props: {
             tournament: Object,
-            matches: Array,
             editMode: Boolean
         },
         name: 'BracketDisplay',
