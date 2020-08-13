@@ -7,8 +7,8 @@
         <edit-add-teams v-show="(this.teams.length < this.tournament.numberOfTeams) && $store.state.token != '' 
         && this.user.id === this.tournament.tournamentOrganizerId" v-bind:teams="teams" v-bind:tournament="tournament"/>
 
-        <seeded-teams-list v-bind:tournament="tournament" v-bind:teams="teams"  v-if="this.tournament.isSeeded == true && this.teams.length > 0"/>
-        <teams-list v-bind:tournament="tournament" v-bind:teams="teams"  v-if="this.tournament.isSeeded == false && this.teams.length > 0"/>
+        <seeded-teams-list class="table" v-bind:tournament="tournament" v-bind:teams="teams"  v-if="this.tournament.isSeeded == true && this.teams.length > 0"/>
+        <teams-list class="table" v-bind:tournament="tournament" v-bind:teams="teams"  v-if="this.tournament.isSeeded == false && this.teams.length > 0"/>
     </div> 
 </template>
 
@@ -52,3 +52,10 @@ export default {
     }
 }
 </script>
+
+<style>
+    /* .table {
+      display: flex;
+      justify-content: center;
+    } */
+</style>
