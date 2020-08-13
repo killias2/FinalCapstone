@@ -19,6 +19,9 @@ export default {
   },
   getWinnerList() {
     return http.get('/teams/winners');
+  },
+  getTeamsByGmId(generalManagerId) {
+    return http.get(`/teams/${generalManagerId}`);
   }
 
 

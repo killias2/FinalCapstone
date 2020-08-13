@@ -1,7 +1,7 @@
 <template>
     <div>
         
-        <h3>Past Tournaments:</h3>
+        <h3 class="header">Past Tournaments:</h3>
         <section class="tournament-card">
             <div class="tournament" v-for="tournament in tournaments" v-bind:key="tournament.id" 
                 v-bind:currentTournament="tournament">
@@ -76,11 +76,13 @@ export default {
 
 <style scoped>
     .header {
-        font-size: 40px;
+        margin-left: 5%;
+        margin-right: 5%;
+        background-color: rgba(8, 69, 97, .7);
+        font-size: xx-large;
         text-align: center;
-        background-color:  rgba(8, 69, 97, .7);
-        width: 80%;
-        margin-left: 10%;
+        padding-top: 5px;
+        padding-bottom: 5px;
         border-radius: 6px;
     }
     .tournament {
@@ -92,7 +94,7 @@ export default {
     .tournament-card {
         margin-left: 5%;
         display: grid;
-        grid-template-columns: 1fr 1fr ;
+        grid-template-columns: 1fr 1fr 1fr;
         grid-gap: 20px;
         margin-top: 25px;
     }
@@ -109,5 +111,10 @@ export default {
     }
     button:hover {
         background: blueviolet;
+    }
+    @media (max-width: 1250px) {
+        .tournament-card {
+            grid-template-columns: 1fr 1fr;
+        }
     }
 </style>

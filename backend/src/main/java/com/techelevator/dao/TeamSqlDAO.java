@@ -88,6 +88,23 @@ private JdbcTemplate jdbcTemplate;
 		jdbcTemplate.update(sql, id);
 	}
 	
+	@Override
+	public Team[] getTeamsByGmId(Long id) {
+		String sql = "SELECT * FROM teams " + 
+				"JOIN tournaments ON teams.tournamentid = tournaments.tournamentid " + 
+				"LEFT JOIN games ON games.gameid = tournaments.gameid " +
+				"WHERE teams.general_manager_id = ?";
+		SqlRowSet results = jdbcTemplate.queryForRowSet(sql, id);
+		List<Team> teamList = new ArrayList<Team>();
+		while(results.next()) {
+			Team newTeam = mapRowToTeam(results);
+			teamList.add(newTeam);
+		}
+		Team[] teamArray = new Team [teamList.size()];
+		teamArray = teamList.toArray(teamArray);
+		return teamArray;
+	}
+	
 	private Team mapRowToTeam(SqlRowSet results) {
 		Team newTeam = new Team();
 		newTeam.setTeamId(results.getLong("teamid"));
@@ -100,7 +117,11 @@ private JdbcTemplate jdbcTemplate;
 		}
 		newTeam.setTeamName(results.getString("teamname"));
 		newTeam.setEmail(results.getString("team_email_address"));
+		newTeam.setSport(results.getString("game_name"));
+		newTeam.setTournamentName(results.getString("t_name"));
 		return newTeam;
 	}
+
+	
 
 }

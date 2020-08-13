@@ -21,4 +21,6 @@ public interface TeamDAO {
 	
 	public List<Team> getWinnerList();
 
+	public Team[] getTeamsByGmId(Long id);
+
 }

@@ -29,7 +29,6 @@ export default {
     color: white;
     border-radius: 25px;
     height: auto;
-    background-color: rgba(28, 143, 158, 0.8);
   }
   #nav {
       display: flex;
