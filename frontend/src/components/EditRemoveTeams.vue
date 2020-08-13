@@ -9,6 +9,7 @@
 
 <script>
 import TeamService from '../services/TeamService'
+import TournamentService from '../services/TournamentService'
 
 export default {
     props: {
@@ -25,16 +26,18 @@ export default {
             this.$confirm("Are you sure?").then(() => {
                 TeamService.removeTeams(this.selectedTeam).then(response => {
                     if (response.status < 299) {
-                        this.$alert("Team successfully removed")
-                        console.log('success')
-                        this.$router.go(0)
+                        console.log('success');
+                    }
+                    if (this.tournament.full == true && this.teams.length == (this.tournament.numberOfTeams)){
+                        this.tournament.full = false;
+                        TournamentService.setTournamentFull(this.tournament);
+                    }
+                    this.$router.go(0)
+                })
                 // this.teams.filter((team) => {
                 //         return team.teamName != this.selectedTeam.teamName;
                 //     })
-                //     location.reload();
-                    } 
-                })
-            
+                //     location.reload(); 
             })
         }
     }

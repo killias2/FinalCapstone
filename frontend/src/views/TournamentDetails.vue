@@ -66,8 +66,9 @@ export default {
         if (response.status < 299) {
           this.$alert("Brackets generated successfully")
           console.log('success');
-          this.$router.go(0);
+          this.currentTournament.isFull = true;
         }
+        this.$router.go(0)
       })
     }
   }
