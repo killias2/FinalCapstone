@@ -21,7 +21,8 @@ export default new Vuex.Store({
     token: currentToken || '',
     user: currentUser || {},
     currentTournament: {},
-    selectedMatch: {}
+    selectedMatch: {},
+    currentMatches: []
   },
   mutations: {
     SET_AUTH_TOKEN(state, token) {
@@ -45,6 +46,9 @@ export default new Vuex.Store({
     },
     SET_CURRENT_MATCH(state, payload){
       state.selectedMatch = payload.saveMe;
+    },
+    SET_MATCHES(state, payload) {
+      state.currentMatches = payload.saveThis;
     }
   }
 })

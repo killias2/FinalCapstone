@@ -4,8 +4,12 @@
             <h1>Welcome to TournaMint!</h1>
         </div> -->
         <div class="body">
-            <h3 id="intro"> Brackets[] can help with all of your tournament-related needs!</h3>
-            <img alt="Soccer Ball" src="../assets/soccerball.webp">
+            <h2 id="intro"> Brackets[] can help with all of your tournament-related needs!</h2>
+            <h3> News and Notes </h3>
+            <h4 id="news-text"> 
+                The recent Ping Pong tournament ended in a resounding victory for team Java!
+            </h4>
+            <!-- <img alt="Soccer Ball" src="../assets/soccerball.webp"> -->
             <!-- <p>You are an authenticated user!</p> -->
         </div>
     </div>
@@ -13,27 +17,35 @@
 
 <script>
 
-
 export default {
-  name: "home"
+  name: "home",
+ 
 }
 
 </script>
 
-<style>
+<style scoped>
 .body {
-    /* margin-left: 200px; */
+    margin-left: 5%;
+    background-color: rgba(28, 143, 158, 0.8);
+    border-radius: 6px;
+    font-family: 'Arial Narrow', Arial, sans-serif;
+    margin-right: 200px;
+    padding: 20px;
+
 }
 .banner {
-    margin-left: 0px;
-    margin-right: 200px;
+    margin-left: 100px;
+    margin-right: 100px;
+    font-family: 'Arial Black', Arial, sans-serif;
+
 }
 img {
     display: block;
     margin-left: auto;
     margin-right: auto;
     padding-bottom: 20px;
-    width: 50%;
+    width: 20%;
     border-radius: 50px;
 }
 p {

@@ -37,6 +37,10 @@ export default {
   getCurrentTournaments() {
     return http.get('/tournaments/current');
   },
+
+  getFutureTournaments() {
+    return http.get('/tournaments/upcoming');
+  },
   
   getPastTournaments() {
     return http.get('/tournaments/past');
@@ -50,6 +54,12 @@ export default {
   },
   completeMatch(match){
     return http.put(`/matches/${match.matchid}/complete`, match);
+  },
+  deleteTournament(tournament) {
+    return http.delete(`/tournaments/${tournament.id}`);
+  },
+  setTournamentFull(tournament) {
+    return http.put(`/tournaments/${tournament.id}`, tournament);
   }
 
 }

@@ -60,14 +60,6 @@ CREATE TABLE team_tournament (
         CONSTRAINT fk_tournamentid      FOREIGN KEY (tournamentid)      REFERENCES      tournaments(tournamentid)
 );
 
-/*old code
-ALTER TABLE tournaments ADD COLUMN start_time timestamp,
-        ADD COLUMN end_time timestamp;
-oldcode*/
-
-
-/*start date is not null, as we need an idea of when it starts
-end date can be null, as it may not be determined initially how long it will last*/
 ALTER TABLE tournaments ADD COLUMN start_date date NOT NULL,
         ADD COLUMN end_date date;
 
@@ -75,14 +67,6 @@ ALTER TABLE tournaments ADD COLUMN is_seeded boolean;
         
 ALTER TABLE matches ADD COLUMN start_time timestamp,
         ADD COLUMN end_time timestamp;
-
-
-/*if necessary, do this
-ALTER TABLE tournaments DROP COLUMN bracket_seed_id;
-DROP TABLE bracket_seed_types;
-ALTER TABLE tournaments DROP COLUMN start_time, 
-        DROP COLUMN end_time;
-if the above isn't necessary, skip*/
 
 INSERT INTO games (game_name, game_description) VALUES
         ('Baseball', 'A bat-and-ball game where two teams take turns at batting and fielding, hoping to earn or prevent their opponent from earning "runs"'),
@@ -92,33 +76,31 @@ INSERT INTO games (game_name, game_description) VALUES
         ('Ping Pong', 'A game in which individuals or teams hit a "ping pong ball" back and forth across a small table with small rackets. Players hope to prevent opponents from returning the ball, so that they can score points'),
         ('Soccer', 'A team sport where two sides attempt to take control of a ball and kick it into the opposing team''s goal. Also known as Association Football'),
         ('Starcraft', 'A Real-Time-Strategy game where multiple opponents or teams attempt to collect resources and build armies in order to destroy the opposing sides');
-        
+
+INSERT INTO games (game_name, game_description)
+VALUES ('Volleyball', 'A game for two teams, usually of six players, in which a large ball is hit by hand over a high net, the aim being to score points by making the ball reach the ground on the opponents side of the court.');
+INSERT INTO games (game_name, game_description)
+VALUES ('Tennis', 'A game in which two or four players strike a ball with rackets over a net stretched across a court. The usual form (originally called lawn tennis ) is played with a felt-covered hollow rubber ball on a grass, clay, or artificial surface.');
+INSERT INTO games (game_name, game_description)
+VALUES ('Football', 'A form of team game played in North America with an oval ball on a field marked out as a gridiron.');
+INSERT INTO games (game_name, game_description)
+VALUES ('Super Smash Bros', 'A series of crossover fighting video games published by Nintendo, and primarily features characters from various Nintendo franchises.');
+INSERT INTO games (game_name, game_description)
+VALUES ('Kickball', 'An informal game combining elements of baseball and soccer, in which an inflated ball is thrown to a person who kicks it and proceeds to run the bases.');
+INSERT INTO games (game_name, game_description)
+VALUES ('Rugby', 'A team game played with an oval ball that may be kicked, carried, and passed from hand to hand. Points are scored by grounding the ball behind the opponents goal line (thereby scoring a try) or by kicking it between the two posts and over the crossbar of the opponents goal.');
+INSERT INTO games (game_name, game_description)
+VALUES ('Basketball', 'a game played between two teams of five players in which goals are scored by throwing a ball through a netted hoop fixed above each end of the court.');
+INSERT INTO games (game_name, game_description)
+VALUES ('Darts', 'An indoor game in which small pointed missiles with feather or plastic flights are thrown at a circular target marked with numbers in order to score points.');        
+
 ALTER TABLE tournaments ADD COLUMN number_of_teams integer;
 
 INSERT INTO bracket_types (bracket_name) VALUES ('Single Elimination');
 INSERT INTO bracket_types (bracket_name) VALUES ('Double Elimination'), ('Round Robin');
 
-/*Use this if your matches table doesn't have tournamentid
-ALTER TABLE matches ADD COLUMN tournamentid integer NOT NULL;
-ALTER TABLE matches ADD CONSTRAINT fk_tournamentid      FOREIGN KEY (tournamentid)      REFERENCES tournaments(tournamentid);
-*/
-
 SELECT tournamentid, matchid, is_complete, winner_team_id, round, start_time, end_time FROM matches WHERE tournamentid = 1;
 SELECT t.teamid, tournamentid, general_manager_id, teamname FROM teams t JOIN team_match tm ON t.teamid = tm.teamid WHERE matchid = 10;
-
-/*
-INSERT INTO tournaments (t_name, is_open, gameid, bracketid, organizerid, start_date, end_date, is_seeded, is_complete, number_of_teams) VALUES
-        ('Test Tournament', true, 2, 2, 1, '2020-09-10', '2020-09-15', false, false, 16);
-
-INSERT INTO matches (is_complete, round, start_time, end_time, tournamentid) VALUES
-        (false, 1, TIMESTAMP WITH TIME ZONE '2020-9-19 10:00:00 EDT', TIMESTAMP WITH TIME ZONE '2020-9-19 12:00:00 EDT', 1);
-        
-INSERT INTO teams (tournamentid, general_manager_id, teamname) VALUES
-        (1, 1, 'Test Team');
-        
-INSERT INTO teams (tournamentid, general_manager_id, teamname) VALUES
-        (1, 2, 'Test Team 2');
-*/
         
 GRANT SELECT, INSERT, UPDATE, DELETE
 ON ALL TABLES IN SCHEMA public
@@ -139,3 +121,5 @@ TO final_capstone_owner;
 ALTER TABLE teams ADD COLUMN seed integer;
 ALTER TABLE users ADD COLUMN email_address varchar(40);
 ALTER TABLE teams ADD COLUMN team_email_address varchar(40);
+
+ALTER TABLE tournaments ADD COLUMN is_full boolean;

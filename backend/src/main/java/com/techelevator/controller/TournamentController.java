@@ -22,6 +22,10 @@ public class TournamentController {
 		this.teamDAO = teamDAO;
 		this.matchDAO = matchDAO;
 	}
+	@RequestMapping(value = "/tournaments/{id}", method = RequestMethod.PUT)
+	public boolean setTournamentFull(@PathVariable long id, @RequestBody Tournament tournament) {
+		return tournamentDAO.setFull(tournament);
+	}
 	
 	@RequestMapping(value = "/tournaments", method = RequestMethod.POST)
 	public boolean createTournament(@RequestBody Tournament tournament) {
@@ -34,12 +38,17 @@ public class TournamentController {
 	}
 	@RequestMapping(value = "/tournaments/past", method = RequestMethod.GET)
 	public List<Tournament> getPastTournaments(){
-		return tournamentDAO.getCompleteTournaments();
+		return tournamentDAO.getPastTournaments();
 	}
 	@RequestMapping(value = "/tournaments/current", method = RequestMethod.GET)
 	public List<Tournament> getCurrentTournaments(){
 		return tournamentDAO.getCurrentTournaments();
 	}
+	@RequestMapping(value = "/tournaments/upcoming", method = RequestMethod.GET)
+	public List<Tournament> getFutureTournaments(){
+		return tournamentDAO.getFutureTournaments();
+	}
+
 	@RequestMapping(value = "/tournaments/{id}", method = RequestMethod.GET)
 	public Tournament getTournamentById(@PathVariable long id) {
 		return tournamentDAO.getTournamentById(id);
@@ -53,5 +62,8 @@ public class TournamentController {
 	public List<Tournament> getTournamentByOrganizerId(@PathVariable long id) {
 		return tournamentDAO.getTournamentByOrganizerId(id);
 	}
-	
+	@RequestMapping(value = "/tournaments/{id}", method = RequestMethod.DELETE)
+	public void deleteTournamentById(@PathVariable long id) {
+		tournamentDAO.deleteTournamentById(id);
+	}
 }

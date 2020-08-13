@@ -16,6 +16,10 @@ export default {
 
   getUser(userId) {
     return http.get(`/users/${userId}`, userId)
+  },
+
+  getUserByName(username) {
+    return http.get(`users/filter?username=${username}`)
   }
 
 }

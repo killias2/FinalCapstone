@@ -46,16 +46,21 @@ public class MatchSqlDAO implements MatchDAO {
 		jdbcTemplate.update(sql, newMatch.getMatchid(), newMatch.isComplete(), newMatch.getRound(), newMatch.getStartTime(), 
 				newMatch.getEndTime(), newMatch.getTournamentId());
 		if(newMatch.getTeamList() != null) {
-			String sqlLinking = "INSERT INTO team_match (matchid, teamid) VALUES ";
 			Team[] teamArray = newMatch.getTeamList();
-			for(int i = 0; i < teamArray.length; i++) {
-				String newString = "(" + newMatch.getMatchid() + ", " + teamArray[i].getTeamId() + ")";
-				if(i < teamArray.length - 1) {
-					newString += ",";
-				}
-				sqlLinking += newString;
+			for (int i = 0; i < teamArray.length; i++) {
+				String sqlTeamMatch = "INSERT INTO team_match (matchid, teamid) VALUES (?, ?)";
+				jdbcTemplate.update(sqlTeamMatch, newMatch.getMatchid(), teamArray[i].getTeamId());
 			}
-			jdbcTemplate.update(sqlLinking);
+//			String sqlLinking = "INSERT INTO team_match (matchid, teamid) VALUES ";
+//			Team[] teamArray = newMatch.getTeamList();
+//			for(int i = 0; i < teamArray.length; i++) {
+//				String newString = "(" + newMatch.getMatchid() + ", " + teamArray[i].getTeamId() + ")";
+//				if(i < teamArray.length - 1) {
+//					newString += ",";
+//				}
+//				sqlLinking += newString;
+//			}
+//			jdbcTemplate.update(sqlLinking);
 		}
 		return newMatch;
 		
@@ -88,9 +93,16 @@ public class MatchSqlDAO implements MatchDAO {
 		long nextMatchIndex = currentMatchIndex / 2;
 		SqlRowSet nextRoundResults = jdbcTemplate.queryForRowSet(sql, newMatch.getTournamentId(), newMatch.getRound() + 1);
 		if(nextRoundResults.next()) {
-		long startingIndex = nextRoundResults.getLong("matchid");
-		sql = "INSERT INTO team_match (matchid, teamid) VALUES (?, ?)";
-		jdbcTemplate.update(sql,  startingIndex + nextMatchIndex, newMatch.getWinnerTeamId());}
+			long startingIndex = nextRoundResults.getLong("matchid");
+			sql = "INSERT INTO team_match (matchid, teamid) VALUES (?, ?)";
+			jdbcTemplate.update(sql,  startingIndex + nextMatchIndex, newMatch.getWinnerTeamId());
+		}
+		else {
+			sql = "UPDATE tournaments SET is_complete = true, winner_team_id = ? WHERE tournamentid = ?";
+			jdbcTemplate.update(sql,newMatch.getWinnerTeamId(), newMatch.getTournamentId());
+			
+			
+		}
 		return newMatch;
 	}
 	@Override

@@ -8,7 +8,22 @@ public class Team {
 	private String teamName;
 	private Long seed;
 	private String email;
+	private String tournamentName;
+	private String sport;
 	
+	
+	public String getTournamentName() {
+		return tournamentName;
+	}
+	public void setTournamentName(String tournamentName) {
+		this.tournamentName = tournamentName;
+	}
+	public String getSport() {
+		return sport;
+	}
+	public void setSport(String sport) {
+		this.sport = sport;
+	}
 	public Long getSeed() {
 		return seed;
 	}
