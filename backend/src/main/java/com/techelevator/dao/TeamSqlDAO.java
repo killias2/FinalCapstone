@@ -20,7 +20,8 @@ private JdbcTemplate jdbcTemplate;
 	@Override
 	public List<Team> getWinnerList() {
 		String sql = "SELECT * FROM teams JOIN tournaments " +
-					"ON tournaments.winner_team_id = teams.teamid; ";
+					"ON tournaments.winner_team_id = teams.teamid " +
+					"JOIN games ON games.gameid = tournaments.gameid";
 		SqlRowSet results = jdbcTemplate.queryForRowSet(sql);
 		List<Team> teamList = new ArrayList<Team>();
 		while(results.next()) {
