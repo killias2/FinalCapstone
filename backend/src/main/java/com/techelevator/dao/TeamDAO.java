@@ -16,5 +16,7 @@ public interface TeamDAO {
 	public Team[] getTeamsByTournament(Long id);
 	
 	public void removeTeam(Long id);
+	
+	public String getWinnerByTournamentId(Long tournamentId);
 
 }

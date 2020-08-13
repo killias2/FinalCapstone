@@ -60,6 +60,9 @@ export default {
   },
   setTournamentFull(tournament) {
     return http.put(`/tournaments/${tournament.id}`, tournament);
+  },
+  getWinner(tournament) {
+    return http.get(`/tournaments/${tournament.id}/winner`);
   }
 
 }

@@ -17,6 +17,17 @@ private JdbcTemplate jdbcTemplate;
 	public TeamSqlDAO(JdbcTemplate jdbcTemplate) {
 		this.jdbcTemplate = jdbcTemplate;
 	}
+	@Override
+	public String getWinnerByTournamentId(Long id) {
+		String sql = "SELECT teamname FROM teams JOIN tournaments " +
+					"ON tournaments.winner_team_id = teams.teamid " +
+					"WHERE tournaments.tournamentid = ?; ";
+		SqlRowSet results = jdbcTemplate.queryForRowSet(sql, id);
+		if(results.next()) {
+			return results.toString();
+		}
+		return null;
+	}
 
 	@Override
 	public Team createTeam(Team newTeam) {

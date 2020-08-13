@@ -20,6 +20,12 @@ public class TeamController {
 		this.teamDAO = teamDAO;
 	}
 	
+	@RequestMapping(value = "/tournaments/{id}/winner", method = RequestMethod.GET)
+	public String getWinnerByTournamentId(@PathVariable Long id) {
+		return teamDAO.getWinnerByTournamentId(id);
+	}
+	
+	
 	@RequestMapping(value = "/teams", method = RequestMethod.POST)
 	public Team createTeam(@RequestBody Team newTeam) {
 		return teamDAO.createTeam(newTeam);

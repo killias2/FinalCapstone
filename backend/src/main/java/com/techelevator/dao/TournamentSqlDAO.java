@@ -16,6 +16,7 @@ public class TournamentSqlDAO implements TournamentDAO{
 	public TournamentSqlDAO(JdbcTemplate jdbcTemplate) {
 		this.jdbcTemplate = jdbcTemplate;
 	}
+		
 	@Override
 	public boolean setFull(Tournament tournament) {
 		String sql = "UPDATE tournaments SET is_full = ? " +

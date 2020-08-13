@@ -9,6 +9,7 @@
             <h3>{{tournament.startDate}} to {{tournament.endDate}}</h3>
             <h3>{{tournament.gameName}}</h3>
             <h3>{{tournament.numberOfTeams}} teams</h3>
+            <h4 class="winner">{{getWinner(tournament)}}: Winner!</h4>
             <button v-bind:currentTournament="tournament" v-on:click="viewTournamentDetails(tournament)">Tournament Details</button>
             </div>
         </section>
@@ -29,6 +30,9 @@ export default {
             saveMe: tournament
             })
             this.$router.push(`/tournaments/${tournament.id}`);
+        },
+        getWinner(tournament) {
+            TournamentService.getWinner(tournament);
         }
     },
     created() {
