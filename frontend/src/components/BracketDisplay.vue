@@ -1,5 +1,10 @@
 <template >
+    <div>
+
     <div class="bracket-container">
+            <div id="champ">
+        <h2 v-if="tournament.isComplete"> Champion: {{ getWinnerName(matches[matches.length - 1]) }} </h2>
+        </div>
         <bracket class="bracket" :rounds="fixedRounds">
             <template #player="{ player }"> 
                <span v-if="tournament.isSeeded" class="seed"> {{ player.seed }} 
@@ -12,6 +17,7 @@
                 </span>
                 </template>
         </bracket>
+    </div>
     </div>
 </template>
  
@@ -48,6 +54,12 @@
         methods: {
             betterGameNumbers(m){
                 return (m + 1) - this.matches[0].matchid;
+            },
+            getWinnerName(match){
+                let winningTeam = match.teamList.find((team) => {
+                    return team.teamId == match.winnerTeamId;
+                })
+                return winningTeam.teamName;
             },
             addOne(a){
                 let lastChar = a.substr(a.indexOf(' ')+1); 
@@ -172,7 +184,11 @@
         padding-left: 15px;
         padding-right: 5px;
     }
-
+    #champ{
+        font-family:'Arial Black', 'Arial Narrow', Arial, sans-serif;
+        background-color: rgba(28, 143, 158, 0.9);
+        text-align: center;
+    }
     .bracket-container{
         font-family:'Arial Black', 'Arial Narrow', Arial, sans-serif;
         background-color: rgba(8, 69, 97, 0.9);

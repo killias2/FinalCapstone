@@ -2,7 +2,7 @@
     <div >
         <h3 class="header">Tournaments as Organizer:</h3>
         <div class="list">
-            <div class="tournaments" v-for="tournament in tournaments" v-bind:key="tournament.tournamentName">
+            <div class="tournaments" v-for="tournament in tournaments" v-bind:key="tournament.tournamentId">
                 <h2>{{tournament.tournamentName}}</h2>
                 <h3>Game/Sport: {{tournament.gameName}}</h3>
                 <h3>Start Date: {{tournament.startDate}}</h3>
@@ -13,7 +13,7 @@
         </div>
         <h3 class="header">Tournaments as Participant:</h3>
         <div class="list">
-            <div class="tournaments" v-for="team in teams" v-bind:key="team.generalManagerId">
+            <div class="tournaments" v-for="team in teams" v-bind:key="team.teamId">
                 <h2>{{team.tournamentName}}</h2>
                 <h3>{{team.sport}}</h3>
                 <h3>Team Name: {{team.teamName}}</h3>

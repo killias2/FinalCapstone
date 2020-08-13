@@ -17,7 +17,9 @@ export default {
   removeTeams(team) {
       return http.delete(`/teams/${team.teamId}`);
   },
-
+  getWinnerList() {
+    return http.get('/teams/winners');
+  },
   getTeamsByGmId(generalManagerId) {
     return http.get(`/teams/${generalManagerId}`);
   }

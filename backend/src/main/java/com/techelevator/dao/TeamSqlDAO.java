@@ -17,6 +17,19 @@ private JdbcTemplate jdbcTemplate;
 	public TeamSqlDAO(JdbcTemplate jdbcTemplate) {
 		this.jdbcTemplate = jdbcTemplate;
 	}
+	@Override
+	public List<Team> getWinnerList() {
+		String sql = "SELECT * FROM teams JOIN tournaments " +
+					"ON tournaments.winner_team_id = teams.teamid " +
+					"JOIN games ON games.gameid = tournaments.gameid";
+		SqlRowSet results = jdbcTemplate.queryForRowSet(sql);
+		List<Team> teamList = new ArrayList<Team>();
+		while(results.next()) {
+			Team newTeam = mapRowToTeam(results);
+			teamList.add(newTeam);
+		}
+		return teamList;
+	}
 
 	@Override
 	public Team createTeam(Team newTeam) {

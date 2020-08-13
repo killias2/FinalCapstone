@@ -9,6 +9,9 @@
             <h3>{{tournament.startDate}} to {{tournament.endDate}}</h3>
             <h3>{{tournament.gameName}}</h3>
             <h3>{{tournament.numberOfTeams}} teams</h3>
+            <div v-if="tournament.isComplete == true">
+                <h4 class="winner">👑 {{winningTeam(tournament).teamName}} 👑 </h4>
+            </div>
             <button v-bind:currentTournament="tournament" v-on:click="viewTournamentDetails(tournament)">Tournament Details</button>
             </div>
         </section>
@@ -17,10 +20,15 @@
 
 <script>
 import TournamentService from '../services/TournamentService';
+import TeamService from '../services/TeamService'
+
 export default {
     data() {
         return {
-            tournaments: []
+            currentTournament: this.tournament,
+            tournaments: [],
+            winnerList: []
+        
         };
     },
     methods: {
@@ -29,12 +37,39 @@ export default {
             saveMe: tournament
             })
             this.$router.push(`/tournaments/${tournament.id}`);
-        }
+        },
+        winningTeam(tournament) {
+                if(tournament.isComplete == true) {
+                  return this.winnerList.find((team) => {
+                    return tournament.winnerTeamId == team.teamId;
+                  });
+                }
+                else {
+                  return null
+                }
+            }
     },
+    // computed: {
+    //     winningTeam:
+    //         function(tournament) {
+    //             if(tournament.isComplete == true) {
+    //               return this.winnerList.find((team) => {
+    //                 return tournament.winnerTeamId == team.teamId
+    //               })
+    //             }
+    //             else {
+    //               return null
+    //             }
+    //         }
+    // },
     created() {
         TournamentService.getPastTournaments().then(response => {
            this.tournaments = response.data;
+        }),
+        TeamService.getWinnerList().then(response => {
+           this.winnerList = response.data;
         })
+        
     }
 }
 </script>

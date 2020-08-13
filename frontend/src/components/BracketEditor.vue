@@ -2,13 +2,13 @@
     <div>
         <div>
             <form class="form" v-on:submit.prevent="sendWinner">
-                <label for="gameSelection"> Choose a game to edit: </label>
+                <label class="form-text" for="gameSelection"> Choose a game to edit: </label>
                 <select name="gameSelection" v-model="selectedMatch">
                     <option v-for="game in eligibleGames" :key="game.matchid" :value="game">
                         {{ betterGameNumbers(game.matchid) }} 
                     </option>
                 </select><br/>
-                <label for="teamSelection"> Choose a winning team: </label>
+                <label class="form-text" for="teamSelection"> Choose a winning team: </label>
                 <select name="teamSelection" v-model="winningTeam">
                     <option v-for="team in selectedMatch.teamList" :key="team.teamId" :value="team.teamId">
                         {{ team.teamName }} 
@@ -87,6 +87,10 @@ export default {
     margin-right: 20px;
     margin-top: 50px;
 }
+    .form-text{
+        text-align: center;
+        padding-left: 20px;
+    }
 
 
 </style>

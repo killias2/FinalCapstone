@@ -1,5 +1,7 @@
 package com.techelevator.dao;
 
+import java.util.List;
+
 import org.springframework.stereotype.Service;
 
 import com.techelevator.model.Team;
@@ -16,6 +18,8 @@ public interface TeamDAO {
 	public Team[] getTeamsByTournament(Long id);
 	
 	public void removeTeam(Long id);
+	
+	public List<Team> getWinnerList();
 
 	public Team[] getTeamsByGmId(Long id);
 
