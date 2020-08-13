@@ -7,8 +7,8 @@
           <button v-on:click.prevent="generateBrackets">Generate Brackets</button>
         </div>
         <add-self v-bind:tournament="tournament" v-bind:teams="teams" v-bind:user="user"/>
-        <seeded-teams-list v-bind:tournament="tournament" v-bind:teams="teams"  v-if="this.tournament.isSeeded == true && this.teams.length > 0"/>
-        <teams-list id="teamlist" v-bind:tournament="tournament" v-bind:teams="teams"  v-if="this.tournament.isSeeded == false && this.teams.length > 0"/>
+        <seeded-teams-list class="table" v-bind:tournament="tournament" v-bind:teams="teams"  v-if="this.tournament.isSeeded == true && this.teams.length > 0"/>
+        <teams-list class="table" id="teamlist" v-bind:tournament="tournament" v-bind:teams="teams"  v-if="this.tournament.isSeeded == false && this.teams.length > 0"/>
         <br>
         <bracket-display id="teamlist" v-bind:tournament="tournament" v-bind:edit-mode="editMode"/>
     </div>
@@ -94,8 +94,9 @@ export default {
     #details {
       background-color: rgba(8, 69, 97, 0.9);
     }
+    .table {
+      display: flex;
+      justify-content: center;
+    }
 
-    /* #teamlist {
-      background-color: rgba(8, 69, 97, 0.9);
-    } */
 </style>

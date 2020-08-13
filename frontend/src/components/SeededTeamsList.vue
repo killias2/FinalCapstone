@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="table">
         <table>
             <thead>
                 <tr>
@@ -31,8 +31,9 @@ export default {
         width: 300px;
         border-collapse: collapse;
         border: 3px solid #44475C;
-        margin: 10px 10px 0 10px;
-        background-color: rgba(8, 69, 97, 0.9);
+        margin-left: 60px;
+        background-color: rgba(28, 143, 158, 0.9);
+        
     }
 
     table th {
