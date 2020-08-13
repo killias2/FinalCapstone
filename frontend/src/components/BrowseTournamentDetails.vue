@@ -8,10 +8,12 @@
           v-on:click="goToEditor"
           :to="{ name: 'tournamentHQ', params: {id: $route.params.tournamentID} }"
           class="btn editTournament">Set Match Winners</button>
-        <button class="btn deleteTournament" v-on:click="deleteTournament">Delete Tournament</button>
+        <button class="btn deleteTournament" v-on:click="deleteTournament"
+        v-if="this.matches.length == 0">Delete Tournament</button>
         <button v-on:click="goToEditTeams"
           :to="{ name: 'edit-teams', params: {id: $route.params.tournamentID} }"
-          class="btn editTournament">Edit Teams</button>
+          class="btn editTournament"
+          v-if="this.matches.length == 0">Edit Teams</button>
       </div>
     </div>
   </div>
@@ -28,7 +30,10 @@ export default {
       user: JSON.parse(localStorage.getItem('user'))
     };
   },
-  props: ['tournament'],
+  props: {
+    tournament: Object,
+    matches: Array
+  },
   created() {
     TournamentService.getTournament(this.$route.params.id).then(response => {
       this.currentTournament = response.data;

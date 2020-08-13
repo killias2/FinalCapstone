@@ -1,9 +1,9 @@
 <template>
     <div>
-        <browse-tournament-details v-bind:tournament="tournament"/>
+        <browse-tournament-details v-bind:tournament="tournament" v-bind:matches="matches"/>
         <!-- <add-teams v-bind:tournament="tournament"/> -->
         <div v-if="(this.teams.length === this.tournament.numberOfTeams) && this.user.id === 
-          this.tournament.tournamentOrganizerId">
+          this.tournament.tournamentOrganizerId && this.matches.length == 0">
           <button v-on:click.prevent="generateBrackets">Generate Brackets</button>
         </div>
         <add-self v-bind:tournament="tournament" v-bind:teams="teams" v-bind:user="user"/>
