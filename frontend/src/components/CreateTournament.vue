@@ -179,6 +179,9 @@ export default {
     button{
         background-color: rgb(8, 69, 97);
     }
+    .actions{
+        display: flex;
+    }
 
 
 </style>
