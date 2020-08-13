@@ -44,6 +44,9 @@ export default {
     background-size: cover;
     background-color: #464646;
     padding: 25px;
+    padding-bottom: 200px;
+    margin: -20px;
+
   }
   #main {
     display: flex;
@@ -58,8 +61,14 @@ export default {
     margin-left: 20px;
     flex-grow: 1;
     color: white;
+    /* background-color: rgb(28, 143, 158);
+    margin-right: 40px;
+    border-radius: 10px; */
   }
   .banner {
+    margin-left: 200px;
+    margin-right: 200px;
+    font-family: 'Arial Black', Arial, sans-serif;
     border-radius: 6px;
     background-color:  rgba(28, 143, 158, 0.9);
     text-align: center;

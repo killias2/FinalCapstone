@@ -17,10 +17,10 @@ public class TournamentSqlDAO implements TournamentDAO{
 		this.jdbcTemplate = jdbcTemplate;
 	}
 	@Override
-	public boolean setFull(Long id) {
-		String sql = "UPDATE tournaments SET is_full = true " +
+	public boolean setFull(Tournament tournament) {
+		String sql = "UPDATE tournaments SET is_full = ? " +
 					"WHERE tournamentid = ?;";
-		return 1 == jdbcTemplate.update(sql, id);
+		return 1 == jdbcTemplate.update(sql, tournament.isFull(), tournament.getId());
 	}
 	@Override
 	public List<Tournament> getCurrentTournaments() {

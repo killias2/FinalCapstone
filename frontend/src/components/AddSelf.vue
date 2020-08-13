@@ -19,6 +19,7 @@
 
 <script>
 import TeamService from '../services/TeamService'
+import TournamentService from '../services/TournamentService'
 
 export default {
     data() {
@@ -52,8 +53,13 @@ export default {
                     if (response.status < 299) {
                         console.log('success');
                     }
-                }).then(() => {
-                    this.$router.go(0)
+                    if (this.tournament.full == false && this.teams.length == (this.tournament.numberOfTeams - 1)){
+                        this.tournament.full = true;
+                        TournamentService.setTournamentFull(this.tournament).then(() =>{
+                            this.$router.go(0);
+                        });
+                    }
+                    this.$router.go(0);
                 })
             }
             else {

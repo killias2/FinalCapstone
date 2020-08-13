@@ -2,6 +2,7 @@
     <div>
         <!-- <h1>Current Tournaments</h1> -->
         <h3>Current Tournaments:</h3>
+        <section class="tournament-card">
                     <div class="tournament" v-for="tournament in tournaments" v-bind:key="tournament.id" 
         v-bind:currentTournament="tournament" v-on:click="viewTournamentDetails(tournament)"
         v-bind:class="{ open: (tournament.openToJoin && !tournament.full)}">
@@ -10,7 +11,9 @@
             <h3>{{tournament.gameName}}</h3>
             <h3>{{tournament.numberOfTeams}} teams</h3>
             <h4 v-show="tournament.openToJoin && !tournament.full"> Join this tournament!</h4>
+            <button v-bind:currentTournament="tournament" v-on:click="viewTournamentDetails(tournament)">Tournament Details</button>
         </div>
+         </section>
     </div>
 </template>
 
@@ -52,7 +55,7 @@ export default {
         background-color: rgba(28, 143, 158, 0.9);
         border-radius: 6px;
         font-family: 'Arial Narrow', Arial, sans-serif;
-        width: 75%;
+        width: 300px;
     }
     .tournament-card {
         margin-left: 5%;
@@ -76,14 +79,6 @@ export default {
         background: blueviolet;
     }
     .open {
-        display: block;
-        text-align: center;
-        color: white;
-        font-weight: bolder;
-        text-shadow: 2px;
-        font-size: 20px;
-        margin-left: 300px;
-        margin-right: 300px;
         background-color: red;
     }
 </style>
