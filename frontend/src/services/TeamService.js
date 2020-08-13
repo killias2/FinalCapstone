@@ -16,6 +16,10 @@ export default {
 
   removeTeams(team) {
       return http.delete(`/teams/${team.teamId}`);
+  },
+
+  getTeamsByGmId(generalManagerId) {
+    return http.get(`/teams/${generalManagerId}`);
   }
 
 

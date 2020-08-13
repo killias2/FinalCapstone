@@ -1,7 +1,7 @@
 <template>
     <div>
         <!-- <h1>Upcoming Tournaments</h1> -->
-        <h3>Upcoming Tournaments:</h3>
+        <h3 class="header">Upcoming Tournaments:</h3>
         <section class="tournament-card">
             <div class='tournament' v-for="tournament in tournaments" v-bind:key="tournament.id" 
                 v-bind:currentTournament="tournament"
@@ -10,6 +10,7 @@
             <h3>{{tournament.startDate}} to {{tournament.endDate}}</h3>
             <h3>{{tournament.gameName}}</h3>
             <h3>{{tournament.numberOfTeams}} teams</h3>
+            <h4 v-show="!tournament.openToJoin">Private Tournament</h4>
             <h4 v-show="tournament.openToJoin && !tournament.full"> Join this tournament!</h4>
             <button v-bind:currentTournament="tournament" v-on:click="viewTournamentDetails(tournament)">Tournament Details</button>
             </div>
@@ -44,11 +45,13 @@ export default {
 
 <style scoped>
     .header {
-        font-size: 40px;
+        margin-left: 5%;
+        margin-right: 5%;
+        background-color: rgba(8, 69, 97, .7);
+        font-size: xx-large;
         text-align: center;
-        background-color:  rgba(8, 69, 97, .7);
-        width: 80%;
-        margin-left: 10%;
+        padding-top: 5px;
+        padding-bottom: 5px;
         border-radius: 6px;
     }
     .tournament {
@@ -60,7 +63,7 @@ export default {
     .tournament-card {
         margin-left: 5%;
         display: grid;
-        grid-template-columns: 1fr 1fr ;
+        grid-template-columns: 1fr 1fr 1fr;
         grid-gap: 20px;
         margin-top: 25px;
     }
@@ -80,6 +83,12 @@ export default {
     }
     .open {
         background-color: red;
+    }
+
+    @media (max-width: 1250px) {
+        .tournament-card {
+            grid-template-columns: 1fr 1fr;
+        }
     }
    
 </style>

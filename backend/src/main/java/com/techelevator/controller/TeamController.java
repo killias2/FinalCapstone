@@ -35,5 +35,10 @@ public class TeamController {
 		teamDAO.removeTeam(id);
 	}
 	
+	@RequestMapping(value = "/teams/{id}", method = RequestMethod.GET)
+	public Team[] getTeamsByGmId(@PathVariable Long id) {
+		return teamDAO.getTeamsByGmId(id);
+	}
+	
 }
 	
