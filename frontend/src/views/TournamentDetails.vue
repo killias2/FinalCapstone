@@ -1,34 +1,46 @@
 <template>
     <div>
         <browse-tournament-details v-bind:tournament="tournament"/>
-        <add-teams v-bind:tournament="tournament"/>
+        <!-- <add-teams v-bind:tournament="tournament"/> -->
+        <div v-if="(this.teams.length === this.tournament.numberOfTeams) && this.user.id === 
+          this.tournament.tournamentOrganizerId">
+          <button v-on:click.prevent="generateBrackets">Generate Brackets</button>
+        </div>
+        <add-self v-bind:tournament="tournament" v-bind:teams="teams" v-bind:user="user"/>
+        <seeded-teams-list v-bind:tournament="tournament" v-bind:teams="teams"  v-if="this.tournament.isSeeded == true && this.teams.length > 0"/>
+        <teams-list v-bind:tournament="tournament" v-bind:teams="teams"  v-if="this.tournament.isSeeded == false && this.teams.length > 0"/>
         <bracket-display v-bind:tournament="tournament" v-bind:edit-mode="editMode"/>
     </div>
 </template>
 
 <script>
 import BrowseTournamentDetails from "../components/BrowseTournamentDetails"
-import AddTeams from '../components/AddTeams'
-import BracketDisplay from '../components/BrowseBracketDisplay';
+import TeamService from '../services/TeamService'
+// import AddTeams from '../components/AddTeams'
+import BracketDisplay from '../components/BracketDisplay';
 import TournamentService from '../services/TournamentService';
+import TeamsList from '../components/TeamsList'
+import SeededTeamsList from '../components/SeededTeamsList'
+import AddSelf from '../components/AddSelf'
 
 export default {
     components: {
         BrowseTournamentDetails,
-        AddTeams,
-        BracketDisplay
+        // AddTeams,
+        BracketDisplay,
+        TeamsList,
+        SeededTeamsList,
+        AddSelf
     },
   name: "browse-details",
   data() {
     return {
       // tournament: {
-
-      // },
-      propsObj: {
-          tournament: {
-          },
-          editMode: false
-      }
+      user: JSON.parse(localStorage.getItem('user')),
+      matches: [],
+      teams: [],
+      tournament: {},
+      editMode: false
     };
     
   },
@@ -38,9 +50,43 @@ export default {
   //     })
   // },
   created() {
-      TournamentService.getTournament(this.$route.params.id).then(response => {
+    TournamentService.getTournament(this.$route.params.id).then(response => {
         this.tournament = response.data;
+    }),
+    TeamService.viewTeams(this.$route.params.id).then(response => {
+      this.teams = response.data;    
+    }),
+    TournamentService.getAllMatches(this.$route.params.id).then(response =>{
+        this.matches = response.data;
     })
+  },
+  methods: {
+    generateBrackets() {
+      TournamentService.generateBrackets(this.tournament).then(response => {
+        if (response.status < 299) {
+          this.$alert("Brackets generated successfully")
+          console.log('success');
+        }
+      })
+      if(this.tournament.isFull == false){
+        this.tournament.isFull = true;
+        TournamentService.setTournamentFull(this.tournament).then(() =>{
+          this.$router.go(0)
+      })
+      }
+      else {
+        this.$router.go(0)
+      }
+
+    }
   }
 }
 </script>
+
+<style scoped>
+    button {
+        width: 80%;
+        display: block;
+        text-align: center;
+    }
+</style>

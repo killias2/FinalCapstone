@@ -20,14 +20,14 @@
 
 <script>
 
-
 export default {
-  name: "home"
+  name: "home",
+ 
 }
 
 </script>
 
-<style>
+<style scoped>
 .body {
     margin-left: 5%;
     background-color: rgba(28, 143, 158, 0.8);

@@ -15,6 +15,8 @@ import UserProfile from '../views/UserProfile.vue'
 import ChangePassword from '../views/ChangePassword.vue'
 import CurrentTournaments from '../views/CurrentTournaments.vue'
 import PastTournaments from '../views/PastTournaments.vue'
+import EditTeams from '../views/EditTeams.vue'
+import UpcomingTournaments from '../views/UpcomingTournaments.vue'
 
 
 
@@ -89,13 +91,18 @@ const router = new Router({
       component: PastTournaments
     },
     {
+      path: "/tournaments/upcoming",
+      name: "tournaments-upcoming",
+      component: UpcomingTournaments
+    },
+    {
       path: '/tournaments/:id',
       name: 'tournament-details',
       component: TournamentDetails
     },
     {
-      path: "/tournaments/:id",
-      name: "my-tournament",
+      path: '/users/:id/mytournaments',
+      name: 'my-tournament',
       component: MyTournament
     },
     {
@@ -112,7 +119,12 @@ const router = new Router({
       path: "/users/:id/change-password",
       name: "password-change",
       component: ChangePassword
-    }
+    },
+    {
+      path: '/tournamentteams/:id',
+      name: 'edit-teams',
+      component: EditTeams
+    },
   ]
 })
 

@@ -23,7 +23,16 @@ public class Tournament {
 	private Long numberOfTeams;
 	private String gameName;
 	private String gameDescription;
+	private boolean isFull = false;
 	
+	public boolean isFull() {
+		return isFull;
+	}
+
+	public void setFull(boolean isFull) {
+		this.isFull = isFull;
+	}
+
 	public String getGameName() {
 		return gameName;
 	}

@@ -17,11 +17,18 @@ public class TournamentSqlDAO implements TournamentDAO{
 		this.jdbcTemplate = jdbcTemplate;
 	}
 	@Override
-	public List<Tournament> getCompleteTournaments() {
+	public boolean setFull(Tournament tournament) {
+		String sql = "UPDATE tournaments SET is_full = ? " +
+					"WHERE tournamentid = ?;";
+		return 1 == jdbcTemplate.update(sql, tournament.isFull(), tournament.getId());
+	}
+	@Override
+	public List<Tournament> getCurrentTournaments() {
 		String sql = "SELECT * FROM tournaments t " +
 				"JOIN users ON user_id = organizerid " + 
 				"LEFT JOIN games g ON t.gameid = g.gameid " +
-				"WHERE is_complete = true;";
+				"WHERE CURRENT_DATE BETWEEN start_date AND end_date " +
+				"ORDER BY start_date DESC, end_date;";
 		SqlRowSet results = jdbcTemplate.queryForRowSet(sql);
 		List<Tournament> tournaments = new ArrayList<>();
 		while(results.next()) {
@@ -31,11 +38,27 @@ public class TournamentSqlDAO implements TournamentDAO{
 		return tournaments;
 	}
 	@Override
-	public List<Tournament> getCurrentTournaments() {
+	public List<Tournament> getFutureTournaments() {
 		String sql = "SELECT * FROM tournaments t " +
 				"JOIN users ON user_id = organizerid " + 
 				"JOIN games g ON t.gameid = g.gameid " +
-				"WHERE is_complete = false;";
+				"WHERE CURRENT_DATE < start_date " +
+				"ORDER BY start_date;";
+		SqlRowSet results = jdbcTemplate.queryForRowSet(sql);
+		List<Tournament> tournaments = new ArrayList<>();
+		while(results.next()) {
+			Tournament tournament = mapRowToTournament(results);
+			tournaments.add(tournament);
+		}
+		return tournaments;
+	}
+	@Override
+	public List<Tournament> getPastTournaments() {
+		String sql = "SELECT * FROM tournaments t " +
+				"JOIN users ON user_id = organizerid " + 
+				"JOIN games g ON t.gameid = g.gameid " +
+				"WHERE CURRENT_DATE > end_date " +
+				"ORDER BY end_date DESC;";
 		SqlRowSet results = jdbcTemplate.queryForRowSet(sql);
 		List<Tournament> tournaments = new ArrayList<>();
 		while(results.next()) {
@@ -47,19 +70,17 @@ public class TournamentSqlDAO implements TournamentDAO{
 	
 	@Override
 	public boolean createTournament(Tournament tournament) {
-		String sql = "INSERT INTO tournaments (t_name, is_open, gameid, bracketid, organizerid, start_date, end_date, is_seeded, is_complete, number_of_teams)"
-					+ "values(?,?,?,?,?,?,?,?, ?, ?)";
+		String sql = "INSERT INTO tournaments (t_name, is_open, gameid, bracketid, organizerid, start_date, end_date, is_seeded, is_complete, number_of_teams, is_full)"
+					+ "values(?,?,?,?,?,?,?,?, ?, ?, ?)";
 		return 1 == jdbcTemplate.update(sql, tournament.getTournamentName(), tournament.getOpenToJoin(), tournament.getGameId(), tournament.getBracketId(),
-										tournament.getTournamentOrganizerId(), tournament.getStartDate(), tournament.getEndDate(), tournament.getIsSeeded(), false, tournament.getNumberOfTeams());
-		
-		// TODO Auto-generated method stub
+										tournament.getTournamentOrganizerId(), tournament.getStartDate(), tournament.getEndDate(), tournament.getIsSeeded(), false, tournament.getNumberOfTeams(), false);
 		
 	}
 	@Override
 	public List<Tournament> getTournaments(){
 		String sql = "SELECT * FROM tournaments t " +
 				"JOIN users ON user_id = organizerid " + 
-				"LEFT JOIN games g ON t.gameid = g.gameid ";
+				"LEFT JOIN games g ON t.gameid = g.gameid; ";
 		SqlRowSet results = jdbcTemplate.queryForRowSet(sql);
 		List<Tournament> tournaments = new ArrayList<>();
 		while(results.next()) {
@@ -96,7 +117,7 @@ public class TournamentSqlDAO implements TournamentDAO{
 				"FROM tournaments t " + 
 				"JOIN users ON user_id = organizerid " + 
 				"LEFT JOIN games g ON t.gameid = g.gameid " +
-				"WHERE organizerid = ?";
+				"WHERE organizerid = ?; ";
 		SqlRowSet results = jdbcTemplate.queryForRowSet(sql, id);
 		while(results.next()) {
 			Tournament tournament = mapRowToTournament(results);
@@ -122,8 +143,10 @@ public class TournamentSqlDAO implements TournamentDAO{
 		tournament.setNumberOfTeams(rs.getLong("number_of_teams"));
 		tournament.setGameName(rs.getString("game_name"));
 		tournament.setGameDescription(rs.getString("game_description"));
+		tournament.setFull(rs.getBoolean("is_full"));
 		return tournament;
 	}
+	
 
 	
 }
