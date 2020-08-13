@@ -2,11 +2,11 @@
     <div class="bracket-container">
         <bracket class="bracket" :rounds="fixedRounds">
             <template #player="{ player }"> 
-               <span v-if="player.seed" class="seed"> {{ player.seed }} 
+               <span v-if="tournament.isSeeded" class="seed"> {{ player.seed }} 
                </span> {{ player.teamName }}
             </template>
             <template class="bottom-text" #player-extension-bottom="{ match }">
-                <span v-if="match.match.matchid" class="seed">Game Number: {{ match.match.matchid }}
+                <span v-if="match.match.matchid" class="seed">Game Number: {{ betterGameNumbers(match.match.matchid) }}
                     </span>
                 <span v-else class="seed"> {{ addOne(match.title) }}
                 </span>
@@ -47,6 +47,9 @@
             // })
         },
         methods: {
+            betterGameNumbers(m){
+                return (m + 1) - this.matches[0].matchid;
+            },
             addOne(a){
                 let lastChar = a.substr(a.indexOf(' ')+1); 
                 let newRound = parseInt(lastChar) + 1;
@@ -83,23 +86,20 @@
                     this.fixedRounds[0].games[i].player1.id = this.fixedRounds[0].games[i].player1.teamId;
                     this.fixedRounds[0].games[i].player2.id = this.fixedRounds[0].games[i].player2.teamId;
                     if (this.matches[i].winnerTeamId){
-                        //filter through this game's teamList to match that team. then, mark that team as winner in fixedRounds based on seed.
-                        let winnerSeed = 0
-                        for(let x = 0; x < this.matches[i].teamList.length; x++){
-                            if(this.matches[i].teamList[x].teamId == this.matches[i].winnerTeamId){
-                                winnerSeed = this.matches[i].teamList[x].seed;
-                            }
-                        }
-                        // let winnerId = this.matches[i].teamList.filter(function(team) {
-                        //     return team.teamId == this.matches[i].winnerTeamId;
-                        // });
-                        // let winnerSeed = winnerId[0].seed;
-                        // for (let team = 0; team < this.fixedRounds[0].games[i].length; team++){
-                            if(this.fixedRounds[0].games[i].player1.seed == winnerSeed){
+                        //filter through this game's teamList to match that team. then, mark that team 
+                        //as winner in fixedRounds based on seed.
+                        let winnerId = this.matches[i].winnerTeamId;
+
+                        // for(let x = 0; x < this.matches[i].teamList.length; x++){
+                        //     if(this.matches[i].teamList[x].teamId == this.matches[i].winnerTeamId){
+                        //         winnerSeed = this.matches[i].teamList[x].seed;
+                        //     }
+                        // }
+                            if(this.fixedRounds[0].games[i].player1.id == winnerId){
                                 this.fixedRounds[0].games[i].player1.winner = true;
                                 this.fixedRounds[0].games[i].player2.winner = false;
                             }
-                            if(this.fixedRounds[0].games[i].player2.seed == winnerSeed){
+                            if(this.fixedRounds[0].games[i].player2.id == winnerId){
                                 this.fixedRounds[0].games[i].player2.winner = true;
                                 this.fixedRounds[0].games[i].player1.winner = false;
                             }
@@ -123,16 +123,16 @@
                     }
                     if (this.currentRoundMatches[j].winnerTeamId){
                         //filter through this game's teamList to match that team. then, mark that team as winner in fixedRounds based on seed.
-                        let winnerId = this.currentRoundMatches[j].teamList.filter((team) => {
-                            return team.teamId == this.currentRoundMatches[j].winnerTeamId;
-                        });
-                        let winnerSeed = winnerId[0].seed;
+                        // let winnerId = this.currentRoundMatches[j].teamList.filter((team) => {
+                        //     return team.teamId == this.currentRoundMatches[j].winnerTeamId;
+                        // });
+                        let winnerId = this.currentRoundMatches[j].winnerTeamId;
                         // for (let team = 0; team < this.fixedRounds[0].games[i].length; team++){
-                            if(this.fixedRounds[i].games[j].player1.seed == winnerSeed){
+                            if(this.fixedRounds[i].games[j].player1.id == winnerId){
                                 this.fixedRounds[i].games[j].player1.winner = true;
                                 this.fixedRounds[i].games[j].player2.winner = false;
                             }
-                            if(this.fixedRounds[i].games[j].player2.seed == winnerSeed){
+                            if(this.fixedRounds[i].games[j].player2.id == winnerId){
                                 this.fixedRounds[i].games[j].player2.winner = true;
                                 this.fixedRounds[i].games[j].player1.winner = false;
                             }
@@ -152,6 +152,7 @@
                     return match.round == this.currentRound;
                 })
             }
+
         },
         data() {
             return {

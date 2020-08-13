@@ -5,7 +5,7 @@
                 <label for="gameSelection"> Choose a game to edit: </label>
                 <select name="gameSelection" v-model="selectedMatch">
                     <option v-for="game in eligibleGames" :key="game.matchid" :value="game">
-                        {{ game.matchid }} 
+                        {{ betterGameNumbers(game.matchid) }} 
                     </option>
                 </select><br/>
                 <label for="teamSelection"> Choose a winning team: </label>
@@ -44,24 +44,10 @@ export default {
             })
         }
     },
-    // created() {
-    //     TournamentService.getTournament(this.$route.params.id)
-    //         .then(response => {
-    //             this.tournament = response.data;
-    //         }),
-    //     TournamentService.getAllMatches(this.$route.params.id)
-    //         .then(response => {
-    //             this.storeMatches = response.data;
-    //         })
-    // },
-    watch: {
-        // selectedMatch: function(val) {
-        //     let match = val;
-        //     let matchId =  match.matchid;
-        //     this.fetchMatch(matchId);
-        // }
-    },
     methods: {
+        betterGameNumbers(m){
+                return (m + 1) - this.storeMatches[0].matchid;
+        },
         fetchMatch(matchId){
             TournamentService.getMatchFromId(matchId)
                 .then(response => {
