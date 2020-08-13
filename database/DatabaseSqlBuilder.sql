@@ -1,3 +1,21 @@
+CREATE SEQUENCE seq_user_id
+  INCREMENT BY 1
+  NO MAXVALUE
+  NO MINVALUE
+  CACHE 1;
+
+
+CREATE TABLE users (
+	user_id int DEFAULT nextval('seq_user_id'::regclass) NOT NULL,
+	username varchar(50) NOT NULL,
+	password_hash varchar(200) NOT NULL,
+	role varchar(50) NOT NULL,
+	CONSTRAINT PK_user PRIMARY KEY (user_id)
+);
+
+INSERT INTO users (username,password_hash,role) VALUES ('user','$2a$08$UkVvwpULis18S19S5pZFn.YHPZt3oaqHZnDwqbCW9pft6uFtkXKDC','ROLE_USER');
+INSERT INTO users (username,password_hash,role) VALUES ('admin','$2a$08$UkVvwpULis18S19S5pZFn.YHPZt3oaqHZnDwqbCW9pft6uFtkXKDC','ROLE_ADMIN');
+
 CREATE TABLE games (
         gameid serial   CONSTRAINT      pk_gameid       PRIMARY KEY,
         game_name       varchar(50)     NOT NULL,
@@ -98,9 +116,6 @@ ALTER TABLE tournaments ADD COLUMN number_of_teams integer;
 
 INSERT INTO bracket_types (bracket_name) VALUES ('Single Elimination');
 INSERT INTO bracket_types (bracket_name) VALUES ('Double Elimination'), ('Round Robin');
-
-SELECT tournamentid, matchid, is_complete, winner_team_id, round, start_time, end_time FROM matches WHERE tournamentid = 1;
-SELECT t.teamid, tournamentid, general_manager_id, teamname FROM teams t JOIN team_match tm ON t.teamid = tm.teamid WHERE matchid = 10;
         
 GRANT SELECT, INSERT, UPDATE, DELETE
 ON ALL TABLES IN SCHEMA public
