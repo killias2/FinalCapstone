@@ -9,7 +9,7 @@
         <add-self v-bind:tournament="tournament" v-bind:teams="teams" v-bind:user="user"/>
         <seeded-teams-list v-bind:tournament="tournament" v-bind:teams="teams"  v-if="this.tournament.isSeeded == true && this.teams.length > 0"/>
         <teams-list v-bind:tournament="tournament" v-bind:teams="teams"  v-if="this.tournament.isSeeded == false && this.teams.length > 0"/>
-        <browse-bracket-display v-bind:tournament="tournament" v-bind:edit-mode="editMode"/>
+        <bracket-display v-bind:tournament="tournament" v-bind:edit-mode="editMode"/>
     </div>
 </template>
 
@@ -17,7 +17,7 @@
 import BrowseTournamentDetails from "../components/BrowseTournamentDetails"
 import TeamService from '../services/TeamService'
 // import AddTeams from '../components/AddTeams'
-import BrowseBracketDisplay from '../components/BrowseBracketDisplay';
+import BracketDisplay from '../components/BracketDisplay';
 import TournamentService from '../services/TournamentService';
 import TeamsList from '../components/TeamsList'
 import SeededTeamsList from '../components/SeededTeamsList'
@@ -27,7 +27,7 @@ export default {
     components: {
         BrowseTournamentDetails,
         // AddTeams,
-        BrowseBracketDisplay,
+        BracketDisplay,
         TeamsList,
         SeededTeamsList,
         AddSelf
@@ -66,7 +66,7 @@ export default {
         if (response.status < 299) {
           this.$alert("Brackets generated successfully")
           console.log('success');
-          this.$router.go(0)
+          this.$router.go(0);
         }
       })
     }
