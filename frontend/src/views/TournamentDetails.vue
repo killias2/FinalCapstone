@@ -8,7 +8,8 @@
         </div>
         <add-self v-bind:tournament="tournament" v-bind:teams="teams" v-bind:user="user"/>
         <seeded-teams-list v-bind:tournament="tournament" v-bind:teams="teams"  v-if="this.tournament.isSeeded == true && this.teams.length > 0"/>
-        <teams-list id="teamlist" v-bind:tournament="tournament" v-bind:teams="teams"  v-if="this.tournament.isSeeded == false && this.teams.length > 0"/><br>
+        <teams-list id="teamlist" v-bind:tournament="tournament" v-bind:teams="teams"  v-if="this.tournament.isSeeded == false && this.teams.length > 0"/>
+        <br>
         <bracket-display id="teamlist" v-bind:tournament="tournament" v-bind:edit-mode="editMode"/>
     </div>
 </template>
@@ -32,7 +33,7 @@ export default {
         SeededTeamsList,
         AddSelf
     },
-  name: "browse-details",
+  name: "tourament-details",
   data() {
     return {
       // tournament: {

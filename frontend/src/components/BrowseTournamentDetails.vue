@@ -12,7 +12,8 @@
         <button
           v-on:click="goToEditor"
           :to="{ name: 'tournamentHQ', params: {id: $route.params.tournamentID} }"
-          class="btn editTournament">Set Match Winners</button>
+          class="btn editTournament"
+          v-if="this.tournament.isComplete != true">Set Match Winners</button>
         <button class="btn deleteTournament" v-on:click="deleteTournament"
         v-if="this.matches.length == 0">Delete Tournament</button>
         <button v-on:click="goToEditTeams"
