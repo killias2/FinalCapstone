@@ -9,7 +9,7 @@
             <h3>{{tournament.startDate}} to {{tournament.endDate}}</h3>
             <h3>{{tournament.gameName}}</h3>
             <h3>{{tournament.numberOfTeams}} teams</h3>
-            <h4 class="winner">{{getWinner(tournament)}}: Winner!</h4>
+            <h4 class="winner">{{getWinner(tournament).teamName}}: Winner!</h4>
             <button v-bind:currentTournament="tournament" v-on:click="viewTournamentDetails(tournament)">Tournament Details</button>
             </div>
         </section>
@@ -18,10 +18,13 @@
 
 <script>
 import TournamentService from '../services/TournamentService';
+import TeamService from '../services/TeamService'
+
 export default {
     data() {
         return {
-            tournaments: []
+            tournaments: [],
+        
         };
     },
     methods: {
@@ -31,14 +34,13 @@ export default {
             })
             this.$router.push(`/tournaments/${tournament.id}`);
         },
-        getWinner(tournament) {
-            TournamentService.getWinner(tournament);
-        }
+        
     },
     created() {
         TournamentService.getPastTournaments().then(response => {
            this.tournaments = response.data;
-        })
+        }),
+        TeamService.getWinner();
     }
 }
 </script>

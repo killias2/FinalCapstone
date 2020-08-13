@@ -18,15 +18,16 @@ private JdbcTemplate jdbcTemplate;
 		this.jdbcTemplate = jdbcTemplate;
 	}
 	@Override
-	public String getWinnerByTournamentId(Long id) {
-		String sql = "SELECT teamname FROM teams JOIN tournaments " +
-					"ON tournaments.winner_team_id = teams.teamid " +
-					"WHERE tournaments.tournamentid = ?; ";
-		SqlRowSet results = jdbcTemplate.queryForRowSet(sql, id);
-		if(results.next()) {
-			return results.toString();
+	public List<Team> getWinnerList() {
+		String sql = "SELECT * FROM teams JOIN tournaments " +
+					"ON tournaments.winner_team_id = teams.teamid; ";
+		SqlRowSet results = jdbcTemplate.queryForRowSet(sql);
+		List<Team> teamList = new ArrayList<Team>();
+		while(results.next()) {
+			Team newTeam = mapRowToTeam(results);
+			teamList.add(newTeam);
 		}
-		return null;
+		return teamList;
 	}
 
 	@Override
