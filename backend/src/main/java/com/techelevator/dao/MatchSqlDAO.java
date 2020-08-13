@@ -46,16 +46,21 @@ public class MatchSqlDAO implements MatchDAO {
 		jdbcTemplate.update(sql, newMatch.getMatchid(), newMatch.isComplete(), newMatch.getRound(), newMatch.getStartTime(), 
 				newMatch.getEndTime(), newMatch.getTournamentId());
 		if(newMatch.getTeamList() != null) {
-			String sqlLinking = "INSERT INTO team_match (matchid, teamid) VALUES ";
 			Team[] teamArray = newMatch.getTeamList();
-			for(int i = 0; i < teamArray.length; i++) {
-				String newString = "(" + newMatch.getMatchid() + ", " + teamArray[i].getTeamId() + ")";
-				if(i < teamArray.length - 1) {
-					newString += ",";
-				}
-				sqlLinking += newString;
+			for (int i = 0; i < teamArray.length; i++) {
+				String sqlTeamMatch = "INSERT INTO team_match (matchid, teamid) VALUES (?, ?)";
+				jdbcTemplate.update(sqlTeamMatch, newMatch.getMatchid(), teamArray[i].getTeamId());
 			}
-			jdbcTemplate.update(sqlLinking);
+//			String sqlLinking = "INSERT INTO team_match (matchid, teamid) VALUES ";
+//			Team[] teamArray = newMatch.getTeamList();
+//			for(int i = 0; i < teamArray.length; i++) {
+//				String newString = "(" + newMatch.getMatchid() + ", " + teamArray[i].getTeamId() + ")";
+//				if(i < teamArray.length - 1) {
+//					newString += ",";
+//				}
+//				sqlLinking += newString;
+//			}
+//			jdbcTemplate.update(sqlLinking);
 		}
 		return newMatch;
 		

@@ -66,10 +66,18 @@ export default {
         if (response.status < 299) {
           this.$alert("Brackets generated successfully")
           console.log('success');
-          this.currentTournament.isFull = true;
         }
-        this.$router.go(0)
       })
+      if(this.tournament.isFull == false){
+        this.tournament.isFull = true;
+        TournamentService.setTournamentFull(this.tournament).then(() =>{
+          this.$router.go(0)
+      })
+      }
+      else {
+        this.$router.go(0)
+      }
+
     }
   }
 }
