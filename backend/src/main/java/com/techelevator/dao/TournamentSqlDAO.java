@@ -16,6 +16,7 @@ public class TournamentSqlDAO implements TournamentDAO{
 	public TournamentSqlDAO(JdbcTemplate jdbcTemplate) {
 		this.jdbcTemplate = jdbcTemplate;
 	}
+		
 	@Override
 	public boolean setFull(Tournament tournament) {
 		String sql = "UPDATE tournaments SET is_full = ? " +
@@ -27,7 +28,7 @@ public class TournamentSqlDAO implements TournamentDAO{
 		String sql = "SELECT * FROM tournaments t " +
 				"JOIN users ON user_id = organizerid " + 
 				"LEFT JOIN games g ON t.gameid = g.gameid " +
-				"WHERE CURRENT_DATE BETWEEN start_date AND end_date " +
+				"WHERE CURRENT_DATE BETWEEN start_date AND end_date AND is_complete = false " +
 				"ORDER BY start_date DESC, end_date;";
 		SqlRowSet results = jdbcTemplate.queryForRowSet(sql);
 		List<Tournament> tournaments = new ArrayList<>();
@@ -42,7 +43,7 @@ public class TournamentSqlDAO implements TournamentDAO{
 		String sql = "SELECT * FROM tournaments t " +
 				"JOIN users ON user_id = organizerid " + 
 				"JOIN games g ON t.gameid = g.gameid " +
-				"WHERE CURRENT_DATE < start_date " +
+				"WHERE CURRENT_DATE < start_date AND is_complete = false " +
 				"ORDER BY start_date;";
 		SqlRowSet results = jdbcTemplate.queryForRowSet(sql);
 		List<Tournament> tournaments = new ArrayList<>();
@@ -57,7 +58,7 @@ public class TournamentSqlDAO implements TournamentDAO{
 		String sql = "SELECT * FROM tournaments t " +
 				"JOIN users ON user_id = organizerid " + 
 				"JOIN games g ON t.gameid = g.gameid " +
-				"WHERE CURRENT_DATE > end_date " +
+				"WHERE CURRENT_DATE > end_date OR is_complete = true " +
 				"ORDER BY end_date DESC;";
 		SqlRowSet results = jdbcTemplate.queryForRowSet(sql);
 		List<Tournament> tournaments = new ArrayList<>();
