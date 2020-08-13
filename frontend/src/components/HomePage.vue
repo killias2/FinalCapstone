@@ -6,11 +6,8 @@
         <div class="body">
             <h2 id="intro"> Brackets[] can help with all of your tournament-related needs!</h2>
             <h3> News and Notes </h3>
-            <h4 id="news-text"> Lorem ipsum dolor sit amet, consectetur adipiscing elit, 
-                sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, 
-                quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. 
-                Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. 
-                Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+            <h4 id="news-text"> 
+                The recent Ping Pong tournament ended in a resounding victory for team Java!
             </h4>
             <!-- <img alt="Soccer Ball" src="../assets/soccerball.webp"> -->
             <!-- <p>You are an authenticated user!</p> -->
