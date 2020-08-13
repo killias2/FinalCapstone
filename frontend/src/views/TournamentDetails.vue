@@ -1,15 +1,15 @@
 <template>
     <div>
-        <browse-tournament-details v-bind:tournament="tournament"/>
+        <browse-tournament-details id="details" v-bind:tournament="tournament" v-bind:teams="teams" v-bind:matches="matches"/>
         <!-- <add-teams v-bind:tournament="tournament"/> -->
         <div v-if="(this.teams.length === this.tournament.numberOfTeams) && this.user.id === 
-          this.tournament.tournamentOrganizerId">
+          this.tournament.tournamentOrganizerId && this.matches.length == 0">
           <button v-on:click.prevent="generateBrackets">Generate Brackets</button>
         </div>
         <add-self v-bind:tournament="tournament" v-bind:teams="teams" v-bind:user="user"/>
         <seeded-teams-list v-bind:tournament="tournament" v-bind:teams="teams"  v-if="this.tournament.isSeeded == true && this.teams.length > 0"/>
-        <teams-list v-bind:tournament="tournament" v-bind:teams="teams"  v-if="this.tournament.isSeeded == false && this.teams.length > 0"/>
-        <bracket-display v-bind:tournament="tournament" v-bind:edit-mode="editMode"/>
+        <teams-list id="teamlist" v-bind:tournament="tournament" v-bind:teams="teams"  v-if="this.tournament.isSeeded == false && this.teams.length > 0"/>
+        <bracket-display id="teamlist" v-bind:tournament="tournament" v-bind:edit-mode="editMode"/>
     </div>
 </template>
 
@@ -89,4 +89,12 @@ export default {
         display: block;
         text-align: center;
     }
+
+    #details {
+      background-color: rgba(8, 69, 97, 0.9);
+    }
+
+    /* #teamlist {
+      background-color: rgba(8, 69, 97, 0.9);
+    } */
 </style>
