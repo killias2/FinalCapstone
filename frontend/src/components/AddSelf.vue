@@ -1,6 +1,7 @@
 <template>
     <div v-show="(this.teams.length < this.tournament.numberOfTeams) && $store.state.token != '' && 
-            this.user.id != this.tournament.tournamentOrganizerId && !this.generalManagerArray.includes(this.user.id)">
+            this.user.id != this.tournament.tournamentOrganizerId && !this.generalManagerArray.includes(this.user.id)
+            && this.tournament.openToJoin">
             <form v-on:submit.prevent="addSelfToTeam">
                 <div class="form-fields">
                     <label class="text-field" >Give a Team Name and Add Your Team to this Tournament!</label>
